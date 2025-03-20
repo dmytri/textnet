@@ -12,5 +12,18 @@ edit-format: diff
 editor-edit-format: editor-diff
 cache-prompts: true
 stream: false
+use_temperature: false  # Required for most reasoning models
+reasoning_tag: think  # For DeepSeek's XML reasoning blocks
+thinking_tokens: 8k  # For Claude Sonnet's reasoning budget
+
+# Model-specific parameters
 extra-params:
-  max_tokens: 160000
+  max_tokens: 160000  # For DeepSeek R1 long context
+
+# Model capability declarations
+accepts_settings:
+  - reasoning_effort  # For DeepSeek
+  - thinking_tokens  # For Claude models
+
+weak-model-params:
+  max_tokens: 4096  # Lower limit for Haiku
