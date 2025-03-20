@@ -40,6 +40,10 @@ def _(host: Host):
     assert parse(pkg) >= parse("3.12")
 ```
 
+- Limit to one operation per When step unless operations are tightly related
+- Each When step should focus on a single aspect of the desired state
+- Run operations only at the end of the final When step in a sequence
+
 ### BDA Conventions
 - Feature lines include 'BDA' identifier  
 - Tags (@dev/@ci/@prod) control execution  

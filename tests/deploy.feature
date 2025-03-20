@@ -33,7 +33,11 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
   @dev @ci @prod
   Scenario: Provide Saleor commerce capabilities
      Given Saleor dependencies are installed
-     When Saleor core is available
+     When build dependencies are available
+      And Saleor source code is available
+      And Saleor Python components are installed
+      And Saleor service definition is present
+      And Saleor service is enabled
      Then saleor version >= 3.20
       And saleor service is running
       And Saleor commerce platform is operational

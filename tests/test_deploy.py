@@ -237,15 +237,18 @@ def _(host: Host):
     assert "nodejs" in packages
     assert "sqlite" in packages
 
-@when("Saleor core is available")
+@when("build dependencies are available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-        
-    # Install git and required dependencies
+    # Install git and required dependencies for building Saleor
     add_op(state, apk.packages, packages=["git", "python3-dev", "build-base", "py3-pip"])
-    
-    # Clone saleor repository
+
+@when("Saleor source code is available")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    # Ensure Saleor source code is present
     add_op(
         state,
         server.shell,
@@ -253,8 +256,12 @@ def _(state: State, deployed: bool):
             "test -d /opt/saleor || git clone https://github.com/saleor/saleor.git /opt/saleor"
         ],
     )
-    
-    # Install Python dependencies
+
+@when("Saleor Python components are installed")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    # Install Saleor Python dependencies
     add_op(
         state,
         server.shell,
@@ -262,7 +269,11 @@ def _(state: State, deployed: bool):
             "cd /opt/saleor && python3 -m pip install -e ."
         ],
     )
-    
+
+@when("Saleor service definition is present")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
     # Create OpenRC init script for Saleor
     add_op(
         state,
@@ -287,10 +298,13 @@ depend() {
         dest="/etc/init.d/saleor",
         mode="0755",
     )
-    
-    # Enable and start the service using OpenRC
+
+@when("Saleor service is enabled")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    # Enable and start the Saleor service using OpenRC
     add_op(state, init.rc, service="saleor", running=True, enabled=True)
-    
     run_ops(state)
 
 @then("saleor version >= 3.20")
