@@ -4,7 +4,6 @@
 read:
   - CONVENTIONS.md
 
-# Model configuration - cost-efficient architect pattern with upgraded editor
 model: openrouter/deepseek/deepseek-r1
 editor-model: openrouter/anthropic/claude-3.7-sonnet
 weak-model: openrouter/anthropic/claude-3-5-haiku
@@ -12,18 +11,7 @@ edit-format: diff
 editor-edit-format: editor-diff
 cache-prompts: true
 stream: false
-use_temperature: false  # Required for most reasoning models
-reasoning_tag: think  # For DeepSeek's XML reasoning blocks
-thinking_tokens: 8k  # For Claude Sonnet's reasoning budget
 
-# Model-specific parameters
 extra-params:
-  max_tokens: 160000  # For DeepSeek R1 long context
+  max_tokens: 160000
 
-# Model capability declarations
-accepts_settings:
-  - reasoning_effort  # For DeepSeek
-  - thinking_tokens  # For Claude models
-
-weak-model-params:
-  max_tokens: 4096  # Lower limit for Haiku
