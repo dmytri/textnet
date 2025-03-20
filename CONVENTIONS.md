@@ -20,6 +20,12 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 - Use `uv` for Python package management
 - All dependencies in `pyproject.toml`
 
+### Third-Party Components
+- Respect conventions specified by third-party components
+- Use package managers and tools recommended in their documentation
+- Do not impose project-specific conventions on third-party components
+- For Saleor: Use Poetry as specified in their documentation
+
 ### Test Structure
 - Feature files/step defs in `/tests`
 - Use pytest-bdd with Gherkin syntax
