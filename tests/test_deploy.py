@@ -188,12 +188,12 @@ def _(host: Host):
         pkg_version = list(pkg_version)[0]
     assert parse(pkg_version) >= parse("18")
 
-@then("sqlite version >= 3.40.0")
+@then("sqlite version >= 3.48.0")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert "sqlite" in packages
     pkg_version = packages["sqlite"]
     if isinstance(pkg_version, set):
         pkg_version = list(pkg_version)[0]
-    assert parse(pkg_version) >= parse("3.40.0")
+    assert parse(pkg_version) >= parse("3.48.0")
 
