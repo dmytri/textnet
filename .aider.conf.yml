@@ -10,6 +10,8 @@ editor-model: openrouter/anthropic/claude-3.7-sonnet
 weak-model: openrouter/anthropic/claude-3-5-haiku
 edit-format: diff
 editor-edit-format: editor-diff
+cache-prompts: true
+stream: false
 extra-params:
   max_tokens: 160000
 
