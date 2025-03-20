@@ -23,9 +23,9 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
 
   @dev @ci @prod
   Scenario: Enable required runtime environments for Saleor
-     When python installed
-      And nodejs installed
-      And sqlite installed
+     When Python runtime is available
+      And NodeJS runtime is available
+      And SQLite database is available
      Then python version >= 3.12
       And nodejs version >= 18
       And sqlite version >= 3.48.0
@@ -34,7 +34,7 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
   @dev @ci @prod
   Scenario: Provide Saleor commerce capabilities
      Given Saleor dependencies are installed
-     When install saleor core
+     When Saleor core is available
      Then saleor version >= 3.20
       And saleor service is running
       And the platform can process commerce transactions

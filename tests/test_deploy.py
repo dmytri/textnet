@@ -173,19 +173,19 @@ def _():
 
 scenario("deploy.feature", "Enable required runtime environments for Saleor")
 
-@when("python installed")
+@when("Python runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["python3"])
 
-@when("nodejs installed") 
+@when("NodeJS runtime is available") 
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("sqlite installed")
+@when("SQLite database is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -243,7 +243,7 @@ def _(host: Host):
     assert "nodejs" in packages
     assert "sqlite" in packages
 
-@when("install saleor core")
+@when("Saleor core is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
