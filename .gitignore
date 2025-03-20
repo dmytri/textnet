@@ -31,7 +31,6 @@ venv.bak/
 node_modules/
 
 # Dependency directories
-/target/
 .pytest_cache/
 .mypy_cache/
 
