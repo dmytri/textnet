@@ -39,6 +39,10 @@ cmd = "aider --watch-files --no-show-model-warnings --model groq/deepseek-r1-dis
 envfile = ".env.aider"
 cmd = "aider --watch-files --no-show-model-warnings --model groq/deepseek-r1-distill-qwen-32b --editor-model sonnet"
 
+[tool.poe.tasks.ai8]
+envfile = ".env.aider"
+cmd = "aider --watch-files --model openrouter/anthropic/claude-3.7-sonnet:thinking"
+
 [tool.pytest.ini_options]
 markers = [
   "dev",
