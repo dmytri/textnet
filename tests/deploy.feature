@@ -34,6 +34,7 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
   Scenario: Provide Saleor commerce capabilities
      Given Saleor dependencies are installed
      When build dependencies are available
+      And Poetry package manager is installed
       And Saleor source code is available
       And Saleor Python components are installed
       And Saleor service definition is present

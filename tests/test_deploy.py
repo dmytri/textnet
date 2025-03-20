@@ -244,6 +244,19 @@ def _(state: State, deployed: bool):
     # Install git and required dependencies for building Saleor
     add_op(state, apk.packages, packages=["git", "python3-dev", "build-base", "py3-pip"])
 
+@when("Poetry package manager is installed")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    # Install Poetry as recommended by Saleor documentation
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "pip3 install poetry"
+        ],
+    )
+
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
     if deployed:
@@ -261,12 +274,12 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Install Saleor Python dependencies
+    # Install Saleor Python dependencies using Poetry as per documentation
     add_op(
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && python3 -m pip install -e ."
+            "cd /opt/saleor && poetry install"
         ],
     )
 
@@ -283,8 +296,8 @@ def _(state: State, deployed: bool):
 name="Saleor Commerce Platform"
 description="Saleor API and commerce services"
 supervisor=supervise-daemon
-command="/usr/bin/python3"
-command_args="-m uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000"
+command="/usr/bin/poetry"
+command_args="run uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000"
 directory="/opt/saleor"
 pidfile="/run/saleor.pid"
 output_log="/var/log/saleor.log"
@@ -309,12 +322,9 @@ def _(state: State, deployed: bool):
 
 @then("saleor version >= 3.20")
 def _(host: Host):
-    # Check saleor version using pip show
-    cmd_result = host.get_fact(Command, command="cd /opt/saleor && python3 -m pip show saleor || echo 'Version: 0.0.0'")
-    version_line = [line for line in cmd_result['stdout'].split('\n') if line.startswith('Version:')][0]
-    
-    # Extract version from output
-    version = version_line.split(':')[1].strip()
+    # Check saleor version using poetry
+    cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
+    version = cmd_result['stdout'].strip()
     assert parse(version) >= parse("3.20")
 
 @then("saleor service is running")
