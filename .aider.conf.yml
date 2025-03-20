@@ -1,0 +1,5 @@
+# Aider configuration file
+
+# Files to read at startup
+read:
+  - CONVENTIONS.md

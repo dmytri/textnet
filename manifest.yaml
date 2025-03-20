@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: textnet
+  labels:
+    app: textnet
+spec:
+  template:
+    metadata:
+      labels:
+        app: textnet
+    spec:
+      containers:
+      - name: textnet
+        image: apply
+      restartPolicy: Never
+  backoffLimit: 0

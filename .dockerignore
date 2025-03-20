@@ -1,0 +1,42 @@
+# Docker build context ignores
+
+# Version control
+.git
+.gitignore
+
+# Environment/configs
+.env*
+
+# Local development artifacts
+.vscode/
+.idea/
+*.swp
+*~
+*.bak
+.DS_Store
+Thumbs.db
+
+# Language-specific excludes
+__pycache__/
+*.py[cod]
+node_modules/
+/target/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Docker-specific files (complements .gitignore)
+/volumes/
+.buildx/
+*.container-id
+*.docker.log
+docker-compose.*.yml
+
+# Match .gitignore patterns that affect build contexts
+**/docker-build/
+.docker/
+
+# Keep Aider config file
+!.aider.conf.yml
