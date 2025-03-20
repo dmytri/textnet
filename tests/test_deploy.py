@@ -48,7 +48,7 @@ def state() -> State:
             ))
         case "ci":
             inventory: Inventory = Inventory((
-                ["localhost"],
+                ["ssh-service"],
                 {
                     "ssh_user": "root",
                     "ssh_port": 2222,
