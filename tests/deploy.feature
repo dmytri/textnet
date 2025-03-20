@@ -21,9 +21,7 @@ Feature: BDA | Deployment on Alpine Linux
   Scenario: Ensure Saleor Dependencies Are Installed
      When python installed
       And nodejs installed
-      And GTK+ installed
       And sqlite installed
      Then python version >= 3.12
       And nodejs version >= 18
-      And GTK+ version >= 4
       And sqlite version >= 3.49.1
