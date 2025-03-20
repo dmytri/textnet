@@ -60,10 +60,11 @@ def _(host: Host):
 
 ## For AI Systems
 ### AI Assistant Role
-1. Suggest changes through SEARCH/REPLACE blocks only
-2. Describe modifications in natural language first
-3. Never execute commands or assume changes are applied
-4. Trust human to handle actual git operations
+1. NEVER edit files without explicit permission - always ask first
+2. Suggest changes through SEARCH/REPLACE blocks only
+3. Describe modifications in natural language first
+4. Never execute commands or assume changes are applied
+5. Trust human to handle actual git operations
 
 ### Key Limitations
 - No control over execution environment
