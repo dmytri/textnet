@@ -3,20 +3,3 @@
 # Files to read at startup
 read:
   - CONVENTIONS.md
-# Aider configuration for optimal performance
-models:
-  main:
-    name: openrouter/anthropic/claude-3.7-sonnet
-    edit_format: diff
-    use_repo_map: true
-    use_temperature: false
-    streaming: false
-    extra_params:
-      thinking_tokens: 64000
-      reasoning_effort: high
-  weak:
-    name: openrouter/openai/gpt-4o-mini
-    use_temperature: false
-  editor:
-    name: openrouter/deepseek/deepseek-chat
-    edit_format: editor-diff
