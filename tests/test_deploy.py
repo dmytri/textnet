@@ -252,19 +252,6 @@ def _(state: State, deployed: bool):
     # Install git and required dependencies for building Saleor
     add_op(state, apk.packages, packages=["git", "python3-dev", "build-base", "py3-pip"])
 
-@when("Poetry package manager is installed")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
-    # Install Poetry as recommended by Saleor documentation
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "pip3 install poetry"
-        ],
-    )
-
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
     if deployed:
