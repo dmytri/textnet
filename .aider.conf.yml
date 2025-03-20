@@ -5,12 +5,11 @@ read:
   - CONVENTIONS.md
 
 # Model configuration (exact parameters from official docs)
-model: anthropic/claude-3-5-sonnet-20240620
-weak-model: deepseek/deepseek-r1
-editor-model: deepseek/deepseek-chat
+model: openrouter/anthropic/claude-3.7-sonnet
+weak-model: openrouter/deepseek/deepseek-r1
+editor-model: openrouter/deepseek/deepseek-chat
 edit-format: diff
 editor-edit-format: editor-diff
-
 # Validated Claude parameters from docs
 extra-params:
   max_tokens: 64000
