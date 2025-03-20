@@ -25,10 +25,12 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
      When Python runtime is available
       And NodeJS runtime is available
       And SQLite database is available
+      And pipx is available
       And Poetry is available
      Then python version >= 3.12
       And nodejs version >= 18
       And sqlite version >= 3.48.0
+      And pipx version >= 1.7.1
       And poetry version >= 1.8
 
   @skip @dev @ci @prod
