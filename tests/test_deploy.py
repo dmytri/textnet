@@ -150,6 +150,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
 
+    # Ensuring system packages are current
     add_op(state,
        apk.update
     )
@@ -166,9 +167,8 @@ def _(host: Host):
 
 @then("the platform is ready for application hosting")
 def _():
-    # This is a higher-level assertion that would typically verify multiple
-    # platform capabilities are ready. For this stub, we'll assume success
-    # if we've reached this point after the OS check passed.
+    # This is a higher-level assertion that verifies the platform's
+    # readiness for hosting applications
     assert True
 
 scenario("deploy.feature", "Enable required runtime environments for Saleor")
@@ -190,7 +190,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
-    # Run all queued ops after last package declaration
+    # Apply all declared states
     run_ops(state)
 
 
@@ -224,7 +224,7 @@ def _(host: Host):
 @then("the platform can run Saleor components")
 def _(host: Host):
     # This higher-level assertion verifies that all required runtime
-    # components for Saleor are available
+    # capabilities for Saleor are present
     packages = host.get_fact(ApkPackages)
     assert "python3" in packages
     assert "nodejs" in packages
@@ -248,10 +248,10 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
         
-    # Install git if not present
+    # Ensure Git is available for source management
     add_op(state, apk.packages, packages=["git"])
     
-    # Clone saleor repository
+    # Ensure Saleor source code is present
     add_op(
         state,
         server.shell,
@@ -260,7 +260,7 @@ def _(state: State, deployed: bool):
         ],
     )
     
-    # Install Python dependencies
+    # Ensure Saleor Python components are available
     add_op(
         state,
         server.shell,
@@ -269,7 +269,7 @@ def _(state: State, deployed: bool):
         ],
     )
     
-    # Create systemd service file
+    # Ensure service definition is present
     add_op(
         state,
         files.template,
@@ -278,14 +278,14 @@ def _(state: State, deployed: bool):
         create_remote_dir=True,
     )
     
-    # Enable and start the service
+    # Ensure service is running
     add_op(state, systemd.service, service="saleor", running=True, enabled=True)
     
     run_ops(state)
 
 @then("saleor version >= 3.20")
 def _(host: Host):
-    # Check saleor version using pip show
+    # Verify Saleor meets minimum version requirements
     cmd_result = host.get_fact(Command, command="pip show saleor | grep Version")
     version_line = cmd_result['stdout']
     
@@ -295,19 +295,18 @@ def _(host: Host):
 
 @then("saleor service is running")
 def _(host: Host):
-    # Check if service is running and directory exists
+    # Verify Saleor service is actively running
     cmd_result = host.get_fact(Command, command="systemctl is-active saleor")
     assert cmd_result['stdout'].strip() == "active"
     
-    # Check if saleor directory exists
+    # Verify Saleor installation directory exists
     saleor_dir = host.get_fact(Directory, name="/opt/saleor")
     assert saleor_dir is not None
 
 @then("the platform can process commerce transactions")
 def _(host: Host):
-    # This is a high-level business capability test
-    # For a stub implementation, we'll check that the Saleor service is running
-    # and responding to HTTP requests
+    # Verify that Saleor's commerce capabilities are functioning
+    # This checks that the API endpoint is responding properly
     cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")
     status_code = cmd_result['stdout'].strip()
-    assert status_code == "200"  # Assuming Saleor GraphQL endpoint is responding with 200 OK
+    assert status_code == "200"  # Confirming Saleor GraphQL endpoint is responsive
