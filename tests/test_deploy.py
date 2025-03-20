@@ -185,19 +185,30 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
 
+@when("pipx is available")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    add_op(state, apk.packages, packages=["pipx"])
+
 @when("Poetry is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Install Poetry using the official installer as per their documentation
+    # Install Poetry using pipx as recommended by Poetry's documentation
     add_op(
         state,
         server.shell,
         commands=[
-            "python3 -m pip install --user --break-system-packages poetry"
+            "pipx install poetry"
         ],
     )
     run_ops(state)
+
+@then("pipx version >= 1.7.1")
+def _(host: Host):
+    cmd_result = host.get_fact(Command, command="pipx --version | awk '{print $1}'")
+    assert parse(cmd_result['stdout'].strip()) >= parse("1.7.1")
 
 
 @then("python version >= 3.12")
