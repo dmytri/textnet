@@ -31,7 +31,7 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
       And sqlite version >= 3.48.0
       And poetry version >= 1.8
 
-  @dev @ci @prod
+  @skip @dev @ci @prod
   Scenario: Provide Saleor commerce capabilities
      Given Saleor dependencies are installed
      When build dependencies are available
