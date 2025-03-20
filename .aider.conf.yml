@@ -4,19 +4,22 @@
 read:
   - CONVENTIONS.md
 
-# Model configuration (exact parameters from official docs)
-model: openrouter/anthropic/claude-3.7-sonnet
-weak-model: openrouter/deepseek/deepseek-r1
-editor-model: openrouter/deepseek/deepseek-chat
+# Model configuration - cost-efficient architect pattern (64.0% correct, $13.29 vs $36.83)
+model: openrouter/deepseek/deepseek-r1
+editor-model: openrouter/anthropic/claude-3.5-sonnet
 edit-format: diff
 editor-edit-format: editor-diff
-# Validated Claude parameters from docs
+use-architect: true
 extra-params:
-  max_tokens: 64000
-  thinking_tokens: 32000  # Enable thinking tokens for optimal performance (64.9% correct on benchmark)
-  extra_headers:
-    anthropic-beta: prompt-caching-2024-07-31,output-128k-2025-02-19
+  max_tokens: 160000
 
 # Alternative high-performance setup (uncomment to use):
-# Use this command instead for architect pattern:
-# aider --architect --model openrouter/deepseek/deepseek-r1 --editor-model openrouter/anthropic/claude-3.5-sonnet
+# For maximum accuracy but higher cost (64.9% correct):
+# model: openrouter/anthropic/claude-3.7-sonnet
+# weak-model: openrouter/deepseek/deepseek-r1
+# editor-model: openrouter/deepseek/deepseek-chat
+# edit-format: diff
+# editor-edit-format: editor-diff
+# extra-params:
+#   max_tokens: 64000
+#   thinking_tokens: 32000
