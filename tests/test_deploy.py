@@ -174,17 +174,26 @@ def _(state: State, deployed: bool):
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert "python3" in packages
-    assert parse(packages["python3"]) >= parse("3.12")
+    pkg_version = packages["python3"]
+    if isinstance(pkg_version, set):
+        pkg_version = list(pkg_version)[0]
+    assert parse(pkg_version) >= parse("3.12")
 
 @then("nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert "nodejs" in packages
-    assert parse(packages["nodejs"]) >= parse("18")
+    pkg_version = packages["nodejs"]
+    if isinstance(pkg_version, set):
+        pkg_version = list(pkg_version)[0]
+    assert parse(pkg_version) >= parse("18")
 
 @then("sqlite version >= 3.49.1")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert "sqlite" in packages
-    assert parse(packages["sqlite"]) >= parse("3.49.1")
+    pkg_version = packages["sqlite"]
+    if isinstance(pkg_version, set):
+        pkg_version = list(pkg_version)[0]
+    assert parse(pkg_version) >= parse("3.49.1")
 
