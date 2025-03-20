@@ -13,5 +13,10 @@ editor-edit-format: editor-diff
 # Validated Claude parameters from docs
 extra-params:
   max_tokens: 64000
+  thinking_tokens: 32000  # Enable thinking tokens for optimal performance (64.9% correct on benchmark)
   extra_headers:
     anthropic-beta: tools-2024-04-04
+
+# Alternative high-performance setup (uncomment to use):
+# Use this command instead for architect pattern:
+# aider --architect --model openrouter/deepseek/deepseek-r1 --editor-model openrouter/anthropic/claude-3.5-sonnet
