@@ -24,4 +24,4 @@ Feature: BDA | Deployment on Alpine Linux
       And sqlite installed
      Then python version >= 3.12
       And nodejs version >= 18
-      And sqlite version >= 3.49.1
+      And sqlite version >= 3.40.0
