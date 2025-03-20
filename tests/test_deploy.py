@@ -184,7 +184,19 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
-    # Apply all declared states
+
+@when("Poetry is available")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    # Install Poetry using the official installer as per their documentation
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "python3 -m pip install --user --break-system-packages poetry"
+        ],
+    )
     run_ops(state)
 
 
@@ -223,6 +235,11 @@ def _(host: Host):
     assert "python3" in packages
     assert "nodejs" in packages
     assert "sqlite" in packages
+    
+@then("poetry version >= 1.8")
+def _(host: Host):
+    cmd_result = host.get_fact(Command, command="poetry --version | awk '{print $3}'")
+    assert parse(cmd_result['stdout'].strip()) >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
 #

@@ -25,16 +25,17 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
      When Python runtime is available
       And NodeJS runtime is available
       And SQLite database is available
+      And Poetry is available
      Then python version >= 3.12
       And nodejs version >= 18
       And sqlite version >= 3.48.0
+      And poetry version >= 1.8
       And the platform can run Saleor components
 
   @dev @ci @prod
   Scenario: Provide Saleor commerce capabilities
      Given Saleor dependencies are installed
      When build dependencies are available
-      And Poetry package manager is installed
       And Saleor source code is available
       And Saleor Python components are installed
       And Saleor service definition is present
