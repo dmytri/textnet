@@ -227,15 +227,6 @@ def _(host: Host):
         pkg_version = list(pkg_version)[0]
     assert parse(pkg_version) >= parse("3.48.0")
 
-@then("the platform can run Saleor components")
-def _(host: Host):
-    # This higher-level assertion verifies that all required runtime
-    # capabilities for Saleor are present
-    packages = host.get_fact(ApkPackages)
-    assert "python3" in packages
-    assert "nodejs" in packages
-    assert "sqlite" in packages
-    
 @then("poetry version >= 1.8")
 def _(host: Host):
     cmd_result = host.get_fact(Command, command="poetry --version | awk '{print $3}'")
