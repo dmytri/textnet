@@ -11,7 +11,7 @@ from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
 from pyinfra.facts.files import Directory
-from pyinfra.operations import apk, files, server, systemd
+from pyinfra.operations import apk, files, server, init
 from packaging.version import parse
 from pytest import fixture, skip
 from pytest_bdd import given, scenario, scenarios, then, when
@@ -48,7 +48,7 @@ def state() -> State:
             ))
         case "ci":
             inventory: Inventory = Inventory((
-                ["ssh-service"],
+                ["localhost"],
                 {
                     "ssh_user": "root",
                     "ssh_port": 2222,
@@ -269,28 +269,33 @@ def _(state: State, deployed: bool):
         ],
     )
     
-    # Create systemd service file for Saleor
+    # Create OpenRC init script for Saleor
     add_op(
         state,
         files.put,
-        src_string="""[Unit]
-Description=Saleor Commerce Platform
-After=network.target
+        src_string="""#!/sbin/openrc-run
 
-[Service]
-User=root
-WorkingDirectory=/opt/saleor
-ExecStart=/usr/bin/python3 -m uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000
-Restart=on-failure
+name="Saleor Commerce Platform"
+description="Saleor API and commerce services"
+supervisor=supervise-daemon
+command="/usr/bin/python3"
+command_args="-m uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000"
+directory="/opt/saleor"
+pidfile="/run/saleor.pid"
+output_log="/var/log/saleor.log"
+error_log="/var/log/saleor.err"
 
-[Install]
-WantedBy=multi-user.target
+depend() {
+    need net
+    after firewall
+}
 """,
-        dest="/etc/systemd/system/saleor.service",
+        dest="/etc/init.d/saleor",
+        mode="0755",
     )
     
-    # Enable and start the service
-    add_op(state, systemd.service, service="saleor", running=True, enabled=True)
+    # Enable and start the service using OpenRC
+    add_op(state, init.rc, service="saleor", running=True, enabled=True)
     
     run_ops(state)
 
@@ -306,9 +311,9 @@ def _(host: Host):
 
 @then("saleor service is running")
 def _(host: Host):
-    # Check if service is running
-    cmd_result = host.get_fact(Command, command="systemctl is-active saleor")
-    assert cmd_result['stdout'].strip() == "active"
+    # Check if service is running using OpenRC
+    cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
+    assert cmd_result['stdout'].strip() == "running"
     
     # Check if saleor directory exists
     saleor_dir = host.get_fact(Directory, name="/opt/saleor")
