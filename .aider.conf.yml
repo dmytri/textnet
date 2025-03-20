@@ -15,7 +15,7 @@ extra-params:
   max_tokens: 64000
   thinking_tokens: 32000  # Enable thinking tokens for optimal performance (64.9% correct on benchmark)
   extra_headers:
-    anthropic-beta: tools-2024-04-04
+    anthropic-beta: prompt-caching-2024-07-31,pdfs-2024-09-25,output-128k-2025-02-19
 
 # Alternative high-performance setup (uncomment to use):
 # Use this command instead for architect pattern:
