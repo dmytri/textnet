@@ -64,7 +64,7 @@ def _(host: Host):
 2. Await explicit approval 
 3. Provide SEARCH/REPLACE blocks
 4. Never execute commands directly
-5. Only modify test steps when explicitly requested - scenario additions in feature files do NOT require immediate step implementations
+5. Only implement steps/examples when explicitly requested
 
 ### Test Execution
 - Only through Tilt/BDA pipeline
