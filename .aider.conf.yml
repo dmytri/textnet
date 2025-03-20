@@ -7,6 +7,7 @@ read:
 # Model configuration - cost-efficient architect pattern (64.0% correct, $13.29 vs $36.83)
 model: openrouter/deepseek/deepseek-r1
 editor-model: openrouter/anthropic/claude-3.5-sonnet
+weak-model: openrouter/anthropic/claude-3-5-haiku
 edit-format: diff
 editor-edit-format: editor-diff
 use-architect: true
