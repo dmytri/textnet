@@ -4,9 +4,9 @@
 read:
   - CONVENTIONS.md
 
-# Model configuration - cost-efficient architect pattern (64.0% correct, $13.29 vs $36.83)
+# Model configuration - cost-efficient architect pattern with upgraded editor
 model: openrouter/deepseek/deepseek-r1
-editor-model: openrouter/anthropic/claude-3.5-sonnet
+editor-model: openrouter/anthropic/claude-3.7-sonnet
 weak-model: openrouter/anthropic/claude-3-5-haiku
 edit-format: diff
 editor-edit-format: editor-diff
