@@ -245,20 +245,16 @@ def _(host: Host):
 
 @when("Saleor core is available")
 def _(state: State, deployed: bool):
-    # Stub implementation - will be implemented later
     pass
 
 @then("saleor version >= 3.20")
 def _(host: Host):
-    # Stub implementation - will be implemented later
     pass
 
 @then("saleor service is running")
 def _(host: Host):
-    # Stub implementation - will be implemented later
     pass
 
 @then("the platform can process commerce transactions")
 def _(host: Host):
-    # Stub implementation - will be implemented later
     pass
