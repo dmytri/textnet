@@ -90,6 +90,8 @@ Then the application handles the specified edge cases
 6. When user says 'no', STOP immediately and do not suggest code
 7. Displaying modified code requires explicit permission
 8. Confirm understanding when suggestions are rejected
+9. Make ONLY the minimal changes specifically requested
+10. NEVER bundle unrelated changes without explicit approval
 
 ### Key Limitations
 - No control over execution environment
