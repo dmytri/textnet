@@ -243,16 +243,16 @@ def _(host: Host):
 
 @when("Saleor core is available")
 def _(state: State, deployed: bool):
-    pass
+    skip()
 
 @then("saleor version >= 3.20")
 def _(host: Host):
-    pass
+    skip()
 
 @then("saleor service is running")
 def _(host: Host):
-    pass
+    skip()
 
 @then("Saleor commerce platform is operational")
 def _(host: Host):
-    pass
+    skip()
