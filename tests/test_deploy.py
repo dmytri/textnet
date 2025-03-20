@@ -11,7 +11,7 @@ from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
 from pyinfra.facts.files import Directory
-from pyinfra.operations import apk, files, server, init
+from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip
 from pytest_bdd import given, scenario, scenarios, then, when
