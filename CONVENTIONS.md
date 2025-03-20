@@ -55,8 +55,23 @@ def _(host: Host):
 - Tags (@dev/@ci/@prod) control execution  
 - When steps declare using pyinfra
 - Then steps verify with pyinfra facts
+- Use behavior-focused, declarative language in all steps
+- Focus on the desired state, not actions to achieve it
 - Prefer atomic scenarios
 - All scenarios idempotent
+
+### Writing Behavior-Focused Steps
+```python
+# AVOID (implementation-focused, imperative):
+When install python
+When upgrade system packages
+When create user accounts
+
+# PREFER (behavior-focused, declarative):
+When Python runtime is available
+When system packages are up to date
+When user accounts are available
+```
 
 ## For AI Systems
 ### AI Assistant Role
