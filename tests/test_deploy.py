@@ -9,7 +9,9 @@ from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
-from pyinfra.operations import apk
+from pyinfra.facts.server import Command
+from pyinfra.facts.files import Directory
+from pyinfra.operations import apk, files, server, systemd
 from packaging.version import parse
 from pytest import fixture, skip
 from pytest_bdd import given, scenario, scenarios, then, when
@@ -243,16 +245,78 @@ def _(host: Host):
 
 @when("Saleor core is available")
 def _(state: State, deployed: bool):
-    skip()
+    if deployed:
+        skip()
+        
+    # Install git and required dependencies
+    add_op(state, apk.packages, packages=["git", "python3-dev", "build-base", "py3-pip"])
+    
+    # Clone saleor repository
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "test -d /opt/saleor || git clone https://github.com/saleor/saleor.git /opt/saleor"
+        ],
+    )
+    
+    # Install Python dependencies
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && python3 -m pip install -e ."
+        ],
+    )
+    
+    # Create systemd service file for Saleor
+    add_op(
+        state,
+        files.put,
+        src_string="""[Unit]
+Description=Saleor Commerce Platform
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/saleor
+ExecStart=/usr/bin/python3 -m uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+""",
+        dest="/etc/systemd/system/saleor.service",
+    )
+    
+    # Enable and start the service
+    add_op(state, systemd.service, service="saleor", running=True, enabled=True)
+    
+    run_ops(state)
 
 @then("saleor version >= 3.20")
 def _(host: Host):
-    skip()
+    # Check saleor version using pip show
+    cmd_result = host.get_fact(Command, command="cd /opt/saleor && python3 -m pip show saleor || echo 'Version: 0.0.0'")
+    version_line = [line for line in cmd_result['stdout'].split('\n') if line.startswith('Version:')][0]
+    
+    # Extract version from output
+    version = version_line.split(':')[1].strip()
+    assert parse(version) >= parse("3.20")
 
 @then("saleor service is running")
 def _(host: Host):
-    skip()
+    # Check if service is running
+    cmd_result = host.get_fact(Command, command="systemctl is-active saleor")
+    assert cmd_result['stdout'].strip() == "active"
+    
+    # Check if saleor directory exists
+    saleor_dir = host.get_fact(Directory, name="/opt/saleor")
+    assert saleor_dir is not None
 
 @then("Saleor commerce platform is operational")
 def _(host: Host):
-    skip()
+    # Test the GraphQL endpoint to see if it's responding
+    cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")
+    status_code = cmd_result['stdout'].strip()
+    assert status_code in ["200", "400"]  # 400 can occur when sending an empty request, which is still valid
