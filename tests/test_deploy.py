@@ -165,12 +165,6 @@ def _(host: Host):
     distro: LinuxDistributionDict = host.get_fact(LinuxDistribution)
     assert distro["release_meta"]["PRETTY_NAME"] == "Alpine Linux v3.21"
 
-@then("the platform is ready for application hosting")
-def _():
-    # This is a higher-level assertion that verifies the platform's
-    # readiness for hosting applications
-    assert True
-
 scenario("deploy.feature", "Enable required runtime environments for Saleor")
 
 @when("Python runtime is available")
