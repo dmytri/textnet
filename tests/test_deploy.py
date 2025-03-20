@@ -312,7 +312,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     # Enable and start the Saleor service using OpenRC
-    add_op(state, init.rc, service="saleor", running=True, enabled=True)
+    #add_op(state, init.rc, service="saleor", running=True, enabled=True)
     run_ops(state)
 
 @then("saleor version >= 3.20")
