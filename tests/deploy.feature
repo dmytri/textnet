@@ -25,3 +25,10 @@ Feature: BDA | Deployment on Alpine Linux
      Then python version >= 3.12
       And nodejs version >= 18
       And sqlite version >= 3.48.0
+
+  @dev @ci @prod
+  Scenario: Install Saleor Core
+     Given Saleor dependencies are installed
+     When install saleor core
+     Then saleor version >= 3.14
+      And saleor service is running
