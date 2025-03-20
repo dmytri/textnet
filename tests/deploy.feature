@@ -37,4 +37,4 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
      When Saleor core is available
      Then saleor version >= 3.20
       And saleor service is running
-      And the platform can process commerce transactions
+      And Saleor commerce platform is operational

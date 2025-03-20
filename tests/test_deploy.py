@@ -255,6 +255,6 @@ def _(host: Host):
 def _(host: Host):
     pass
 
-@then("the platform can process commerce transactions")
+@then("Saleor commerce platform is operational")
 def _(host: Host):
     pass
