@@ -14,14 +14,3 @@ cache-prompts: true
 stream: false
 extra-params:
   max_tokens: 160000
-
-# Alternative high-performance setup (uncomment to use):
-# For maximum accuracy but higher cost (64.9% correct):
-# model: openrouter/anthropic/claude-3.7-sonnet
-# weak-model: openrouter/deepseek/deepseek-r1
-# editor-model: openrouter/deepseek/deepseek-chat
-# edit-format: diff
-# editor-edit-format: editor-diff
-# extra-params:
-#   max_tokens: 64000
-#   thinking_tokens: 32000

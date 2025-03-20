@@ -11,6 +11,10 @@ cmd = "pytest -x --gherkin-terminal-reporter --tb=no -s -v -m dev tests/"
 [tool.poe.tasks.ci]
 cmd = "pytest -x --tb=long -s -v -m ci tests/"
 
+[tool.poe.tasks.ai]
+envfile = ".env.aider"
+cmd = "aider --architect"
+
 [tool.poe.tasks.ai1]
 envfile = ".env.aider"
 cmd = "aider --watch-files --model r1 --editor-model sonnet"
