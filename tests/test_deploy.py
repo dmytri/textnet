@@ -161,12 +161,6 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("GTK+ installed")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
-    add_op(state, apk.packages, packages=["gtk+3"])
-
 @when("sqlite installed")
 def _(state: State, deployed: bool):
     if deployed:
@@ -187,12 +181,6 @@ def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert "nodejs" in packages
     assert parse(packages["nodejs"]) >= parse("18")
-
-@then("GTK+ version >= 4")
-def _(host: Host):
-    packages = host.get_fact(ApkPackages)
-    assert "gtk+3" in packages
-    assert parse(packages["gtk+3"]) >= parse("4")
 
 @then("sqlite version >= 3.49.1")
 def _(host: Host):
