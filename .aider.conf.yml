@@ -3,3 +3,17 @@
 # Files to read at startup
 read:
   - CONVENTIONS.md
+
+# Model configuration (exact parameters from official docs)
+model: anthropic/claude-3-5-sonnet-20240620
+weak-model: deepseek/deepseek-r1
+editor-model: deepseek/deepseek-chat
+edit-format: diff
+use-repo-map: true
+editor-edit-format: editor-diff
+
+# Validated Claude parameters from docs
+extra-params:
+  max_tokens: 64000
+  extra_headers:
+    anthropic-beta: tools-2024-04-04
