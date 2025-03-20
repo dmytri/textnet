@@ -63,6 +63,23 @@ When system packages are up to date
 When user accounts are available
 ```
 
+### Writing Accurate Test Assertions
+- Assertions should accurately reflect what is being verified
+- Avoid claiming capabilities beyond what tests actually check
+- Use precise language that matches the scope of verification
+
+```python
+# AVOID (claiming more than verified):
+Then the system can process payments
+Then databases are fully secured
+Then the application handles all edge cases
+
+# PREFER (accurately reflecting verification):
+Then the payment service is operational
+Then database access controls are enforced
+Then the application handles the specified edge cases
+```
+
 ## For AI Systems
 ### AI Assistant Role
 1. NEVER edit files without explicit permission - always ask first
