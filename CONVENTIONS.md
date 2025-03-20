@@ -6,6 +6,11 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 - Follow Conventional Commits format
 - More information at [Conventional Commits](https://www.conventionalcommits.org/)
 
+### Documentation & Text
+- Use Canadian spelling for all documentation (e.g., colour, centre, analyse)
+- Prefer "-ise" over "-ize" in words like "organise"
+- Use double consonants where appropriate (e.g., travelled, modelling)
+
 ### Local Environment  
 - Requires Tilt + Minikube
 - All dependencies provisioned via BDA steps
@@ -23,28 +28,13 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 ### Pyinfra Patterns
 ```python
 # Package installation
-@when("python installed")
+@when("Python runtime is available")
 def _(state: State):
     add_op(state, apk.packages, packages=["python3"])
     run_ops(state)  # Final When runs all ops
 
 # Version verification  
-@then("python >= 3.12")
-def _(host: Host):
-    pkg = host.get_fact(ApkPackages).get("python3")
-    assert parse(pkg) >= parse("3.12")
-```
-
-### Pyinfra Patterns
-```python
-# Package installation
-@when("python installed")
-def _(state: State):
-    add_op(state, apk.packages, packages=["python3"])
-    run_ops(state)  # Final When runs all ops
-
-# Version verification  
-@then("python >= 3.12")
+@then("python version >= 3.12")
 def _(host: Host):
     pkg = host.get_fact(ApkPackages).get("python3")
     assert parse(pkg) >= parse("3.12")
@@ -55,19 +45,19 @@ def _(host: Host):
 - Tags (@dev/@ci/@prod) control execution  
 - When steps declare using pyinfra
 - Then steps verify with pyinfra facts
-- Use behavior-focused, declarative language in all steps
+- Use behaviour-focused, declarative language in all steps
 - Focus on the desired state, not actions to achieve it
 - Prefer atomic scenarios
 - All scenarios idempotent
 
-### Writing Behavior-Focused Steps
+### Writing Behaviour-Focused Steps
 ```python
 # AVOID (implementation-focused, imperative):
 When install python
 When upgrade system packages
 When create user accounts
 
-# PREFER (behavior-focused, declarative):
+# PREFER (behaviour-focused, declarative):
 When Python runtime is available
 When system packages are up to date
 When user accounts are available
