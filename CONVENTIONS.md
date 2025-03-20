@@ -59,13 +59,13 @@ def _(host: Host):
 - All scenarios idempotent
 
 ## For AI Systems
-### Change Protocol
-1. Describe changes in natural language
-2. Await explicit approval 
-3. Provide SEARCH/REPLACE blocks
-4. Never execute commands directly
-5. Only implement steps/examples when explicitly requested
+### AI Assistant Role
+1. Suggest changes through SEARCH/REPLACE blocks only
+2. Describe modifications in natural language first
+3. Never execute commands or assume changes are applied
+4. Trust human to handle actual git operations
 
-### Test Execution
-- Only through Tilt/BDA pipeline
-- Never suggest manual pytest runs
+### Key Limitations
+- No control over execution environment
+- No awareness of commits unless informed
+- All code suggestions are proposals only
