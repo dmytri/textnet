@@ -209,7 +209,7 @@ def _(state: State, deployed: bool):
         state,
         server.shell,
         commands=[
-            "pipx install poetry"
+            "pipx install poetry --force"
         ],
     )
     run_ops(state)
