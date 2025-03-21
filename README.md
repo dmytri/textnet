@@ -1,6 +1,8 @@
 # TextNet: The Poem and Prompt Store
 
-TextNet is a text-based shop where you can buy poems and prompts, accessible via SSH. Built with Saleor Commerce and Charm bracelet's TUI Libraries including Wish, it combines e-commerce with literary content distribution.
+TextNet is a text-based shop where you can buy poems and prompts, accessible
+via SSH. Built with Saleor Commerce and Charm bracelet's TUI Libraries
+including Wish.
 
 ## Features
 
@@ -14,15 +16,19 @@ In addition to these, TextNet includes multi-vendor capabilities:
 - Products can be contributed by multiple authors
 - Authors receive payouts when their works are sold
 
-Currently, product management for authors is handled by the TextNet team via Saleor Dashboard.
+Currently, product management for authors is handled by the TextNet team via
+Saleor Dashboard.
 
 ## Commerce Platform
 
-TextNet uses Saleor Commerce as its core platform, deploying both Saleor Core and Saleor Dashboard.
+TextNet uses Saleor Commerce as its core platform, deploying both Saleor Core
+and Saleor Dashboard.
 
 ## Behaviour-Driven Automation (BDA)
 
-This project uses Behaviour-Driven Automation for development and deployment. Clone locally and use `tilt up` to start the development environment on your Kubernetes cluster (e.g., minikube).
+This project uses Behaviour-Driven Automation for development and deployment.
+Clone locally and use `tilt up` to start the development environment on your
+Kubernetes cluster (e.g., minikube).
 
 BDA extends Behaviour-Driven Development principles to automate:
 - Alpine Linux VPS deployment for SSH-based storefront
@@ -48,10 +54,7 @@ The system uses BDA to:
 
 2. Clone the repository
 
-3. Start the development environment:
-```bash
-tilt up
-```
+3. Start the development environment: ```bash tilt up ```
 
 ## Contact
 
