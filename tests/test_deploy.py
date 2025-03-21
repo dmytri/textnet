@@ -103,7 +103,7 @@ scenarios("deploy.feature")
 
 scenario("deploy.feature", "Target a development environment for testing")
 
-@when("set target environment to dev")
+@when("target environment is configured for development")
 def _():
     global TARGET
     assert TARGET is None
@@ -116,20 +116,20 @@ def _():
 
 scenario("deploy.feature", "Target a CI environment for verification")
 
-@when("set target environment to ci")
+@when("target environment is configured for continuous integration")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "ci"
 
-@then("the system is configured for continuous integration")
+@then("the system is configured for CI testing")
 def _():
     global TARGET
     assert TARGET == "ci"
 
 scenario("deploy.feature", "Target a production environment for customers")
 
-@when("set target environment to prod")
+@when("target environment is configured for production")
 def _():
     global TARGET
     assert TARGET is None
@@ -345,7 +345,7 @@ def _(host: Host):
     saleor_dir = host.get_fact(Directory, name="/opt/saleor")
     assert saleor_dir is not None
 
-@then("Saleor commerce platform is operational")
+@then("Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")

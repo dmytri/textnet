@@ -2,17 +2,17 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
 
   @dev
   Scenario: Target a development environment for testing
-     When set target environment to dev
+     When target environment is configured for development
      Then the system is configured for development testing
 
   @ci
   Scenario: Target a CI environment for verification
-     When set target environment to ci
-     Then the system is configured for continuous integration
+     When target environment is configured for continuous integration
+     Then the system is configured for CI testing
 
   @prod
   Scenario: Target a production environment for customers
-     When set target environment to prod
+     When target environment is configured for production
      Then the system is configured for production use
 
   @dev @ci @prod
