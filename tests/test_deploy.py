@@ -208,9 +208,7 @@ def _(state: State, deployed: bool):
     add_op(
         state,
         pipx.packages,
-        packages=["poetry"],
-        present=True,
-        sudo=False
+        packages=["poetry"]
     )
     run_ops(state)
 
