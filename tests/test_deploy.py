@@ -239,7 +239,7 @@ def _(host: Host):
 
 @then("poetry version >= 1.8")
 def _(host: Host):
-    # use Pipx Facts from Pyinfra here, not command AI!
+    # use Pipx Facts from Pyinfra here, not command  AI!
     cmd_result = host.get_fact(Command, command="poetry --version")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
     assert parse(version) >= parse("1.8")
