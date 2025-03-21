@@ -45,7 +45,7 @@ def _(host: Host):
 - Limit to one operation per When step unless operations are tightly related
 - Run operations only at the end of the final When step in a sequence
 
-### BDA Conventions
+### Behaviour-Driven Automation (BDA) Conventions
 - Feature lines include 'BDA' identifier  
 - Tags (@dev/@ci/@prod/@skip) control execution  
 - When steps declare desired state using pyinfra ops
