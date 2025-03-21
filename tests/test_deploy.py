@@ -219,17 +219,15 @@ def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(packages["nodejs"]) >= parse("18")
 
-@then("sqlite version >= 3.48.0")
+@then("sqlite version >= 3.48")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(packages["sqlite"]) >= parse("3.48.0")
+    assert parse(packages["sqlite"]) >= parse("3.48")
 
 @then("poetry version >= 1.8")
 def _(host: Host):
-    pipx_env = host.get_fact(PipxPackages)
-    assert "poetry" in pipx_env, "Poetry not installed via pipx"
-    version = pipx_env["poetry"]["version"]
-    assert parse(version) >= parse("1.8")
+    packages = host.get_fact(PipxPackages)
+    assert parse(packages["poetry"]) >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
 #
