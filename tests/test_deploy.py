@@ -241,7 +241,8 @@ def _(host: Host):
 
 @then("poetry version >= 1.8")
 def _(host: Host):
-    cmd_result = host.get_fact(Command, command="poetry --version | awk '{print $3}' || echo '0.0.0'")
+    # Use more robust version extraction with fallback
+    cmd_result = host.get_fact(Command, command="poetry --version | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
     if not version:  # Handle empty string case
         version = '0.0.0'
