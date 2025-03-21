@@ -2,8 +2,9 @@ cache-prompts: true
 auto-test: true
 
 read:
-  - README.md
   - CONVENTIONS.md
+  - README.md
+  - tests/deploy.feature
 
 lint-cmd:
   - "python: pyright"
