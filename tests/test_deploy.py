@@ -206,12 +206,12 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Only install if not already present
+    # Check if poetry is installed using pipx
     add_op(
         state,
         server.shell,
         commands=[
-            "command -v poetry >/dev/null 2>&1 || pipx install poetry --force"
+            "pipx list | grep -q poetry || pipx install poetry"
         ],
     )
     run_ops(state)
