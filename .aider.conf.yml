@@ -12,7 +12,7 @@ editor-edit-format: editor-diff
 cache-prompts: true
 stream: true
 lint-cmd:
-  - "python: ruff check"
+  - "python: pyright --report-unused-disable-error"
 
 extra-params:
   max_tokens: 160000
