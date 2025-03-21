@@ -6,14 +6,14 @@ requires-python = ">=3.12"
 dependencies = ["poethepoet", "pytest-bdd", "pyinfra"]
 
 [tool.poe.tasks.dev]
-cmd = "pytest -x --gherkin-terminal-reporter --tb=no -s -v -m dev tests/"
+cmd = "pytest -x --gherkin-terminal-reporter --tb=no -s -v -m 'dev and not skip' tests/"
 
 [tool.poe.tasks.ci]
-cmd = "pytest -x --tb=long -s -v -m ci tests/"
+cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"
-cmd = "aider --architect --no-show-model-warnings"
+cmd = "aider --no-show-model-warnings --architect --editor-model openrouter/anthropic/claude-3.7-sonnet"
 
 [tool.poe.tasks.ai1]
 envfile = ".env.aider"

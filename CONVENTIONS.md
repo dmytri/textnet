@@ -8,8 +8,6 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 
 ### Documentation & Text
 - Use Canadian spelling for all documentation (e.g., colour, centre, analyse)
-- Prefer "-ise" over "-ize" in words like "organise"
-- Use double consonants where appropriate (e.g., travelled, modelling)
 
 ### Local Environment  
 - Requires Tilt + Minikube
@@ -23,13 +21,9 @@ Shared rules for humans and AI collaborating on infrastructure automation.
   - Respect their recommended package manager
   - Document any special handling required
 
-### Third-Party Components
-- Respect conventions specified by third-party components
-- Use package managers and tools recommended in their documentation
-- Do not impose project-specific conventions on third-party components
-
 ### Test Structure
 - Feature files/step defs in `/tests`
+- All test files in `/tests`, no subdirectories
 - Use pytest-bdd with Gherkin syntax
 - Follow ATDD principles (Given/When/Then)
 
@@ -49,17 +43,15 @@ def _(host: Host):
 ```
 
 - Limit to one operation per When step unless operations are tightly related
-- Each When step should focus on a single aspect of the desired state
 - Run operations only at the end of the final When step in a sequence
 
 ### BDA Conventions
 - Feature lines include 'BDA' identifier  
-- Tags (@dev/@ci/@prod) control execution  
-- When steps declare using pyinfra
+- Tags (@dev/@ci/@prod/@skip) control execution  
+- When steps declare desired state using pyinfra ops
 - Then steps verify with pyinfra facts
-- Use behaviour-focused, declarative language in all steps
-- Focus on the desired state, not actions to achieve it
-- Prefer atomic scenarios
+- Use behaviour-focused, declarative, present tense language in all steps
+- Focus on the desired behaviour, not actions to achieve it
 - All scenarios idempotent
 
 ### Writing Behaviour-Focused Steps
@@ -94,18 +86,9 @@ Then the application handles the specified edge cases
 
 ## For AI Systems
 ### AI Assistant Role
-1. NEVER edit files without explicit permission - always ask first
-2. Suggest changes through SEARCH/REPLACE blocks only
-3. Describe modifications in natural language first
-4. Never execute commands or assume changes are applied
-5. Trust human to handle actual git operations
-6. When user says 'no', STOP immediately and do not suggest code
-7. Displaying modified code requires explicit permission
-8. Confirm understanding when suggestions are rejected
-9. Make ONLY the minimal changes specifically requested
-10. NEVER bundle unrelated changes without explicit approval
-
-### Key Limitations
-- No control over execution environment
-- No awareness of commits unless informed
-- All code suggestions are proposals only
+- ALWAYS describe modifications in natural language first
+- ALWAYS make ONLY the minimal changes specifically requested
+- ALWAYS stop immediately when user says 'no'
+- NEVER edit files without explicit permission - ask first
+- NEVER bundle unrelated changes without explicit approval
+- NEVER execute commands or assume changes are applied
