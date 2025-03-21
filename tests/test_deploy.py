@@ -197,7 +197,14 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    add_op(state, apk.packages, packages=["pipx"])
+    # Only install if not already present
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "command -v pipx >/dev/null 2>&1 || apk add pipx"
+        ],
+    )
     # Operations will be run in the final When step
 
 @when("Poetry is available")
@@ -216,10 +223,12 @@ def _(state: State, deployed: bool):
 
 @then("pipx version >= 1.7.1")
 def _(host: Host):
-    cmd_result = host.get_fact(Command, command="pipx --version | awk '{print $2}'")
-    pipx_version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
-    assert pipx_version, "pipx version couldn't be determined"
-    assert parse(pipx_version) >= parse("1.7.1")
+    # More robust version extraction with fallback
+    cmd_result = host.get_fact(Command, command="pipx --version | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?' || echo '0.0.0'")
+    version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
+    if not version:  # Handle empty string case
+        version = '0.0.0'
+    assert parse(version) >= parse("1.7.1")
 
 
 @then("python version >= 3.12")
