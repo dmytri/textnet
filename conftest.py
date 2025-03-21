@@ -1,7 +1,15 @@
 import pytest
 from _pytest.runner import CallInfo
-from pytest_bdd.steps import Step, get_step_fixture_name
-from pyinfra.exceptions import PyinfraError
+from pytest_bdd.parser import Step
+from pytest_bdd.steps import get_step_fixture_name
+
+# Try to import PyinfraError, but provide a fallback if not available
+try:
+    from pyinfra.exceptions import PyinfraError
+except ImportError:
+    # Define a generic error class if pyinfra isn't available
+    class PyinfraError(Exception):
+        pass
 
 # Hook to improve error reporting for BDD steps
 @pytest.hookimpl(trylast=True)
@@ -17,7 +25,7 @@ def pytest_bdd_step_error(request, feature, scenario, step, step_func, step_func
     print(f"✗ {step_name}")
     
     # Prevent "no hosts remaining" from obscuring the real error
-    if isinstance(exception, PyinfraError) and "no hosts remaining" in str(exception):
+    if isinstance(exception, PyinfraError) or "no hosts remaining" in str(exception):
         print("\nActual error that caused test failure:")
         if hasattr(exception, "__cause__") and exception.__cause__ is not None:
             print(f"  {type(exception.__cause__).__name__}: {exception.__cause__}")
