@@ -8,6 +8,7 @@ from pyinfra.api.operation import add_op
 from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
+from pyinfra.facts.pipx import PipxEnvironment
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
 from pyinfra.operations import apk, files, server
