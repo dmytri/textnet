@@ -5,7 +5,8 @@ read:
   - CONVENTIONS.md
 
 model: groq/deepseek-r1-distill-llama-70b
-editor-model: openrouter/anthropic/claude-3.7-sonnet
+editor-model: groq/deepseek-r1-distill-llama-70b
+#editor-model: openrouter/anthropic/claude-3.7-sonnet
 weak-model: groq/deepseek-r1-distill-llama-70b-specdec
 edit-format: diff
 editor-edit-format: editor-diff
