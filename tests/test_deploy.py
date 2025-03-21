@@ -10,6 +10,7 @@ from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
+from pyinfra.facts.pip import PipxEnvironment
 from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip
@@ -218,12 +219,9 @@ def _(state: State, deployed: bool):
 
 @then("pipx version >= 1.8.0")
 def _(host: Host):
-    # there is not such that as command facts AI!
-    # use pipx facts here . AI!
-    cmd_result = host.get_fact(Command, command="pipx --version | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?' || echo '0.0.0'")
-    version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
-    if not version:  # Handle empty string case
-        version = '0.0.0'
+    # Use PipxEnvironment fact instead of Command
+    pipx_env = host.get_fact(PipxEnvironment)
+    version = pipx_env.get('PIPX_VERSION', '0.0.0')
     assert parse(version) >= parse("1.8.0")
 
 
