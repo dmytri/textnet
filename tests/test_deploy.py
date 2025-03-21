@@ -10,7 +10,6 @@ from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
-from pyinfra.facts.pip import PipxEnvironment
 from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip
@@ -193,7 +192,8 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Only install if not already present
+
+    # don't use shell here like apk.packages like the others  AI!
     add_op(
         state,
         server.shell,
@@ -219,7 +219,6 @@ def _(state: State, deployed: bool):
 
 @then("pipx version >= 1.8.0")
 def _(host: Host):
-    # Use PipxEnvironment fact instead of Command
     pipx_env = host.get_fact(PipxEnvironment)
     version = pipx_env.get('PIPX_VERSION', '0.0.0')
     assert parse(version) >= parse("1.8.0")
