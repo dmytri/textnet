@@ -190,6 +190,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["pipx"])
+    run_ops(state)  # Ensure pipx is installed before proceeding
 
 @when("Poetry is available")
 def _(state: State, deployed: bool):
@@ -207,8 +208,9 @@ def _(state: State, deployed: bool):
 
 @then("pipx version >= 1.7.1")
 def _(host: Host):
-    cmd_result = host.get_fact(Command, command="pipx --version | awk '{print $1}'")
-    assert parse(cmd_result['stdout'].strip()) >= parse("1.7.1")
+    cmd_result = host.get_fact(Command, command="pipx --version | awk '{print $2}'")
+    pipx_version = cmd_result['stdout'].strip()
+    assert parse(pipx_version) >= parse("1.7.1")
 
 
 @then("python version >= 3.12")
