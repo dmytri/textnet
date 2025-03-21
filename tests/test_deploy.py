@@ -189,7 +189,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["pipx"])
-    run_ops(state)  # Ensure pipx is installed before proceeding
+    # Operations will be run in the final When step
 
 @when("Poetry is available")
 def _(state: State, deployed: bool):
@@ -262,8 +262,8 @@ def _(host: Host):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Install git and required dependencies for building Saleor
-    add_op(state, apk.packages, packages=["git", "python3-dev", "build-base", "py3-pip"])
+    # Install git, curl, and required dependencies for building Saleor
+    add_op(state, apk.packages, packages=["git", "curl", "python3-dev", "build-base"])
 
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
