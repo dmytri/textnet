@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = ["poethepoet", "pytest-bdd", "pyinfra"]
 
 [tool.poe.tasks.dev]
-cmd = "pytest -x --gherkin-terminal-reporter -s -v --full-trace -m 'dev and not skip' tests/"
+cmd = "pytest -x --gherkin-terminal-reporter -m 'dev and not skip' tests/"
 
 [tool.poe.tasks.ci]
 cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
