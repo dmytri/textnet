@@ -1,0 +1,7 @@
+{
+  "include": [
+    "tests"
+  ],
+  "reportUnusedDisableComment": "error",
+  "typeCheckingMode": "basic"
+}
