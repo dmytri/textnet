@@ -161,8 +161,7 @@ def _(state: State, deployed: bool):
     add_op(state,
        apk.upgrade
     )
-
-    run_ops(state)
+    # Operations will be run at the end of the sequence
 
 @then("OS Alpine Linux 3.21")
 def _(host: Host):
@@ -198,8 +197,7 @@ def _(state: State, deployed: bool):
         apk.packages,
         packages=["pipx"]
     )
-    
-    run_ops(state)
+    # Operations will be run at the end of the sequence
 
 @when("Poetry is available")
 def _(state: State, deployed: bool):
@@ -210,6 +208,7 @@ def _(state: State, deployed: bool):
         pipx.packages,
         packages=["poetry"]
     )
+    # Run all operations at the end of the sequence
     run_ops(state)
 
 @then("pipx version >= 1.8.0")
@@ -331,6 +330,7 @@ def _(state: State, deployed: bool):
             "rc-service saleor start || true"  # Don't fail if service already running
         ],
     )
+    # Run all operations at the end of the sequence
     run_ops(state)
 
 @then("saleor version >= 3.20")
