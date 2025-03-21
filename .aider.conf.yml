@@ -4,9 +4,9 @@
 read:
   - CONVENTIONS.md
 
-model: openrouter/deepseek/deepseek-r1
+model: groq/deepseek-r1-distill-llama-70b
 editor-model: openrouter/anthropic/claude-3.7-sonnet
-weak-model: openrouter/anthropic/claude-3-5-haiku
+weak-model: groq/deepseek-r1-distill-llama-70b-specdec
 edit-format: diff
 editor-edit-format: editor-diff
 cache-prompts: true

@@ -13,7 +13,7 @@ cmd = "pytest -x --tb=long -s -v -m ci tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"
-cmd = "aider --architect"
+cmd = "aider --architect --no-show-model-warnings"
 
 [tool.poe.tasks.ai1]
 envfile = ".env.aider"
