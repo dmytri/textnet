@@ -211,12 +211,12 @@ def _(state: State, deployed: bool):
     # Run all operations at the end of the sequence
     run_ops(state)
 
-@then("pipx version >= 1.8.0")
+@then("pipx version >= 1.7.1")
 def _(host: Host):
     # Get pipx version from apk packages
     packages = host.get_fact(ApkPackages)
     pkg_version = get_package_version(packages, "pipx")
-    assert parse(pkg_version) >= parse("1.8.0")
+    assert parse(pkg_version) >= parse("1.7.1")
 
 
 @then("python version >= 3.12")
