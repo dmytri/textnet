@@ -219,7 +219,7 @@ def _(state: State, deployed: bool):
 @then("pipx version >= 1.7.1")
 def _(host: Host):
     # More robust version extraction with fallback
-    # the output of pipx --versin should be 1.7.1 AI!
+    # the output of pipx --version should be 1.7.1
     cmd_result = host.get_fact(Command, command="pipx --version | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
     if not version:  # Handle empty string case
