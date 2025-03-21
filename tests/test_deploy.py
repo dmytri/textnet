@@ -192,16 +192,14 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-
-    # don't use shell here like apk.packages like the others  AI!
+    
     add_op(
         state,
-        server.shell,
-        commands=[
-            "command -v pipx >/dev/null 2>&1 || apk add pipx"
-        ],
+        apk.packages,
+        packages=["pipx"]
     )
-    # Operations will be run in the final When step
+    
+    run_ops(state)
 
 @when("Poetry is available")
 def _(state: State, deployed: bool):
