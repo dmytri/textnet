@@ -43,3 +43,4 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
       And Saleor service is enabled
      Then saleor version >= 3.20
       And OpenRC manages the running saleor service
+      And Saleor GraphQL endpoint responds successfully

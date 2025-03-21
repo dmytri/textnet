@@ -340,3 +340,10 @@ def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
     assert cmd_result['stdout'].strip() == "running"
+
+@then("Saleor GraphQL endpoint responds successfully")
+def _(host: Host):
+    # Test the GraphQL endpoint to see if it's responding
+    cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")
+    status_code = cmd_result['stdout'].strip()
+    assert status_code in ["200", "400"]  # 400 can occur when sending an empty request, which is still valid
