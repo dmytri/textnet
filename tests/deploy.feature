@@ -1,4 +1,7 @@
 Feature: BDA | Saleor Commerce Platform on Alpine Linux
+  As a DevOps Engineer
+  I want to deploy Saleor Commerce
+  In order to provide a modern e-commerce platform
 
   @dev
   Scenario: Target a development environment for testing
@@ -30,7 +33,7 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
      Then python version >= 3.12
       And nodejs version >= 18
       And sqlite version >= 3.48.0
-      And pipx version >= 1.8.0
+      And pipx version >= 1.7.1
       And poetry version >= 1.8
 
   @dev @ci @prod
