@@ -195,12 +195,12 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Install Poetry using pipx as recommended by Poetry's documentation
+    # Check if poetry is installed first, only install if needed
     add_op(
         state,
         server.shell,
         commands=[
-            "pipx install poetry"
+            "command -v poetry >/dev/null 2>&1 || pipx install poetry"
         ],
     )
     run_ops(state)
@@ -241,8 +241,10 @@ def _(host: Host):
 
 @then("poetry version >= 1.8")
 def _(host: Host):
-    cmd_result = host.get_fact(Command, command="poetry --version | awk '{print $3}'")
+    cmd_result = host.get_fact(Command, command="poetry --version | awk '{print $3}' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
+    if not version:  # Handle empty string case
+        version = '0.0.0'
     assert parse(version) >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
