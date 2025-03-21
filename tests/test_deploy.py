@@ -213,10 +213,10 @@ def _(state: State, deployed: bool):
 
 @then("pipx version >= 1.8.0")
 def _(host: Host):
-    # use fact from ApkPackages here AI!
-    pipx_env = host.get_fact(PipxEnvironment)
-    version = pipx_env.get('PIPX_VERSION', '0.0.0')
-    assert parse(version) >= parse("1.8.0")
+    # Get pipx version from apk packages
+    packages = host.get_fact(ApkPackages)
+    pkg_version = get_package_version(packages, "pipx")
+    assert parse(pkg_version) >= parse("1.8.0")
 
 
 @then("python version >= 3.12")
