@@ -192,7 +192,6 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    
     add_op(
         state,
         apk.packages,
@@ -205,12 +204,11 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Check if poetry is installed using pipx
     add_op(
         state,
         server.shell,
         commands=[
-            "pipx list | grep -q poetry || pipx install poetry"
+            "pipx install poetry"
         ],
     )
     run_ops(state)

@@ -5,6 +5,6 @@ read:
   - CONVENTIONS.md
 
 lint-cmd:
-  - "python: pyright --report-unused-disable-error"
+  - "python: pyright"
 
 test-cmd: uv run poe dev
