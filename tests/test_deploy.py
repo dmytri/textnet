@@ -11,7 +11,7 @@ from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.pipx import PipxEnvironment
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
-from pyinfra.operations import apk, files, server
+from pyinfra.operations import apk, files, pipx, server
 from packaging.version import parse
 from pytest import fixture, skip
 from pytest_bdd import given, scenario, scenarios, then, when
@@ -207,10 +207,9 @@ def _(state: State, deployed: bool):
         skip()
     add_op(
         state,
-        server.shell,
-        commands=[
-            "pipx install poetry --force"
-        ],
+        pipx.packages,
+        packages=["poetry"],
+        present=True,
         sudo=False
     )
     run_ops(state)
