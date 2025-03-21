@@ -240,6 +240,7 @@ def _(host: Host):
 @then("poetry version >= 1.8")
 def _(host: Host):
     pipx_env = host.get_fact(PipxEnvironment)
+    # print pipx_env to console log here AI!
     assert "poetry" in pipx_env, "Poetry not installed via pipx"
     version = pipx_env["poetry"]["version"]
     assert parse(version) >= parse("1.8")
