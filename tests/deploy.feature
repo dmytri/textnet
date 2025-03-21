@@ -43,4 +43,4 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
       And Saleor service is enabled
      Then saleor version >= 3.20
       And saleor service is running
-      And Saleor commerce platform is operational
+      And Saleor GraphQL endpoint responds successfully
