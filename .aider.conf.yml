@@ -10,7 +10,7 @@ weak-model: groq/deepseek-r1-distill-llama-70b-specdec
 edit-format: diff
 editor-edit-format: editor-diff
 cache-prompts: true
-stream: false
+stream: true 
 
 extra-params:
   max_tokens: 160000
