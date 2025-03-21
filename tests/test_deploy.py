@@ -83,14 +83,6 @@ def state() -> State:
 
 DEPLOYED: bool = False
 
-def get_package_version(packages: Dict[str, Any], package_name: str) -> str:
-    """Extract package version handling both string and set return types."""
-    assert package_name in packages, f"Package {package_name} not installed"
-    pkg_version = packages[package_name]
-    if isinstance(pkg_version, set):
-        # Cast to avoid type inference issues
-        pkg_version = cast(str, list(pkg_version)[0])
-    return str(pkg_version)
 
 @fixture
 def deployed() -> bool:
@@ -214,27 +206,23 @@ def _(state: State, deployed: bool):
 @then("pipx version >= 1.7.1")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    pkg_version = get_package_version(packages, "pipx")
-    assert parse(pkg_version) >= parse("1.7.1")
+    assert parse(packages["pipx"]) >= parse("1.7.1")
 
 
 @then("python version >= 3.12")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    pkg_version = get_package_version(packages, "python3")
-    assert parse(pkg_version) >= parse("3.12")
+    assert parse(packages["python3"]) >= parse("3.12")
 
 @then("nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    pkg_version = get_package_version(packages, "nodejs")
-    assert parse(pkg_version) >= parse("18")
+    assert parse(packages["nodejs"]) >= parse("18")
 
 @then("sqlite version >= 3.48.0")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    pkg_version = get_package_version(packages, "sqlite")
-    assert parse(pkg_version) >= parse("3.48.0")
+    assert parse(packages["sqlite"]) >= parse("3.48.0")
 
 @then("poetry version >= 1.8")
 def _(host: Host):
