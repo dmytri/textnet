@@ -6,3 +6,5 @@ read:
 
 lint-cmd:
   - "python: pyright --report-unused-disable-error"
+
+test-cmd: uv run poe dev
