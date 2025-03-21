@@ -206,16 +206,13 @@ def _(state: State, deployed: bool):
     add_op(
         state,
         pipx.packages,
-        packages=["poetry"],
-        present=True,
-        sudo=False
+        packages=["poetry"]
     )
     # Run all operations at the end of the sequence
     run_ops(state)
 
 @then("pipx version >= 1.7.1")
 def _(host: Host):
-    # Get pipx version from apk packages
     packages = host.get_fact(ApkPackages)
     pkg_version = get_package_version(packages, "pipx")
     assert parse(pkg_version) >= parse("1.7.1")
