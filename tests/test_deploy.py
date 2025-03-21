@@ -79,11 +79,6 @@ def state() -> State:
 
     return state
 
-SOFT_SERVE_VERSION: Optional[str] = None
-
-class SoftServe(TypedDict):
-    version: str
-    pkg: str
 
 DEPLOYED: bool = False
 
@@ -365,7 +360,19 @@ def _(host: Host):
 @then("Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
-    cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")
+    # Retry up to 3 times with a short delay to handle potential startup delay
+    cmd_result = host.get_fact(Command, command="""
+    for i in 1 2 3; do
+        STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/ || echo 'failed')
+        if [ "$STATUS" = "200" ] || [ "$STATUS" = "400" ]; then
+            echo "$STATUS"
+            exit 0
+        fi
+        sleep 2
+    done
+    echo "$STATUS"
+    """)
+    
     status_code = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert status_code, "No status code returned from curl command"
     assert status_code in ["200", "400"], f"Unexpected status code: {status_code}"  # 400 can occur when sending an empty request, which is still valid
