@@ -1,7 +1,7 @@
 from pytest_bdd import hooks
 
 def pytest_bdd_before_scenario(request, feature, scenario):
-    print(f"\nScenario: {scenario.name}")
+    print(f"\n\033[34mScenario: {scenario.name}\033[0m")
 
 def pytest_bdd_after_step(request, feature, scenario, step, step_func, step_func_args):
     print(f"\033[32m🚀 Step passed: {step.name}\033[0m")
