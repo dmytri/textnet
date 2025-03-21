@@ -1,7 +1,4 @@
 Feature: BDA | Saleor Commerce Platform on Alpine Linux
-  As a DevOps Engineer
-  I want to deploy Saleor Commerce
-  In order to provide a modern e-commerce platform
 
   @dev
   Scenario: Target a development environment for testing

@@ -1,7 +1,8 @@
 cache-prompts: true
-stream: true
+auto-test: true
 
 read:
+  - README.md
   - CONVENTIONS.md
 
 lint-cmd:
