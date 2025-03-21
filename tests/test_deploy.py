@@ -331,14 +331,14 @@ def _(state: State, deployed: bool):
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
-    version = cmd_result.stdout.strip() if cmd_result.stdout else ''
+    version = cmd_result['stdout'].strip() if cmd_result.get('stdout', '') else ''
     assert parse(version) >= parse("3.20")
 
 @then("OpenRC manages the running saleor service")
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
-    assert cmd_result.stdout.strip() == "running"
+    assert cmd_result['stdout'].strip() == "running"
 
 @then("Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
