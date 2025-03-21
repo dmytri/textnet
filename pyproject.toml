@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = ["poethepoet", "pytest-bdd", "pyinfra"]
 
 [tool.poe.tasks.dev]
-cmd = "pytest --tb=no -xqm 'dev and not skip' tests/"
+cmd = "pytest -xm 'dev and not skip' --tb=no -s tests/"
 
 [tool.poe.tasks.ci]
 cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
