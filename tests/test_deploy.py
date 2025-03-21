@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, Dict, Any, Union, Set
 
 from pyinfra.api.config import Config
 from pyinfra.api.connect import connect_all
@@ -86,6 +86,14 @@ class SoftServe(TypedDict):
     pkg: str
 
 DEPLOYED: bool = False
+
+def get_package_version(packages: Dict[str, Any], package_name: str) -> str:
+    """Extract package version handling both string and set return types."""
+    assert package_name in packages, f"Package {package_name} not installed"
+    pkg_version = packages[package_name]
+    if isinstance(pkg_version, set):
+        pkg_version = list(pkg_version)[0]
+    return pkg_version
 
 @fixture
 def deployed() -> bool:
@@ -215,28 +223,19 @@ def _(host: Host):
 @then("python version >= 3.12")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert "python3" in packages
-    pkg_version = packages["python3"]
-    if isinstance(pkg_version, set):
-        pkg_version = list(pkg_version)[0]
+    pkg_version = get_package_version(packages, "python3")
     assert parse(pkg_version) >= parse("3.12")
 
 @then("nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert "nodejs" in packages
-    pkg_version = packages["nodejs"]
-    if isinstance(pkg_version, set):
-        pkg_version = list(pkg_version)[0]
+    pkg_version = get_package_version(packages, "nodejs")
     assert parse(pkg_version) >= parse("18")
 
 @then("sqlite version >= 3.48.0")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert "sqlite" in packages
-    pkg_version = packages["sqlite"]
-    if isinstance(pkg_version, set):
-        pkg_version = list(pkg_version)[0]
+    pkg_version = get_package_version(packages, "sqlite")
     assert parse(pkg_version) >= parse("3.48.0")
 
 @then("poetry version >= 1.8")
@@ -328,7 +327,14 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     # Enable and start the Saleor service using OpenRC
-    #add_op(state, init.rc, service="saleor", running=True, enabled=True)
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "rc-update add saleor default",
+            "rc-service saleor start || true"  # Don't fail if service already running
+        ],
+    )
     run_ops(state)
 
 @then("saleor version >= 3.20")
