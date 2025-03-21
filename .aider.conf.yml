@@ -1,17 +1,8 @@
-# Aider configuration file
+cache-prompts: true
+stream: true
 
-# Files to read at startup
 read:
   - CONVENTIONS.md
 
-weak-model: groq/deepseek-r1-distill-llama-70b-specdec
-edit-format: diff
-editor-edit-format: editor-diff
-cache-prompts: true
-stream: true
 lint-cmd:
   - "python: pyright --report-unused-disable-error"
-
-extra-params:
-  max_tokens: 160000
-
