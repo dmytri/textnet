@@ -3,9 +3,6 @@ from pytest_bdd import hooks
 def pytest_bdd_before_scenario(request, feature, scenario):
     print(f"\nScenario: {scenario.name}")
 
-def pytest_bdd_before_step(request, feature, scenario, step, step_func):
-    print(f"[ ] Step: {step.name}")
-
 def pytest_bdd_after_step(request, feature, scenario, step, step_func, step_func_args):
     print(f"[✓] Step passed: {step.name}")
 

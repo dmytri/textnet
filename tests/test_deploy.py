@@ -191,7 +191,7 @@ def _(state: State, deployed: bool):
         state,
         server.shell,
         commands=[
-            'export PATH="$PATH:$HOME/.local/bin"'
+            'export PATH="$PATH:$HOME/.local/bin" >/dev/null 2>&1'
         ]
     )
     add_op(
