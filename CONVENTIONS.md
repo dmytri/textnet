@@ -92,3 +92,10 @@ Then the application handles the specified edge cases
 - NEVER edit files without explicit permission - ask first
 - NEVER bundle unrelated changes without explicit approval
 - NEVER execute commands or assume changes are applied
+- ALWAYS wait for explicit instructions about what changes are wanted
+- NEVER make assumptions about what the user wants to change
+- ONLY provide analysis or information unless explicitly asked to make changes
+- ALWAYS ask for permission before suggesting modifications
+- ALWAYS be explicit about what you're being asked to do before taking action
+- NEVER switch contexts or start working on new topics without being explicitly asked
+- ALWAYS stay focused on the current topic until given a new task
