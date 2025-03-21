@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict, Dict, Any, Union, Set
+from typing import Literal, TypedDict, Dict, Any, Optional, List, cast
 
 from pyinfra.api.config import Config
 from pyinfra.api.connect import connect_all
@@ -19,7 +19,7 @@ from pytest_bdd import given, scenario, scenarios, then, when
 #
 
 Targets = Literal["ci", "dev", "prod"] 
-TARGET: Targets | None = None
+TARGET: Optional[Targets] = None
 
 @fixture
 def host(state: State) -> Host:
@@ -79,7 +79,7 @@ def state() -> State:
 
     return state
 
-SOFT_SERVE_VERSION: str | None = None
+SOFT_SERVE_VERSION: Optional[str] = None
 
 class SoftServe(TypedDict):
     version: str
@@ -92,8 +92,9 @@ def get_package_version(packages: Dict[str, Any], package_name: str) -> str:
     assert package_name in packages, f"Package {package_name} not installed"
     pkg_version = packages[package_name]
     if isinstance(pkg_version, set):
-        pkg_version = list(pkg_version)[0]
-    return pkg_version
+        # Cast to avoid type inference issues
+        pkg_version = cast(str, list(pkg_version)[0])
+    return str(pkg_version)
 
 @fixture
 def deployed() -> bool:
@@ -217,6 +218,7 @@ def _(state: State, deployed: bool):
 def _(host: Host):
     cmd_result = host.get_fact(Command, command="pipx --version | awk '{print $2}'")
     pipx_version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
+    assert pipx_version, "pipx version couldn't be determined"
     assert parse(pipx_version) >= parse("1.7.1")
 
 
@@ -356,4 +358,5 @@ def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")
     status_code = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
-    assert status_code in ["200", "400"]  # 400 can occur when sending an empty request, which is still valid
+    assert status_code, "No status code returned from curl command"
+    assert status_code in ["200", "400"], f"Unexpected status code: {status_code}"  # 400 can occur when sending an empty request, which is still valid
