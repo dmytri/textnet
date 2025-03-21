@@ -206,7 +206,9 @@ def _(state: State, deployed: bool):
     add_op(
         state,
         pipx.packages,
-        packages=["poetry"]
+        packages=["poetry"],
+        present=True,
+        sudo=False
     )
     # Run all operations at the end of the sequence
     run_ops(state)
