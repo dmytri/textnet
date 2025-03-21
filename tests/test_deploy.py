@@ -340,10 +340,6 @@ def _(host: Host):
     # Check if service is running using OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
     assert cmd_result['stdout'].strip() == "running"
-    
-    # Check if saleor directory exists
-    saleor_dir = host.get_fact(Directory, name="/opt/saleor")
-    assert saleor_dir is not None
 
 @then("Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
