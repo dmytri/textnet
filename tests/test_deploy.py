@@ -48,7 +48,7 @@ def state() -> State:
             ))
         case "ci":
             inventory: Inventory = Inventory((
-                ["ssh-service"],
+                ["localhost"],  # Using localhost instead of ssh-service for CI testing
                 {
                     "ssh_user": "root",
                     "ssh_port": 2222,
