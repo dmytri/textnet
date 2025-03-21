@@ -216,7 +216,7 @@ def _(state: State, deployed: bool):
     )
     run_ops(state)
 
-@then("pipx version >= 1.7.1")
+@then("pipx version >= 1.8.0")
 def _(host: Host):
     # there is not such that as command facts AI!
     # use pipx facts here . AI!
@@ -224,7 +224,7 @@ def _(host: Host):
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else '0.0.0'
     if not version:  # Handle empty string case
         version = '0.0.0'
-    assert parse(version) >= parse("1.7.1")
+    assert parse(version) >= parse("1.8.0")
 
 
 @then("python version >= 3.12")
