@@ -242,7 +242,7 @@ def _(host: Host):
 @then("poetry version >= 1.8")
 def _(host: Host):
     cmd_result = host.get_fact(Command, command="poetry --version | awk '{print $3}'")
-    assert parse(cmd_result['stdout'].strip() if 'stdout' in cmd_result else '0.0.0') >= parse("1.8")
+    assert parse(cmd_result.stdout.strip() if cmd_result else '0.0.0') >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
 #
@@ -331,18 +331,18 @@ def _(state: State, deployed: bool):
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
-    version = cmd_result['stdout'].strip() if cmd_result.get('stdout', '') else ''
+    version = cmd_result.stdout.strip() if cmd_result else ''
     assert parse(version) >= parse("3.20")
 
 @then("OpenRC manages the running saleor service")
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
-    assert cmd_result['stdout'].strip() == "running"
+    assert cmd_result.stdout.strip() == "running"
 
 @then("Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     cmd_result = host.get_fact(Command, command="curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/graphql/")
-    status_code = cmd_result.stdout.strip() if cmd_result.stdout else ''
+    status_code = cmd_result.stdout.strip() if cmd_result else ''
     assert status_code in ["200", "400"]  # 400 can occur when sending an empty request, which is still valid
