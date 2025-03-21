@@ -13,7 +13,7 @@ from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
 from pyinfra.operations import apk, files, pipx, server
 from packaging.version import parse
-from pytest import fixture, skip
+from pytest import fixture, skip, fail
 from pytest_bdd import given, scenario, scenarios, then, when
 
 ## GLOBALS AND FIXTURES ~
@@ -48,7 +48,7 @@ def state() -> State:
             ))
         case "ci":
             inventory: Inventory = Inventory((
-                ["localhost"],  # Using localhost instead of ssh-service for CI testing
+                ["ssh-service"],  # Using localhost instead of ssh-service for CI testing
                 {
                     "ssh_user": "root",
                     "ssh_port": 2222,
@@ -58,16 +58,7 @@ def state() -> State:
                 }
             ))
         case "prod":
-            inventory: Inventory = Inventory((
-                ["teknik.net"],
-                {
-                    "ssh_user": "dk",
-                    "ssh_port": 22,
-                    "ssh_password": "xxxxxxxx",
-                    "ssh_strict_host_key_checking": "off",
-                    "ssh_known_hosts_file": "/dev/null",
-                }
-            ))
+            fail("Not Implemented")
 
     state = State(inventory, Config())
 
@@ -195,6 +186,14 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
+    # Ensure ~/.local/bin is in PATH
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            'export PATH="$PATH:$HOME/.local/bin"'
+        ]
+    )
     add_op(
         state,
         pipx.packages,
