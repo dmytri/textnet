@@ -17,14 +17,16 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 - Never manually install packages or run Kubernetes commands
 
 ### Python & Packaging
-- Use `uv` for Python package management
-- All dependencies in `pyproject.toml`
+- Use `uv` for Python package management for project dependencies
+- All project dependencies in `pyproject.toml`
+- For third-party components with their own package managers (e.g. Saleor with Poetry):
+  - Respect their recommended package manager
+  - Document any special handling required
 
 ### Third-Party Components
 - Respect conventions specified by third-party components
 - Use package managers and tools recommended in their documentation
 - Do not impose project-specific conventions on third-party components
-- For Saleor: Use Poetry as specified in their documentation
 
 ### Test Structure
 - Feature files/step defs in `/tests`
