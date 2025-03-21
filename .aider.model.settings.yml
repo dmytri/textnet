@@ -17,7 +17,7 @@
 
 - name: openrouter/anthropic/claude-3-7-sonnet-20250219
   edit_format: diff
-  weak_model_name: openrouter/anthropic/claude-3-5-haiku-20241022
+  weak_model_name: anthropic/claude-3-5-haiku-20241022
   use_repo_map: true
   examples_as_sys_msg: true
   use_temperature: false
@@ -32,7 +32,7 @@
   editor_model_name: anthropic/claude-3-7-sonnet-20250219
   editor_edit_format: editor-diff
 
-- name: "openrouter/anthropic/claude-3-7-sonnet-20250219:thinking"
+- name: openrouter/anthropic/claude-3.7-sonnet:thinking
   edit_format: diff
   weak_model_name: openrouter/anthropic/claude-3-5-haiku-20241022
   use_repo_map: true
@@ -46,5 +46,5 @@
       type: enabled
       budget_tokens: 32000
   cache_control: true
-  editor_model_name: anthropic/claude-3-7-sonnet-20250219
+  editor_model_name: openrouter/anthropic/claude-3.7-sonnet:thinking
   editor_edit_format: editor-diff
