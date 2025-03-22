@@ -1,25 +1,26 @@
 # BDA & AI Collaboration Goals
 
 ## Core Objectives
-- Use BDA for infrastructure automation
-- Use BDD/ATDD for feature development
-- Create effective human-AI collaboration workflows
-- Build reusable AI-assisted development patterns
-- Validate through real-world commerce implementation
+- Create self-describing, self-verifying infrastructure through Behaviour-Driven Automation (BDA)
+- Implement BDD/ATDD for observable feature development
+- Establish human-AI collaboration workflows with audit trails
+- Build reusable automation patterns for AI-assisted development
+- Validate systems through real-world commerce implementation
 
 ## Technical Targets
-- Unify automation with pyinfra + pytest-bdd
-- Define clear human-AI interface standards
-- Optimize infrastructure-as-code prompts
-- Showcase BDA workflows with Tilt
+- Unify automation using pyinfra + pytest-bdd framework
+- Define human-AI interface standards for infrastructure changes
+- Optimize LLM prompts for infrastructure-as-code generation
+- Showcase BDA workflows with Tilt (Kubernetes sync & environment parity)
 
 ## AI Collaboration
 - Create AI-friendly documentation
-- Structure code for LLM interaction
-- Develop AI-testable patterns
+- Structure code for LLM comprehension
+- Develop BDD-validated AI contributions
 - Build automation-AI feedback loops
-- Enhance AI context with BDD/ATDD methods
+- Enhance AI context through ATDD scenarios
 
 ## BDA Evolution
 - Ensure multi-environment idempotency
-- Focus on behavior-centric step definitions
+- Advance behaviour-centric step definitions
+- Maintain infrastructure-as-behaviour documentation
