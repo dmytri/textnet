@@ -4,8 +4,6 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 ## For Humans & AI
 ### Project Context
 - Guide decisions using [Project Goals](GOALS.md) focus areas
-- Prioritise BDA/AI collaboration patterns from goals
-- Maintain documentation aligned with goal priorities
 
 ### Commit Hygiene
 - Follow Conventional Commits format
