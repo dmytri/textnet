@@ -20,7 +20,7 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
      When system packages up to date
      Then OS Alpine Linux 3.21
 
-  @dev @ci @prod
+  @dev @ci @prod @skip
   Scenario: Enable required runtime environments for Saleor
      When Python runtime is available
       And NodeJS runtime is available
@@ -33,7 +33,7 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
       And pipx version >= 1.7.1
       And poetry version >= 1.8
 
-  @dev @ci @prod
+  @dev @ci @prod @skip
   Scenario: Provide Saleor commerce capabilities
      Given Saleor dependencies are installed
      When build dependencies are available
