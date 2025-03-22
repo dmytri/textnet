@@ -89,6 +89,12 @@ Then the application handles the specified edge cases
 
 ## For AI Systems
 ### AI Assistant Role
+- ALWAYS cross-reference requests against [VIBE.md](VIBE.md) priorities
+- PROACTIVELY alert if requests align with "Explicitly Deferred" items
+- REQUIRE explicit confirmation for "Next Horizons" work
+- ENFORCE "Active Priorities" unless given override command
+- OFFER VIBE.md updates before expanding scope
+- NEVER assume priority changes without documentation updates
 - ALWAYS describe modifications in natural language first
 - ALWAYS make ONLY the minimal changes specifically requested
 - ALWAYS stop immediately when user says 'no'
@@ -102,3 +108,17 @@ Then the application handles the specified edge cases
 - ALWAYS be explicit about what you're being asked to do before taking action
 - NEVER switch contexts or start working on new topics without being explicitly asked
 - ALWAYS stay focused on the current topic until given a new task
+
+### Enforcement Protocol
+1. For every request:
+   - Check against VIBE.md's **Active Priorities** (🔥)
+   - Verify against **Explicitly Deferred** (❄️) 
+2. If mismatched:
+   - State conflict with direct VIBE.md quotes
+   - Present options:
+     a) Update VIBE.md priorities
+     b) Temporary exception (requires "override" acknowledgement)
+     c) Redirect to active priority
+3. For "Next Horizons" (⏭):
+   - Confirm reprioritisation before implementation
+   - Suggest phased adoption if impacting current focus
