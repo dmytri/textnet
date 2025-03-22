@@ -10,13 +10,14 @@
 - Implement pyinfra+pytest-bdd as unified automation framework
 - Establish clear AI/human interface conventions
 - Optimise prompt engineering for infrastructure-as-code
-- Demonstrate Kubernetes-native BDA workflows with Tilt
+- Demonstrate end-to-end BDA workflows with Tilt
 
 ## AI Collaboration Principles
 - Maintain AI-readable documentation standards
 - Structure code for LLM comprehension and modification
 - Develop test patterns that validate AI contributions
 - Implement feedback loops between automation and AI assistants
+- Enhance AI context and prompts using BDA/BDD/ATDD methods
 
 ## BDA Evolution Priorities
 - Prove multi-environment idempotency patterns
