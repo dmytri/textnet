@@ -10,7 +10,7 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 - More information at [Conventional Commits](https://www.conventionalcommits.org/)
 
 ### Documentation & Text
-- Use Canadian spelling for all documentation (e.g., colour, centre, analyse)
+- Use Canadian spelling for everything
 
 ### Local Environment  
 - Requires Tilt + Minikube
