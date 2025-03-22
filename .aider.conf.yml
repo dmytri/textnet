@@ -3,6 +3,8 @@ auto-test: true
 
 read:
   - CONVENTIONS.md
+  - GOALS.md
+  - VIBE.md
   - README.md
   - tests/deploy.feature
 
