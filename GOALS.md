@@ -2,6 +2,7 @@
 
 ## Core Objectives
 - Use BDA for infrastructure automation
+- Use BDD/ATDD for feature development
 - Create effective human-AI collaboration workflows
 - Build reusable AI-assisted development patterns
 - Validate through real-world commerce implementation
@@ -22,5 +23,3 @@
 ## BDA Evolution
 - Ensure multi-environment idempotency
 - Focus on behavior-centric step definitions
-- Refine verification through facts
-- Measure BDA system effectiveness
