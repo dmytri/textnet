@@ -13,7 +13,7 @@ from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.pipx import PipxPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
-from pyinfra.operations import apk, files, pipx, server
+from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip, fail
 from pytest_bdd import given, scenario, scenarios, then, when
@@ -173,16 +173,6 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
 
-@when("pipx is available")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
-    add_op(
-        state,
-        apk.packages,
-        packages=["pipx"]
-    )
-
 @when("Poetry is available")
 def _(state: State, deployed: bool):
     if deployed:
@@ -197,12 +187,6 @@ def _(state: State, deployed: bool):
     )
     # Run all operations at the end of the sequence
     run_ops(state)
-
-@then("pipx version >= 1.7.1")
-def _(host: Host):
-    packages = host.get_fact(ApkPackages)
-    assert parse(list(packages["pipx"])[0]) >= parse("1.7.1")
-
 
 @then("python version >= 3.12")
 def _(host: Host):
