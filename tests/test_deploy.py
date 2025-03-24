@@ -21,7 +21,7 @@ from pytest_bdd import given, scenario, scenarios, then, when
 ## GLOBALS AND FIXTURES ~
 #
 
-Targets = Literal["ci", "dev", "prod"] 
+Targets = Literal["ci", "dev", "prod"]
 TARGET: Optional[Targets] = None
 
 @fixture
@@ -155,7 +155,7 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["python3"])
 
-@when("NodeJS runtime is available") 
+@when("NodeJS runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -213,14 +213,18 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
 
-    add_op(state,
-       apk.update
-    )
-    add_op(state,
-       apk.upgrade
-    )
-    add_op(state, apk.packages, packages=["git", "curl", "libcurl", "python3-dev", "build-base"])
-    run_ops(state)
+    # Retry apk update/upgrade in case of temporary database lock
+    for i in range(3):
+        add_op(state, apk.update)
+        add_op(state, apk.upgrade)
+        add_op(state, apk.packages, packages=["git", "curl", "libcurl", "python3-dev", "build-base"])
+        try:
+            run_ops(state)
+            break  # Exit loop if successful
+        except Exception as e:
+            if i == 2:  # If it's the last retry, raise the exception
+                raise e
+            print(f"Attempt {i+1} failed: {e}. Retrying...")
 
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
@@ -332,7 +336,7 @@ def _(host: Host):
     done
     echo "$STATUS"
     """)
-    
+
     status_code = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert status_code, "No status code returned from curl command"
     assert status_code in ["200", "400"], f"Unexpected status code: {status_code}"  # 400 can occur when sending an empty request, which is still valid
