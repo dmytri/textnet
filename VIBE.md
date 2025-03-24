@@ -1,8 +1,8 @@
 # Project Vibe & Priorities
 
 ## Current Focus 🧠
-**BDA Foundation Layer**  
-*Finalise core automation patterns before Saleor integration*
+**Saleor Commerce Capabilities**  
+*Automate Saleor installation and verification*
 
 ## Active Priorities 🔥
 1. `@dev` environment verification
