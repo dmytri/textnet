@@ -23,6 +23,10 @@ cmd = "aider --no-show-model-warnings --model openrouter/anthropic/claude-3.7-so
 envfile = ".env.aider"
 cmd = "aider --stream --architect --no-show-model-warnings --model openrouter/deepseek/deepseek-r1 --editor-model openrouter/anthropic/claude-3.7-sonnet --weak-model groq/deepseek-r1-distill-llama-70b"
 
+[tool.poe.tasks.ai4]
+envfile = ".env.aider"
+cmd = "aider --no-show-model-warnings --model openrouter/google/gemini-2.0-flash-001"
+
 [tool.poe.tasks.aib]
 envfile = ".env.aider"
 cmd = "aider --browser --no-show-model-warnings --model openrouter/anthropic/claude-3.7-sonnet:thinking"
