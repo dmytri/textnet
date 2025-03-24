@@ -217,7 +217,7 @@ def _(state: State, deployed: bool):
     for i in range(3):
         add_op(state, apk.update)
         add_op(state, apk.upgrade)
-        add_op(state, apk.packages, packages=["git", "curl", "libcurl", "libcurl-dev", "python3-dev", "build-base"])
+        add_op(state, apk.packages, packages=["git", "curl", "libcurl", "python3-dev", "build-base"])
         try:
             run_ops(state)
             break  # Exit loop if successful
