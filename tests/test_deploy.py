@@ -182,25 +182,12 @@ def _(state: State, deployed: bool):
         apk.packages,
         packages=["pipx"]
     )
-    # Operations will be run at the end of the sequence
 
 @when("Poetry is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Ensure ~/.local/bin is in PATH
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            'export PATH="$PATH:$HOME/.local/bin"'
-        ]
-    )
-    add_op(
-        state,
-        pipx.packages,
-        packages=["poetry"]
-    )
+    add_op(state, apk.packages, packages=["poetry"])
     # Run all operations at the end of the sequence
     run_ops(state)
 
@@ -227,7 +214,7 @@ def _(host: Host):
 
 @then("poetry version >= 1.8")
 def _(host: Host):
-    packages = host.get_fact(PipxPackages)
+    packages = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
