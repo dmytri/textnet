@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict, Dict, Any, Optional, List, cast
+from typing import Literal, Optional
 
 from pyinfra.api.config import Config
 from pyinfra.api.connect import connect_all
@@ -211,7 +211,7 @@ def _(host: Host):
 @then("python version >= 3.12")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(packages["python3"]) >= parse("3.12")
+    assert parse(list(packages["python3"])[0]) >= parse("3.12")
 
 @then("nodejs version >= 18")
 def _(host: Host):
@@ -226,7 +226,7 @@ def _(host: Host):
 @then("poetry version >= 1.8")
 def _(host: Host):
     packages = host.get_fact(PipxPackages)
-    assert parse(packages["poetry"]) >= parse("1.8")
+    assert parse(packages["poetry"][0]) >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
 #
