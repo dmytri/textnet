@@ -205,9 +205,9 @@ def _(state: State, deployed: bool):
             "git",
             "curl",
             "curl-dev",
-            "py3-urllib3",
             "libcurl",
             "python3-dev",
+            "python3-venv",
             "build-base",
             "musl-dev",
             "linux-headers",
@@ -232,11 +232,21 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
 
+    # Create a virtual environment for Saleor
     add_op(
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && poetry lock"
+            "cd /opt/saleor && python3 -m venv .venv"
+        ],
+    )
+
+    # Use the virtual environment for poetry operations
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && .venv/bin/pip install --upgrade pip"
         ],
     )
 
@@ -244,7 +254,23 @@ def _(state: State, deployed: bool):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && poetry install"
+            "cd /opt/saleor && .venv/bin/pip install poetry"
+        ],
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && .venv/bin/poetry lock"
+        ],
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && .venv/bin/poetry install"
         ],
     )
 
@@ -258,7 +284,7 @@ def _(state: State, deployed: bool):
         name="Saleor Commerce Platform"
         description="Saleor API and commerce services"
         supervisor=supervise-daemon
-        command="/usr/bin/poetry"
+        command="/opt/saleor/.venv/bin/poetry"
         command_args="run uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000"
         directory="/opt/saleor"
         pidfile="/run/saleor.pid"
