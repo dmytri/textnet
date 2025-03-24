@@ -172,7 +172,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["poetry"])
-    # Run all operations at the end of the sequence
+
     run_ops(state)
 
 @then("python version >= 3.12")
@@ -195,42 +195,32 @@ def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
 
-## SALEOR INSTALLATION SCENARIO
-#
-
 scenario("deploy.feature", "Provide Saleor commerce capabilities")
-
-@given("Saleor dependencies are installed")
-def _(host: Host):
-    # Verify all required dependencies exist
-    packages = host.get_fact(ApkPackages)
-    assert "python3" in packages
-    assert "nodejs" in packages
-    assert "sqlite" in packages
 
 @when("build dependencies are available")
 def _(state: State, deployed: bool):
-    if deployed:
-        skip()
-
-    # Retry apk update/upgrade in case of temporary database lock
-    for i in range(3):
-        add_op(state, apk.update)
-        add_op(state, apk.upgrade)
-        add_op(state, apk.packages, packages=["git", "curl", "libcurl", "python3-dev", "build-base"])
-        try:
-            run_ops(state)
-            break  # Exit loop if successful
-        except Exception as e:
-            if i == 2:  # If it's the last retry, raise the exception
-                raise e
-            print(f"Attempt {i+1} failed: {e}. Retrying...")
+    add_op(state, apk.update)
+    add_op(state, apk.upgrade)
+    add_op(
+        state,
+        apk.packages,
+        packages=[
+            "git",
+            "curl",
+            "curl-dev",
+            "libcurl",
+            "python3-dev",
+            "build-base",
+            "musl-dev",
+            "linux-headers",
+        ],
+    )
 
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Ensure Saleor source code is present
+
     add_op(
         state,
         server.shell,
