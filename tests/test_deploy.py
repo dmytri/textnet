@@ -216,7 +216,7 @@ def _(host: Host):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    add_op(state, apk.packages, packages=["git", "curl", "python3-dev", "build-base"])
+    add_op(state, apk.packages, packages=["git", "curl", "libcurl4-openssl-dev", "python3-dev", "build-base"])
 
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
