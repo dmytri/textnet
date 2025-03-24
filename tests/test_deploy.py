@@ -1,3 +1,5 @@
+from io import StringIO
+from textwrap import dedent
 from typing import Literal, Optional
 
 from pyinfra.api.config import Config
@@ -279,26 +281,30 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     # Create OpenRC init script for Saleor
+
+    service: StringIO = StringIO(dedent(
+        """
+        name="Saleor Commerce Platform"
+        description="Saleor API and commerce services"
+        supervisor=supervise-daemon
+        command="/usr/bin/poetry"
+        command_args="run uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000"
+        directory="/opt/saleor"
+        pidfile="/run/saleor.pid"
+        output_log="/var/log/saleor.log"
+        error_log="/var/log/saleor.err"
+
+        depend() {
+            need net
+            after firewall
+        }
+        """).strip()
+    )
+
     add_op(
         state,
         files.put,
-        src_string="""#!/sbin/openrc-run
-
-name="Saleor Commerce Platform"
-description="Saleor API and commerce services"
-supervisor=supervise-daemon
-command="/usr/bin/poetry"
-command_args="run uvicorn saleor.asgi:application --host 0.0.0.0 --port 8000"
-directory="/opt/saleor"
-pidfile="/run/saleor.pid"
-output_log="/var/log/saleor.log"
-error_log="/var/log/saleor.err"
-
-depend() {
-    need net
-    after firewall
-}
-""",
+        src=service,
         dest="/etc/init.d/saleor",
         mode="0755",
     )
