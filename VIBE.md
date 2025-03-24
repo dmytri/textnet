@@ -17,6 +17,7 @@
 - Charm TUI integration planning
 
 ## Explicitly Deferred ❄️  
+- @ci configurations
 - `@prod` configurations
 - Multi-vendor payout systems
 - Payment gateway integrations
