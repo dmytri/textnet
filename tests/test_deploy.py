@@ -205,7 +205,7 @@ def _(state: State, deployed: bool):
 @then("pipx version >= 1.7.1")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(packages["pipx"]) >= parse("1.7.1")
+    assert parse(list(packages["pipx"])[0]) >= parse("1.7.1")
 
 
 @then("python version >= 3.12")
@@ -216,12 +216,12 @@ def _(host: Host):
 @then("nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(packages["nodejs"]) >= parse("18")
+    assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
 @then("sqlite version >= 3.48")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(packages["sqlite"]) >= parse("3.48")
+    assert parse(list(packages["sqlite"])[0]) >= parse("3.48")
 
 @then("poetry version >= 1.8")
 def _(host: Host):
