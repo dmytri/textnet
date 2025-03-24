@@ -62,10 +62,10 @@ def state() -> State:
 
     state = State(inventory, Config())
 
-    state.print_input = True
-    state.print_output = True
-    state.print_fact_info = True
-    state.print_noop_info = True
+    state.print_input = False
+    state.print_output = False
+    state.print_fact_info = False
+    state.print_noop_info = False
 
     connect_all(state)
 
@@ -226,7 +226,7 @@ def _(host: Host):
 @then("poetry version >= 1.8")
 def _(host: Host):
     packages = host.get_fact(PipxPackages)
-    assert parse(packages["poetry"][0]) >= parse("1.8")
+    assert parse(list(packages["poetry"])[0]) >= parse("1.8")
 
 ## SALEOR INSTALLATION SCENARIO
 #

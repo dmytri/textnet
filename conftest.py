@@ -1,4 +1,3 @@
-from pytest_bdd import before_scenario, after_step, step_error
 
 def pytest_bdd_before_scenario(request, feature, scenario):
     print(f"\n\033[34mScenario: {scenario.name}\033[0m")
