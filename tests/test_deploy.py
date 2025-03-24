@@ -188,6 +188,13 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["poetry"])
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && poetry lock"
+        ],
+    )
     # Run all operations at the end of the sequence
     run_ops(state)
 
