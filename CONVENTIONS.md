@@ -5,6 +5,7 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 ### Project Context
 - Guide decisions using [Project Goals](GOALS.md) focus areas
 - Current focuse is [VIBE](VIBE.md) focus areas
+- Saleor installation reference: https://docs.saleor.io/setup/windows
 
 ### Commit Hygiene
 - Follow Conventional Commits format
