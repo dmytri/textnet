@@ -44,7 +44,6 @@ def state() -> State:
                     "ssh_port": 2222,
                     "ssh_password": "xxxxxxxx",
                     "ssh_strict_host_key_checking": "off",
-                    "ssh_strict_host_key_checking": "off",
                     "ssh_known_hosts_file": "/dev/null",
                 }
             ))
@@ -57,7 +56,6 @@ def state() -> State:
                     "ssh_password": "xxxxxxxx",
                     "ssh_strict_host_key_checking": "off",
                     "ssh_known_hosts_file": "/dev/null",
-                    "ssh_strict_host_key_checking": "off",
                 }
             ))
         case "prod":

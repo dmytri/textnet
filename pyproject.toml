@@ -11,6 +11,10 @@ cmd = "pytest -xsm 'dev and not skip' --tb=short -s tests/"
 [tool.poe.tasks.ci]
 cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
 
+[tool.poe.tasks.ai]
+envfile = ".env.aider"
+cmd = "aider --no-show-model-warnings --model openrouter/anthropic/claude-3.7-sonnet --weak-model openrouter/sophosympatheia/rogue-rose-103b-v0.2:free"
+
 [tool.poe.tasks.ai1]
 envfile = ".env.aider"
 cmd = "aider --stream --watch-files --no-show-model-warnings --architect --model groq/deepseek-r1-distill-llama-70b --editor-model openrouter/anthropic/claude-3.7-sonnet"
