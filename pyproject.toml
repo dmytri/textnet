@@ -21,7 +21,7 @@ cmd = "aider --stream --watch-files --no-show-model-warnings --architect --model
 
 [tool.poe.tasks.ai2]
 envfile = ".env.aider"
-cmd = "aider --no-show-model-warnings --model openrouter/anthropic/claude-3.7-sonnet:thinking"
+cmd = "aider --watch-files --model sonnet"
 
 [tool.poe.tasks.ai3]
 envfile = ".env.aider"
