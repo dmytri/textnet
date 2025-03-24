@@ -205,6 +205,7 @@ def _(state: State, deployed: bool):
             "git",
             "curl",
             "curl-dev",
+            "py3-urllib3",
             "libcurl",
             "python3-dev",
             "build-base",
