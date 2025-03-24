@@ -8,17 +8,16 @@
 - Validate systems through real-world commerce implementation
 
 ## Technical Targets
-- Unify automation using pyinfra + pytest-bdd framework
+- Unify automation using pytest-bdd framework
 - Define human-AI interface standards for infrastructure changes
 - Optimize LLM prompts for infrastructure-as-code generation
-- Showcase BDA workflows with Tilt (Kubernetes sync & environment parity)
+- Showcase BDA workflows with Tilt
 
 ## AI Collaboration
-- Create AI-friendly documentation
 - Structure code for LLM comprehension
 - Develop BDD-validated AI contributions
 - Build automation-AI feedback loops
-- Enhance AI context through ATDD scenarios
+- Enhance AI context through BDA/ATDD scenarios
 
 ## BDA Evolution
 - Ensure multi-environment idempotency
