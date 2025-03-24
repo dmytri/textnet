@@ -240,7 +240,6 @@ def _(state: State, deployed: bool):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && poetry self update",
             "cd /opt/saleor && poetry lock"
         ],
     )
