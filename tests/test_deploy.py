@@ -219,7 +219,7 @@ def _(state: State, deployed: bool):
     add_op(state,
        apk.upgrade
     )
-    add_op(state, apk.packages, packages=["git", "curl", "libcurl-dev", "python3-dev", "build-base"])
+    add_op(state, apk.packages, packages=["git", "curl", "libcurl", "python3-dev", "build-base"])
     run_ops(state)
 
 @when("Saleor source code is available")
