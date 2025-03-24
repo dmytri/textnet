@@ -139,14 +139,12 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
 
-    # Ensuring system packages are current
     add_op(state,
        apk.update
     )
     add_op(state,
        apk.upgrade
     )
-    # Operations will be run at the end of the sequence
 
 @then("OS Alpine Linux 3.21")
 def _(host: Host):
@@ -178,13 +176,6 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["poetry"])
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor && poetry lock"
-        ],
-    )
     # Run all operations at the end of the sequence
     run_ops(state)
 
@@ -225,7 +216,6 @@ def _(host: Host):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Install git, curl, and required dependencies for building Saleor
     add_op(state, apk.packages, packages=["git", "curl", "python3-dev", "build-base"])
 
 @when("Saleor source code is available")
@@ -245,7 +235,15 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Install Saleor Python dependencies using Poetry as per documentation
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && poetry lock"
+        ],
+    )
+
     add_op(
         state,
         server.shell,
@@ -258,7 +256,6 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Create OpenRC init script for Saleor
 
     service: StringIO = StringIO(dedent(
         """
@@ -291,16 +288,15 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    # Enable and start the Saleor service using OpenRC
+
     add_op(
         state,
         server.shell,
         commands=[
             "rc-update add saleor default",
-            "rc-service saleor start || true"  # Don't fail if service already running
+            "rc-service saleor start || true"
         ],
     )
-    # Run all operations at the end of the sequence
     run_ops(state)
 
 @then("saleor version >= 3.20")
