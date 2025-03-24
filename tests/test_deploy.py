@@ -10,13 +10,12 @@ from pyinfra.api.operation import add_op
 from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
-from pyinfra.facts.pipx import PipxPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.facts.server import Command
 from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip, fail
-from pytest_bdd import given, scenario, scenarios, then, when
+from pytest_bdd import scenario, scenarios, then, when
 
 ## GLOBALS AND FIXTURES ~
 #
