@@ -5,7 +5,7 @@
 *Transitioning from core automation to Saleor integration*
 
 ## Active Priorities 🔥
-1. `@ci` environment parity proofs
+1. `@dev` environment verification
 2. Test harness reliability
 3. AI collaboration interface design
 4. Documentation-machine readability
