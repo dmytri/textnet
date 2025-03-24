@@ -207,7 +207,7 @@ def _(state: State, deployed: bool):
             "curl-dev",
             "libcurl",
             "python3-dev",
-            "python3-venv",
+            "py3-virtualenv",
             "build-base",
             "musl-dev",
             "linux-headers",
@@ -237,7 +237,7 @@ def _(state: State, deployed: bool):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && python3 -m venv .venv"
+            "cd /opt/saleor && python3 -m virtualenv .venv"
         ],
     )
 
