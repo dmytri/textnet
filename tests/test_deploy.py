@@ -45,6 +45,7 @@ def state() -> State:
                     "ssh_port": 2222,
                     "ssh_password": "xxxxxxxx",
                     "ssh_strict_host_key_checking": "off",
+                    "ssh_strict_host_key_checking": "off",
                     "ssh_known_hosts_file": "/dev/null",
                 }
             ))
@@ -57,6 +58,7 @@ def state() -> State:
                     "ssh_password": "xxxxxxxx",
                     "ssh_strict_host_key_checking": "off",
                     "ssh_known_hosts_file": "/dev/null",
+                    "ssh_strict_host_key_checking": "off",
                 }
             ))
         case "prod":
@@ -138,13 +140,7 @@ scenario("deploy.feature", "Provide a stable Alpine Linux platform")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-
-    add_op(state,
-       apk.update
-    )
-    add_op(state,
-       apk.upgrade
-    )
+    run_ops(state)
 
 @then("OS Alpine Linux 3.21")
 def _(host: Host):
@@ -216,7 +212,15 @@ def _(host: Host):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
+
+    add_op(state,
+       apk.update
+    )
+    add_op(state,
+       apk.upgrade
+    )
     add_op(state, apk.packages, packages=["git", "curl", "libcurl-dev", "python3-dev", "build-base"])
+    run_ops(state)
 
 @when("Saleor source code is available")
 def _(state: State, deployed: bool):
