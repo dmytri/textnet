@@ -11,8 +11,6 @@ from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
-from pyinfra.facts.systemd import ServiceStatus
-from pyinfra.facts.init import ServerServiceEnabled
 from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip, fail
@@ -196,8 +194,15 @@ def _(host: Host):
 
 @then("TNRI PostgreSQL service is operational")
 def _(host: Host):
-    assert host.get_fact(ServiceStatus, "postgresql") is True, "Service not running"
-    assert host.get_fact(ServerServiceEnabled, "postgresql") is True, "Service not enabled"
+    # Check if service is running using rc-service
+    running_result = host.get_fact(Command, command="rc-service postgresql status | grep -q 'started' && echo 'running'")
+    running_status = running_result.get('stdout', '').strip() if isinstance(running_result, dict) else ''
+    assert running_status == "running", "PostgreSQL service is not running"
+    
+    # Check if service is enabled using rc-update
+    enabled_result = host.get_fact(Command, command="rc-update show | grep -q 'postgresql' && echo 'enabled'")
+    enabled_status = enabled_result.get('stdout', '').strip() if isinstance(enabled_result, dict) else ''
+    assert enabled_status == "enabled", "PostgreSQL service is not enabled"
 
 @then("TNRH the poetry version >= 1.8")
 def _(host: Host):
