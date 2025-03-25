@@ -89,41 +89,41 @@ scenarios("deploy.feature")
 ## PREFLIGHT SCENARIOS
 #
 
-scenario("deploy.feature", "SCA Target a development environment for testing")
+scenario("deploy.feature", "TND Target a development environment for testing")
 
-@when("SC1A target environment is configured for development")
+@when("TNDA the target environment is configured for development")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "dev"
 
-@then("SC1B the system is configured for development testing")
+@then("TNDB the system is configured for development testing")
 def _():
     global TARGET
     assert TARGET == "dev"
 
-scenario("deploy.feature", "SCB Target a CI environment for verification")
+scenario("deploy.feature", "TNC Target a CI environment for verification")
 
-@when("SC2A target environment is configured for continuous integration")
+@when("TNCA the target environment is configured for continuous integration")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "ci"
 
-@then("SC2B the system is configured for CI testing")
+@then("TNCB the system is configured for CI testing")
 def _():
     global TARGET
     assert TARGET == "ci"
 
-scenario("deploy.feature", "SCC Target a production environment for customers")
+scenario("deploy.feature", "TNP Target a production environment for customers")
 
-@when("SC3A target environment is configured for production")
+@when("TNPA the target environment is configured for production")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "prod"
 
-@then("SC3B the system is configured for production use")
+@then("TNPB the system is configured for production use")
 def _():
     global TARGET
     assert TARGET == "prod"
@@ -131,40 +131,40 @@ def _():
 ## DEPLOY SCENARIOS ~
 #
 
-scenario("deploy.feature", "SCD Provide a stable Alpine Linux platform")
+scenario("deploy.feature", "TNA Provide a stable Alpine Linux platform")
 
-@when("SC4A system packages up to date")
+@when("TNAA the system packages up to date")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     run_ops(state)
 
-@then("SC4B OS Alpine Linux 3.21")
+@then("TNAB OS Alpine Linux 3.21")
 def _(host: Host):
     distro: LinuxDistributionDict = host.get_fact(LinuxDistribution)
     assert distro["release_meta"]["PRETTY_NAME"] == "Alpine Linux v3.21"
 
-scenario("deploy.feature", "SCE Enable required runtime environments for Saleor")
+scenario("deploy.feature", "TNR Enable required runtime environments for Saleor")
 
-@when("SC5A Python runtime is available")
+@when("TNRA Python runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["python3"])
 
-@when("SC5B NodeJS runtime is available")
+@when("TNRB NodeJS runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("SC5C SQLite database is available")
+@when("TNRC SQLite database is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
 
-@when("SC5D Poetry is available")
+@when("TNRD Poetry is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -172,29 +172,29 @@ def _(state: State, deployed: bool):
 
     run_ops(state)
 
-@then("SC5E python version >= 3.12")
+@then("TNRE the python version >= 3.12")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["python3"])[0]) >= parse("3.12")
 
-@then("SC5F nodejs version >= 18")
+@then("TNRF the nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
-@then("SC5G sqlite version >= 3.48")
+@then("TNRG the sqlite version >= 3.48")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["sqlite"])[0]) >= parse("3.48")
 
-@then("SC5H poetry version >= 1.8")
+@then("TNRH the poetry version >= 1.8")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
 
-scenario("deploy.feature", "SCF Provide Saleor commerce capabilities")
+scenario("deploy.feature", "TNS Provide Saleor commerce capabilities")
 
-@when("SCFB build tools are available") # was SCF1
+@when("TNSB build tools are available") # was SCF1
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -223,7 +223,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCFS Saleor source code is available") # was SCF2
+@when("TNSS Saleor source code is available") # was SCF2
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -238,7 +238,7 @@ def _(state: State, deployed: bool):
         creates="/opt/saleor"
     )
 
-@when("SCFV Saleor Python virtual environment is available") # was SCF3
+@when("TNSV Saleor Python virtual environment is available") # was SCF3
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -253,7 +253,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCFD Saleor Python dependencies are installed") # was SCF4
+@when("TNSD Saleor Python dependencies are installed") # was SCF4
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -291,7 +291,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCFO Saleor service definition is present") # was SCF5
+@when("TNSO Saleor service definition is present") # was SCF5
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -324,7 +324,7 @@ def _(state: State, deployed: bool):
         mode="0755",
     )
 
-@when("SCFE Saleor service is enabled") # was SCF6
+@when("TNSE Saleor service is enabled") # was SCF6
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -341,21 +341,21 @@ def _(state: State, deployed: bool):
     )
     run_ops(state)
 
-@then("SCFV saleor version >= 3.20") # was SCF7
+@then("TNSV saleor version >= 3.20") # was SCF7
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert parse(version) >= parse("3.20")
 
-@then("SCFO OpenRC manages the running saleor service") # was SCF8
+@then("TNSO OpenRC manages the running saleor service") # was SCF8
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
     status = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert status == "running"
 
-@then("SCFG Saleor GraphQL endpoint responds successfully") # was SCF9
+@then("TNSG Saleor GraphQL endpoint responds successfully") # was SCF9
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     # Retry up to 3 times with a short delay to handle potential startup delay
