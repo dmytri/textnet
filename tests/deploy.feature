@@ -1,4 +1,4 @@
-Feature: BDA | Saleor Commerce Platform on Alpine Linux
+Feature: SC Saleor Commerce Platform on Alpine Linux | BDA
 
   @dev
   Scenario: SCA Target a development environment for testing
@@ -23,21 +23,21 @@ Feature: BDA | Saleor Commerce Platform on Alpine Linux
   @dev @ci @prod
   Scenario: SCE Enable required runtime environments for Saleor
      When SCE1 Python runtime is available
-     And SCE2 NodeJS runtime is available
-     And SCE3 SQLite database is available
-     And SCE4 Poetry is available
+      And SCE2 NodeJS runtime is available
+      And SCE3 SQLite database is available
+      And SCE4 Poetry is available
      Then SCE5 python version >= 3.12
-     And SCE6 nodejs version >= 18
-     And SCE7 sqlite version >= 3.48
-     And SCE8 poetry version >= 1.8
+      And SCE6 nodejs version >= 18
+      And SCE7 sqlite version >= 3.48
+      And SCE8 poetry version >= 1.8
 
   @dev @ci @prod
   Scenario: SCF Provide Saleor commerce capabilities
      When SCF1 build dependencies are available
-     And SCF2 Saleor source code is available
-     And SCF3 Saleor Python components are installed
-     And SCF4 Saleor service definition is present
-     And SCF5 Saleor service is enabled
+      And SCF2 Saleor source code is available 
+      And SCF3 Saleor Python components are installed
+      And SCF4 Saleor service definition is present
+      And SCF5 Saleor service is enabled
      Then SCF6 saleor version >= 3.20
-     And SCF7 OpenRC manages the running saleor service
-     And SCF8 Saleor GraphQL endpoint responds successfully
+      And SCF7 OpenRC manages the running saleor service
+      And SCF8 Saleor GraphQL endpoint responds successfully
