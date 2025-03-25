@@ -164,16 +164,13 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
     add_op(state, postgres.role,
-           user="saleor",
-           password="saleor",
-           superuser=True,
-           _sudo=True,
-           )
+       role="saleor",
+       password="saleor",
+    )
     add_op(state, postgresql.database,
-           name="saleor",
-           user="saleor",
-           _sudo=True,
-           )
+       name="saleor",
+       owner="saleor"
+    )
 
 @when("TNRS PostgreSQL service is enabled")
 def _(state: State, deployed: bool):

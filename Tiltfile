@@ -7,8 +7,8 @@ namespace_create('target')
 
 docker_build('target', 'target/')
 k8s_yaml('target/manifest.yaml')
-k8s_resource('target', port_forwards='2222')
+k8s_resource('target', port_forwards=['2222','8000'])
 
 docker_build('apply', '.')
 k8s_yaml('manifest.yaml')
-k8s_resource('apply', trigger_mode=TRIGGER_MODE_MANUAL)
+k8s_resource('apply', auto_init=False, trigger_mode=TRIGGER_MODE_MANUAL)
