@@ -2,6 +2,7 @@ cache-prompts: true
 auto-test: false
 
 read:
+  - PROJECT_STRUCTURE.md
   - CONVENTIONS.md
   - VIBE.md
   - GOALS.md
