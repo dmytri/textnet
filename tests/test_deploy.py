@@ -209,44 +209,6 @@ def _(state: State):
         ],
     )
 
-@when("TNSU PostgreSQL database is setup")
-def _(state: State):
-    add_op(state, server.user,
-        user='postgres',
-        password='saleor'
-    )
-
-    add_op(state, postgres.role,
-        psql_user="postgres",
-        psql_password="saleor",
-        role="postres",
-        password="saleor",
-        superuser=True
-    )
-
-    add_op(state, postgresql.database,
-        psql_user="postgres",
-        psql_password="saleor",
-        database="saleor",
-        owner="saleor"
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py migrate"
-        ],
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py createsuperuser"
-        ],
-    )
-
 @when("TNSS Saleor source code is available") # was SCF2
 def _(state: State):
     add_op(
@@ -300,6 +262,44 @@ def _(state: State):
         server.shell,
         commands=[
             "cd /opt/saleor && .venv/bin/poetry install"
+        ],
+    )
+
+@when("TNSU Saleor database is setup")
+def _(state: State):
+    add_op(state, server.user,
+        user='postgres',
+        password='saleor'
+    )
+
+    add_op(state, postgres.role,
+        psql_user="postgres",
+        psql_password="saleor",
+        role="postgres",
+        password="saleor",
+        superuser=True
+    )
+
+    add_op(state, postgres.database,
+        psql_user="postgres",
+        psql_password="saleor",
+        database="saleor",
+        owner="postgres"
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py migrate"
+        ],
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py createsuperuser"
         ],
     )
 
