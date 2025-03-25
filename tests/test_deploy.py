@@ -194,7 +194,7 @@ def _(host: Host):
 
 scenario("deploy.feature", "SCF Provide Saleor commerce capabilities")
 
-@when("SCF1 build tools are available")
+@when("SCFB build tools are available")
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -223,7 +223,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCF2 Saleor source code is available")
+@when("SCFS Saleor source code is available")
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -238,7 +238,7 @@ def _(state: State, deployed: bool):
         creates="/opt/saleor"
     )
 
-@when("SCF3 Saleor Python virtual environment is available")
+@when("SCFV Saleor Python virtual environment is available")
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -253,7 +253,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCF4 Saleor Python dependencies are installed")
+@when("SCFD Saleor Python dependencies are installed")
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -291,7 +291,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCF5 Saleor service definition is present")
+@when("SCFO Saleor service definition is present")
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -324,7 +324,7 @@ def _(state: State, deployed: bool):
         mode="0755",
     )
 
-@when("SCF6 Saleor service is enabled")
+@when("SCFE Saleor service is enabled")
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -341,21 +341,21 @@ def _(state: State, deployed: bool):
     )
     run_ops(state)
 
-@then("SCF7 saleor version >= 3.20")
+@then("SCFV saleor version >= 3.20")
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert parse(version) >= parse("3.20")
 
-@then("SCF8 OpenRC manages the running saleor service")
+@then("SCFO OpenRC manages the running saleor service")
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
     status = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert status == "running"
 
-@then("SCF9 Saleor GraphQL endpoint responds successfully")
+@then("SCFG Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     # Retry up to 3 times with a short delay to handle potential startup delay
