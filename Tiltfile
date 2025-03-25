@@ -11,3 +11,4 @@ k8s_resource('target', port_forwards='2222')
 
 docker_build('apply', '.')
 k8s_yaml('manifest.yaml')
+k8s_resource('apply', trigger_mode=TRIGGER_MODE_MANUAL)

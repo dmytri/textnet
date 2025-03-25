@@ -208,14 +208,11 @@ def _(state: State, deployed: bool):
         state,
         apk.packages,
         packages=[
+            "git",
             "curl",
             "curl-dev",
             "libcurl",
             "python3-dev",
-            # "python3-pip", # Removed because we use virtualenv
-            # "python3-setuptools", # Removed because we use virtualenv
-            # "wheel", # Removed because we use virtualenv
-            # "virtualenv", # Replaced with python3 -m virtualenv
             "py3-virtualenv",
             "build-base",
             "musl-dev",
