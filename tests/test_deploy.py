@@ -72,15 +72,6 @@ def state() -> State:
 
     return state
 
-
-DEPLOYED: bool = False
-
-
-@fixture
-def deployed() -> bool:
-    assert (isinstance(DEPLOYED, bool))
-    return DEPLOYED
-
 ## SCENARIOS ~
 #
 
@@ -134,9 +125,7 @@ def _():
 scenario("deploy.feature", "TNA Provide a stable Alpine Linux platform")
 
 @when("TNAU the system packages up to date")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
+def _(state: State):
     run_ops(state)
 
 @then("TNAA OS Alpine Linux 3.21")
@@ -147,21 +136,15 @@ def _(host: Host):
 scenario("deploy.feature", "TNR Enable required runtime environments for Saleor")
 
 @when("TNRA Python runtime is available")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
+def _(state: State):
     add_op(state, apk.packages, packages=["python3"])
 
 @when("TNRB NodeJS runtime is available")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
+def _(state: State):
     add_op(state, apk.packages, packages=["nodejs"])
 
 @when("TNRC PostgreSQL database is available")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
+def _(state: State):
     add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
     add_op(state, postgres.role,
        role="saleor",
@@ -173,15 +156,11 @@ def _(state: State, deployed: bool):
     )
 
 @when("TNRS PostgreSQL service is enabled")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
+def _(state: State):
     add_op(state, openrc.service, "postgresql", running=True, enabled=True)
 
 @when("TNRD Poetry is available")
-def _(state: State, deployed: bool):
-    if deployed:
-        skip()
+def _(state: State):
     add_op(state, apk.packages, packages=["poetry"])
 
     run_ops(state)
@@ -214,11 +193,7 @@ def _(host: Host):
 scenario("deploy.feature", "TNS Provide Saleor commerce capabilities")
 
 @when("TNSB build tools are available") # was SCF1
-def _(state: State, deployed: bool):
-
-    if deployed:
-        skip()
-
+def _(state: State):
     add_op(
         state,
         apk.update)
@@ -240,11 +215,7 @@ def _(state: State, deployed: bool):
     )
 
 @when("TNSS Saleor source code is available") # was SCF2
-def _(state: State, deployed: bool):
-
-    if deployed:
-        skip()
-
+def _(state: State):
     add_op(
         state,
         server.shell,
@@ -254,11 +225,7 @@ def _(state: State, deployed: bool):
     )
 
 @when("TNSN Saleor Python virtual environment is available") # was SCF3
-def _(state: State, deployed: bool):
-
-    if deployed:
-         skip()
-
+def _(state: State):
     # Create a virtual environment for Saleor
     add_op(
         state,
@@ -269,10 +236,7 @@ def _(state: State, deployed: bool):
     )
 
 @when("TNSD Saleor Python dependencies are installed") # was SCF4
-def _(state: State, deployed: bool):
-
-    if deployed:
-         skip()
+def _(state: State):
     # Use the virtual environment for poetry operations
     add_op(
         state,
@@ -307,11 +271,7 @@ def _(state: State, deployed: bool):
     )
 
 @when("TNSP Saleor service definition is present") # was SCF5
-def _(state: State, deployed: bool):
-
-    if deployed:
-        skip()
-
+def _(state: State):
     service: StringIO = StringIO(dedent(
         """
         #!/sbin/openrc-run
@@ -342,12 +302,7 @@ def _(state: State, deployed: bool):
     )
 
 @when("TNSE Saleor service is enabled") # was SCF6
-def _(state: State, deployed: bool):
-
-    if deployed:
-        skip()
-
-
+def _(state: State):
     add_op(
         state,
         server.shell,
