@@ -24,11 +24,13 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
   Scenario: TNR Enable required runtime environments for Saleor
      When TNRA Python runtime is available
       And TNRB NodeJS runtime is available
-      And TNRC SQLite database is available
+      And TNRC PostgreSQL database is available
+      And TNRS PostgreSQL service is enabled
       And TNRD Poetry is available
      Then TNRE the python version >= 3.12
+      And TNRG the postgresql version >= 17
+      And TNRI PostgreSQL service is operational
       And TNRF the nodejs version >= 18
-      And TNRG the sqlite version >= 3.48
       And TNRH the poetry version >= 1.8
 
   @dev @ci @prod

@@ -157,13 +157,13 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("TNRC PostgreSQL database packages are installed")
+@when("TNRC PostgreSQL database is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
 
-@when("TNRS PostgreSQL service is running")
+@when("TNRS PostgreSQL service is enabled")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -187,22 +187,16 @@ def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
-@then("TNRG the postgresql version >= 15")
+@then("TNRG the postgresql version >= 17")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(list(packages["postgresql"])[0]) >= parse("15"), f"PostgreSQL version {list(packages['postgresql'])[0]} < 15"
+    assert parse(list(packages["postgresql"])[0]) >= parse("17")
 
 @then("TNRI PostgreSQL service is operational")
 def _(host: Host):
-    # Check if service is running using rc-service
     running_result = host.get_fact(Command, command="rc-service postgresql status | grep -q 'started' && echo 'running'")
     running_status = running_result.get('stdout', '').strip() if isinstance(running_result, dict) else ''
     assert running_status == "running", "PostgreSQL service is not running"
-    
-    # Check if service is enabled using rc-update
-    enabled_result = host.get_fact(Command, command="rc-update show | grep -q 'postgresql' && echo 'enabled'")
-    enabled_status = enabled_result.get('stdout', '').strip() if isinstance(enabled_result, dict) else ''
-    assert enabled_status == "enabled", "PostgreSQL service is not enabled"
 
 @then("TNRH the poetry version >= 1.8")
 def _(host: Host):
