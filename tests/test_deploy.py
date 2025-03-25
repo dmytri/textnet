@@ -89,41 +89,41 @@ scenarios("deploy.feature")
 ## PREFLIGHT SCENARIOS
 #
 
-scenario("deploy.feature", "Target a development environment for testing")
+scenario("deploy.feature", "SCA Target a development environment for testing")
 
-@when("target environment is configured for development")
+@when("SCA1 target environment is configured for development")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "dev"
 
-@then("the system is configured for development testing")
+@then("SCA2 the system is configured for development testing")
 def _():
     global TARGET
     assert TARGET == "dev"
 
-scenario("deploy.feature", "Target a CI environment for verification")
+scenario("deploy.feature", "SCB Target a CI environment for verification")
 
-@when("target environment is configured for continuous integration")
+@when("SCB1 target environment is configured for continuous integration")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "ci"
 
-@then("the system is configured for CI testing")
+@then("SCB2 the system is configured for CI testing")
 def _():
     global TARGET
     assert TARGET == "ci"
 
-scenario("deploy.feature", "Target a production environment for customers")
+scenario("deploy.feature", "SCC Target a production environment for customers")
 
-@when("target environment is configured for production")
+@when("SCC1 target environment is configured for production")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "prod"
 
-@then("the system is configured for production use")
+@then("SCC2 the system is configured for production use")
 def _():
     global TARGET
     assert TARGET == "prod"
@@ -131,40 +131,40 @@ def _():
 ## DEPLOY SCENARIOS ~
 #
 
-scenario("deploy.feature", "Provide a stable Alpine Linux platform")
+scenario("deploy.feature", "SCD Provide a stable Alpine Linux platform")
 
-@when("system packages up to date")
+@when("SCD1 system packages up to date")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     run_ops(state)
 
-@then("OS Alpine Linux 3.21")
+@then("SCD2 OS Alpine Linux 3.21")
 def _(host: Host):
     distro: LinuxDistributionDict = host.get_fact(LinuxDistribution)
     assert distro["release_meta"]["PRETTY_NAME"] == "Alpine Linux v3.21"
 
-scenario("deploy.feature", "Enable required runtime environments for Saleor")
+scenario("deploy.feature", "SCE Enable required runtime environments for Saleor")
 
-@when("Python runtime is available")
+@when("SCE1 Python runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["python3"])
 
-@when("NodeJS runtime is available")
+@when("SCE2 NodeJS runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("SQLite database is available")
+@when("SCE3 SQLite database is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
 
-@when("Poetry is available")
+@when("SCE4 Poetry is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -172,29 +172,29 @@ def _(state: State, deployed: bool):
 
     run_ops(state)
 
-@then("python version >= 3.12")
+@then("SCE5 python version >= 3.12")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["python3"])[0]) >= parse("3.12")
 
-@then("nodejs version >= 18")
+@then("SCE6 nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
-@then("sqlite version >= 3.48")
+@then("SCE7 sqlite version >= 3.48")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["sqlite"])[0]) >= parse("3.48")
 
-@then("poetry version >= 1.8")
+@then("SCE8 poetry version >= 1.8")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
 
-scenario("deploy.feature", "Provide Saleor commerce capabilities")
+scenario("deploy.feature", "SCF Provide Saleor commerce capabilities")
 
-@when("build dependencies are available")
+@when("SCF1 build dependencies are available")
 def _(state: State, deployed: bool):
     add_op(state, apk.update)
     add_op(state, apk.upgrade)
@@ -214,7 +214,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("Saleor source code is available")
+@when("SCF2 Saleor source code is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -227,7 +227,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("Saleor Python components are installed")
+@when("SCF3 Saleor Python components are installed")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -274,7 +274,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("Saleor service definition is present")
+@when("SCF4 Saleor service definition is present")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -306,7 +306,7 @@ def _(state: State, deployed: bool):
         mode="0755",
     )
 
-@when("Saleor service is enabled")
+@when("SCF5 Saleor service is enabled")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -321,21 +321,21 @@ def _(state: State, deployed: bool):
     )
     run_ops(state)
 
-@then("saleor version >= 3.20")
+@then("SCF6 saleor version >= 3.20")
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert parse(version) >= parse("3.20")
 
-@then("OpenRC manages the running saleor service")
+@then("SCF7 OpenRC manages the running saleor service")
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
     status = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert status == "running"
 
-@then("Saleor GraphQL endpoint responds successfully")
+@then("SCF8 Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     # Retry up to 3 times with a short delay to handle potential startup delay
