@@ -146,14 +146,6 @@ def _(state: State):
 @when("TNRC PostgreSQL database is available")
 def _(state: State):
     add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
-    add_op(state, postgres.role,
-       role="saleor",
-       password="saleor",
-    )
-    add_op(state, postgresql.database,
-       database="saleor",
-       owner="saleor",
-    )
 
 @when("TNRS PostgreSQL service is enabled")
 def _(state: State):
@@ -214,6 +206,25 @@ def _(state: State):
             "musl-dev",
             "linux-headers",
         ],
+    )
+
+@when("TNSU PostgreSQL database is setup")
+def _(state: State):
+    add_op(state, server.user,
+        user='postgres',
+        password='xxxxxxxx'
+    )
+    add_op(state, postgres.role,
+        pgsql_user="postgres",
+        pgsql_password="xxxxxxxx",
+        role="saleor",
+        password="saleor",
+    )
+    add_op(state, postgresql.database,
+        pgsql_user="postgres",
+        pgsql_password="xxxxxxxx",
+        database="saleor",
+        owner="saleor",
     )
 
 @when("TNSS Saleor source code is available") # was SCF2

@@ -37,6 +37,7 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
   @dev @ci @prod
   Scenario: TNS Provide Saleor commerce capabilities
      When TNSB build tools are available
+      And TNSU PostgreSQL database is setup
       And TNSS Saleor source code is available
       And TNSN Saleor Python virtual environment is available
       And TNSD Saleor Python dependencies are installed
