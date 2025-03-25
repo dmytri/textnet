@@ -163,6 +163,8 @@ def _(state: State):
 def _(state: State):
     add_op(state, apk.packages, packages=["poetry"])
 
+@then("TNRX Host has converged")
+def _(state: State):
     run_ops(state)
 
 @then("TNRE the python version >= 3.12")

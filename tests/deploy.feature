@@ -27,7 +27,8 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
       And TNRC PostgreSQL database is available
       And TNRS PostgreSQL service is enabled
       And TNRD Poetry is available
-     Then TNRE the python version >= 3.12
+     Then TNRX Host has converged
+      And TNRE the python version >= 3.12
       And TNRG the postgresql version >= 17
       And TNRI PostgreSQL service is operational
       And TNRF the nodejs version >= 18
