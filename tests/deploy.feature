@@ -33,13 +33,12 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
 
   @dev @ci @prod
   Scenario: TNS Provide Saleor commerce capabilities
-
      When TNSB build tools are available
-     When TNSS Saleor source code is available
-     When TNSV Saleor Python virtual environment is available
-     When TNSD Saleor Python dependencies are installed
-     When TNSO Saleor service definition is present
-     When TNSE Saleor service is enabled 
+      And TNSS Saleor source code is available
+      And TNSV Saleor Python virtual environment is available
+      And TNSD Saleor Python dependencies are installed
+      And TNSO Saleor service definition is present
+      And TNSE Saleor service is enabled 
      Then TNSV saleor version >= 3.20
       And TNSO OpenRC manages the running saleor service
       And TNSG Saleor GraphQL endpoint responds successfully
