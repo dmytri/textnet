@@ -1,5 +1,5 @@
 cache-prompts: true
-auto-test: true
+auto-test: false
 
 read:
   - CONVENTIONS.md
@@ -14,13 +14,11 @@ lint-cmd:
 test-cmd: uv run poe dev
 
 alias:
-  - sonnet:openrouter/anthropic/claude-3.7-sonnet
-  - dsdistill:groq/deepseek-r1-distill-llama-70b
-  - deepseek:openrouter/deepseek/deepseek-r1
-  - gemini:openrouter/google/gemini-2.0-flash-001
-  - thinking:openrouter/anthropic/claude-3.7-sonnet:thinking
-  - help:openrouter/google/gemini-2.0-flash-001
-  - anth:anthropic/claude-3-sonnet
-  - anthor:openrouter/anthropic/claude-3.7-sonnet
+  - son:anthropic/claude-3.7-sonnet
+  - sonor:openrouter/anthropic/claude-3.7-sonnet
+  - sontor:openrouter/anthropic/claude-3.7-sonnet:thinking
   - ds:deepseek/deepseek-r1
   - dsor:openrouter/deepseek/deepseek-r1
+  - dsllama:groq/deepseek-r1-distill-llama-70b
+  - gem:openrouter/google/gemini-2.0-flash-001
+  - rr:openrouter/sophosympatheia/rogue-rose-103b-v0.2:free"

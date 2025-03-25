@@ -13,27 +13,7 @@ cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"
-cmd = "aider --no-show-model-warnings --model openrouter/anthropic/claude-3.7-sonnet --weak-model openrouter/sophosympatheia/rogue-rose-103b-v0.2:free"
-
-[tool.poe.tasks.ai1]
-envfile = ".env.aider"
-cmd = "aider --stream --watch-files --no-show-model-warnings --architect --model groq/deepseek-r1-distill-llama-70b --editor-model openrouter/anthropic/claude-3.7-sonnet"
-
-[tool.poe.tasks.ai2]
-envfile = ".env.aider"
-cmd = "aider --watch-files --model sonnet"
-
-[tool.poe.tasks.ai3]
-envfile = ".env.aider"
-cmd = "aider --stream --architect --no-show-model-warnings --model openrouter/deepseek/deepseek-r1 --editor-model openrouter/anthropic/claude-3.7-sonnet --weak-model groq/deepseek-r1-distill-llama-70b"
-
-[tool.poe.tasks.ai4]
-envfile = ".env.aider"
-cmd = "aider --no-show-model-warnings --model openrouter/google/gemini-2.0-flash-001"
-
-[tool.poe.tasks.aib]
-envfile = ".env.aider"
-cmd = "aider --browser --no-show-model-warnings --model openrouter/anthropic/claude-3.7-sonnet:thinking"
+cmd = "aider --no-show-model-warnings --watch-files --architect --model gem"
 
 [tool.pytest.ini_options]
 markers = [
