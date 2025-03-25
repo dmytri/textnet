@@ -4,13 +4,13 @@ This document outlines the purpose and organization of files and directories in 
 
 ## Top-Level Directories
 
-### `.` (Root Directory)
+### `./` (Root Directory)
 Contains configuration and setup files for Behaviour-Driven Automation (BDA) used in development, testing, and CI/CD. These are not part of the final deployed system.
 
-### `target`
+### `target/`
 Contains files for the target deployment environment (development/test). This is where the Saleor Commerce platform is deployed by BDA steps.
 
-### `tests` directory
+### `tests/` directory
 Contains executable acceptance criteria (ATDD) and self-verifying automation steps (BDA) that validate infrastructure and application deployment.
 
 ## Key Files
@@ -20,7 +20,6 @@ Contains executable acceptance criteria (ATDD) and self-verifying automation ste
 - `manifest.yaml`: Kubernetes manifest for the BDA "Apply" job
 - `Tiltfile`: Configures Tilt to automate deployment of both target host and BDA jobs
 - `pyproject.toml`: Manages Python dependencies for BDA environment (development/testing only)
-- `uv.lock`: Lockfile for UV package manager
 
 ### Target Directory Files
 - `Dockerfile`: Builds the Alpine Linux-based target host image for Saleor Commerce
