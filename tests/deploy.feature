@@ -1,45 +1,45 @@
-Feature: SC Saleor Commerce Platform on Alpine Linux | BDA
+Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
 
   @dev
-  Scenario: SC1 Target a development environment for testing
-     When SC1A the target environment is configured for development
-     Then SC1B the system is configured for development testing
+  Scenario: TND Target a development environment for testing
+     When TNDA the target environment is configured for development
+     Then TNDB the system is configured for development testing
 
   @ci
-  Scenario: SC2 Target a CI environment for verification
-     When SC2A the target environment is configured for continuous integration
-     Then SC2B the system is configured for CI testing
+  Scenario: TNC Target a CI environment for verification
+     When TNCA the target environment is configured for continuous integration
+     Then TNCB the system is configured for CI testing
 
   @prod
-  Scenario: SC3 Target a production environment for customers
-     When SC3A the target environment is configured for production
-     Then SC3B the system is configured for production use
+  Scenario: TNP Target a production environment for customers
+     When TNPA the target environment is configured for production
+     Then TNPB the system is configured for production use
 
   @dev @ci @prod
-  Scenario: SC4 Provide a stable Alpine Linux platform
-     When SC4A the system packages up to date
-     Then SC4B OS Alpine Linux 3.21
+  Scenario: TNA Provide a stable Alpine Linux platform
+     When TNAA the system packages up to date
+     Then TNAB OS Alpine Linux 3.21
 
   @dev @ci @prod
-  Scenario: SC5 Enable required runtime environments for Saleor
-     When SC5A Python runtime is available
-      And SC5B NodeJS runtime is available
-      And SC5C SQLite database is available
-      And SC5D Poetry is available
-     Then SC5E the python version >= 3.12
-      And SC5F the nodejs version >= 18
-      And SC5G the sqlite version >= 3.48
-      And SC5H the poetry version >= 1.8
+  Scenario: TNR Enable required runtime environments for Saleor
+     When TNRA Python runtime is available
+      And TNRB NodeJS runtime is available
+      And TNRC SQLite database is available
+      And TNRD Poetry is available
+     Then TNRE the python version >= 3.12
+      And TNRF the nodejs version >= 18
+      And TNRG the sqlite version >= 3.48
+      And TNRH the poetry version >= 1.8
 
   @dev @ci @prod
-  Scenario: SCF Provide Saleor commerce capabilities
+  Scenario: TNS Provide Saleor commerce capabilities
 
-     When SCFB build tools are available
-     When SCFS Saleor source code is available
-     When SCFV Saleor Python virtual environment is available
-     When SCFD Saleor Python dependencies are installed
-     When SCFO Saleor service definition is present
-     When SCFE Saleor service is enabled 
-     Then SCFV saleor version >= 3.20
-      And SCFO OpenRC manages the running saleor service
-      And SCFG Saleor GraphQL endpoint responds successfully
+     When TNSB build tools are available
+     When TNSS Saleor source code is available
+     When TNSV Saleor Python virtual environment is available
+     When TNSD Saleor Python dependencies are installed
+     When TNSO Saleor service definition is present
+     When TNSE Saleor service is enabled 
+     Then TNSV saleor version >= 3.20
+      And TNSO OpenRC manages the running saleor service
+      And TNSG Saleor GraphQL endpoint responds successfully
