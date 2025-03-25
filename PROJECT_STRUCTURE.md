@@ -16,18 +16,18 @@ Contains executable acceptance criteria (ATDD) and self-verifying automation ste
 ## Key Files
 
 ### Root Directory Files
-- `Dockerfile`: Builds the BDA test environment container for running pytest-bdd steps
-- `manifest.yaml`: Kubernetes manifest for the BDA "Apply" job
-- `Tiltfile`: Configures Tilt to automate deployment of both target host and BDA jobs
-- `pyproject.toml`: Manages Python dependencies for BDA environment (development/testing only)
+- [`Dockerfile`](./Dockerfile): Builds the BDA test environment container for running pytest-bdd steps
+- [`manifest.yaml`](./manifest.yaml): Kubernetes manifest for the BDA "Apply" job
+- [`Tiltfile`](./Tiltfile): Configures Tilt to automate deployment of both target host and BDA jobs
+- [`pyproject.toml`](./pyproject.toml): Manages Python dependencies for BDA environment (development/testing only)
 
 ### Target Directory Files
-- `Dockerfile`: Builds the Alpine Linux-based target host image for Saleor Commerce
-- `manifest.yaml`: Kubernetes manifest for deploying the target host
+- [`Dockerfile`](./target/Dockerfile): Builds the Alpine Linux-based target host image for Saleor Commerce
+- [`manifest.yaml`](./target/manifest.yaml): Kubernetes manifest for deploying the target host
 
 ### Tests Directory
-- `deploy.feature`: Gherkin feature file defining infrastructure scenarios
-- `test_deploy.py`: pytest-bdd step implementations for infrastructure verification
+- [`deploy.feature`](./tests/deploy.feature): Gherkin feature file defining infrastructure scenarios
+- [`test_deploy.py`](./tests/test_deploy.py): pytest-bdd step implementations for infrastructure verification
 
 ## BDA-Target System Relationship
 
@@ -40,4 +40,3 @@ Key Components:
 - BDA tests verify infrastructure state using pyinfra facts
 - Target Dockerfile creates the actual Saleor Commerce runtime environment
 - Kubernetes manifests define deployment topology for both systems
-
