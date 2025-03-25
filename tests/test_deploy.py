@@ -341,14 +341,14 @@ def _(state: State, deployed: bool):
     )
     run_ops(state)
 
-@then("SCF7 saleor version >= 3.20")
+@then("SCF8 saleor version >= 3.20")
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert parse(version) >= parse("3.20")
 
-@then("SCF7 OpenRC manages the running saleor service")
+@then("SCF9 OpenRC manages the running saleor service")
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")

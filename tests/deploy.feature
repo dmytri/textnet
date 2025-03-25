@@ -37,8 +37,8 @@ Feature: SC Saleor Commerce Platform on Alpine Linux | BDA
      When SCF2 Saleor source code is available
      When SCF3 Saleor Python virtual environment is available
      When SCF4 Saleor Python dependencies are installed
-     When SCF5 Saleor service definition is present
-     When SCF6 Saleor service is enabled
-     Then SCF7 saleor version >= 3.20
+     When SCF5 Saleor service definition is present 
+     When SCF6 Saleor service is enabled 
+     Then SCF7 saleor version >= 3.20 
       And SCF7 OpenRC manages the running saleor service
       And SCF8 Saleor GraphQL endpoint responds successfully
