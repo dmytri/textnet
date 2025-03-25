@@ -10,8 +10,9 @@ from pyinfra.api.operation import add_op
 from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
-from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
-from pyinfra.facts.server import Command, ServiceStatus, ServerServiceEnabled
+from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
+from pyinfra.facts.systemd import ServiceStatus
+from pyinfra.facts.init import ServerServiceEnabled
 from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip, fail
