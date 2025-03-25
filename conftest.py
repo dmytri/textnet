@@ -1,4 +1,7 @@
 
+def pytest_before_feature(request, feature):
+    print(f"\n\033[35mScenario: {feature.name}\033[0m")
+
 def pytest_bdd_before_scenario(request, feature, scenario):
     print(f"\n\033[34mScenario: {scenario.name}\033[0m")
 
