@@ -32,6 +32,7 @@ Shared rules for humans and AI collaborating on infrastructure automation.
 - Saleor installation reference: https://docs.saleor.io/setup/windows (adapting for Alpine Linux)
 - Saleor Platform Repository: [https://github.com/saleor/saleor-platform](https://github.com/saleor/saleor-platform)
 - Saleor Platform Docker Compose: [https://raw.githubusercontent.com/saleor/saleor-platform/refs/heads/main/docker-compose.yml](https://raw.githubusercontent.com/saleor/saleor-platform/refs/heads/main/docker-compose.yml)
+- Saleor Dockerfile: [https://github.com/saleor/saleor/blob/main/Dockerfile](https://github.com/saleor/saleor/blob/main/Dockerfile)
 
 ### Test Structure
 - Feature files/step defs in `/tests`
