@@ -234,8 +234,7 @@ def _(state: State, deployed: bool):
         server.shell,
         commands=[
             "test -d /opt/saleor || git clone https://github.com/saleor/saleor.git /opt/saleor"
-        ],
-        creates="/opt/saleor"
+        ]
     )
 
 @when("TNSV Saleor Python virtual environment is available") # was SCF3
