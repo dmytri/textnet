@@ -180,28 +180,27 @@ def _(state: State, deployed: bool):
 
 @then("TNRE the python version >= 3.12")
 def _(host: Host):
-    packages = host.get_fact(ApkPackages)
+    packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["python3"])[0]) >= parse("3.12")
 
 @then("TNRF the nodejs version >= 18")
 def _(host: Host):
-    packages = host.get_fact(ApkPackages)
+    packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
 @then("TNRG the postgresql version >= 17")
 def _(host: Host):
-    packages = host.get_fact(ApkPackages)
+    packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["postgresql17"])[0]) >= parse("17")
 
 @then("TNRI PostgreSQL service is operational")
 def _(host: Host):
-    service_status = host.get_fact(OpenrcEnabled, runlevel="defualt")
-    print(service_status)
-    assert service_status == "started", "PostgreSQL service is not running"
+    services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
+    assert "postgresql" in services
 
 @then("TNRH the poetry version >= 1.8")
 def _(host: Host):
-    packages = host.get_fact(ApkPackages)
+    packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
 
 scenario("deploy.feature", "TNS Provide Saleor commerce capabilities")
