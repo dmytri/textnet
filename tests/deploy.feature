@@ -2,22 +2,22 @@ Feature: SC Saleor Commerce Platform on Alpine Linux | BDA
 
   @dev
   Scenario: SC1 Target a development environment for testing
-     When SC1A target environment is configured for development
+     When SC1A the target environment is configured for development
      Then SC1B the system is configured for development testing
 
   @ci
   Scenario: SC2 Target a CI environment for verification
-     When SC2A target environment is configured for continuous integration
+     When SC2A the target environment is configured for continuous integration
      Then SC2B the system is configured for CI testing
 
   @prod
   Scenario: SC3 Target a production environment for customers
-     When SC3A target environment is configured for production
+     When SC3A the target environment is configured for production
      Then SC3B the system is configured for production use
 
   @dev @ci @prod
   Scenario: SC4 Provide a stable Alpine Linux platform
-     When SC4A system packages up to date
+     When SC4A the system packages up to date
      Then SC4B OS Alpine Linux 3.21
 
   @dev @ci @prod
@@ -26,10 +26,10 @@ Feature: SC Saleor Commerce Platform on Alpine Linux | BDA
       And SC5B NodeJS runtime is available
       And SC5C SQLite database is available
       And SC5D Poetry is available
-     Then SC5E python version >= 3.12
-      And SC5F nodejs version >= 18
-      And SC5G sqlite version >= 3.48
-      And SC5H poetry version >= 1.8
+     Then SC5E the python version >= 3.12
+      And SC5F the nodejs version >= 18
+      And SC5G the sqlite version >= 3.48
+      And SC5H the poetry version >= 1.8
 
   @dev @ci @prod
   Scenario: SCF Provide Saleor commerce capabilities
