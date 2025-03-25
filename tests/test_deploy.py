@@ -133,13 +133,13 @@ def _():
 
 scenario("deploy.feature", "TNA Provide a stable Alpine Linux platform")
 
-@when("TNAA the system packages up to date")
+@when("TNAU the system packages up to date")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     run_ops(state)
 
-@then("TNAB OS Alpine Linux 3.21")
+@then("TNAA OS Alpine Linux 3.21")
 def _(host: Host):
     distro: LinuxDistributionDict = host.get_fact(LinuxDistribution)
     assert distro["release_meta"]["PRETTY_NAME"] == "Alpine Linux v3.21"
@@ -253,7 +253,7 @@ def _(state: State, deployed: bool):
         ]
     )
 
-@when("TNSV Saleor Python virtual environment is available") # was SCF3
+@when("TNSN Saleor Python virtual environment is available") # was SCF3
 def _(state: State, deployed: bool):
 
     if deployed:
@@ -306,7 +306,7 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("TNSO Saleor service definition is present") # was SCF5
+@when("TNSP Saleor service definition is present") # was SCF5
 def _(state: State, deployed: bool):
 
     if deployed:
