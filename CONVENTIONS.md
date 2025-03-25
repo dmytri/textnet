@@ -60,11 +60,11 @@ def _(host: Host):
 - Use behaviour-focused, declarative, present tense language in all steps
 - Focus on the desired behaviour, not actions to achieve it
 - All scenarios idempotent
-- Reference codes used for easy identification (e.g., SCF6)
+- Reference codes used for easy identification (e.g., [SCF6])
   - First two letters: Feature identifier (SC = Saleor Commerce)
   - Third letter: Scenario identifier (A-Z)
   - Fourth character: Step number (alphanumeric)
-  - Codes appear at the beginning of each line without # or brackets
+  - Codes appear in square brackets after Gherkin keywords (When, Then, And, etc.)
 
 ### Writing Behaviour-Focused Steps
 ```python
