@@ -235,7 +235,7 @@ def _(state: State):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && .venv/bin/poetry python manage.py migrate"
+            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py migrate"
         ],
     )
 
@@ -243,7 +243,7 @@ def _(state: State):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && .venv/bin/poetry python manage.py createsuperuser"
+            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py createsuperuser"
         ],
     )
 
