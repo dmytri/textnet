@@ -306,6 +306,8 @@ def _(state: State, deployed: bool):
 
     service: StringIO = StringIO(dedent(
         """
+        #!/sbin/openrc-run
+
         name="Saleor Commerce Platform"
         description="Saleor API and commerce services"
         supervisor=supervise-daemon
