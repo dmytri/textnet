@@ -218,7 +218,7 @@ def _(state: State):
 
     add_op(state, postgres.role,
         psql_user="postgres",
-        psql_password="xxxxxxxx",
+        psql_password="saleor",
         role="postres",
         password="saleor",
         superuser=True
@@ -226,7 +226,7 @@ def _(state: State):
 
     add_op(state, postgresql.database,
         psql_user="postgres",
-        psql_password="xxxxxxxx",
+        psql_password="saleor",
         database="saleor",
         owner="saleor"
     )
