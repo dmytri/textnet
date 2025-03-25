@@ -196,6 +196,7 @@ def _(state: State):
         state,
         apk.packages,
         packages=[
+            "shadow",
             "git",
             "curl",
             "curl-dev",
@@ -212,19 +213,38 @@ def _(state: State):
 def _(state: State):
     add_op(state, server.user,
         user='postgres',
-        password='xxxxxxxx'
+        password='saleor'
     )
+
     add_op(state, postgres.role,
-        pgsql_user="postgres",
-        pgsql_password="xxxxxxxx",
-        role="saleor",
+        psql_user="postgres",
+        psql_password="xxxxxxxx",
+        role="postres",
         password="saleor",
+        superuser=True
     )
+
     add_op(state, postgresql.database,
-        pgsql_user="postgres",
-        pgsql_password="xxxxxxxx",
+        psql_user="postgres",
+        psql_password="xxxxxxxx",
         database="saleor",
-        owner="saleor",
+        owner="saleor"
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && .venv/bin/poetry python manage.py migrate"
+        ],
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor && .venv/bin/poetry python manage.py createsuperuser"
+        ],
     )
 
 @when("TNSS Saleor source code is available") # was SCF2
@@ -325,7 +345,7 @@ def _(state: State):
         ],
     )
 
-@when("TNSX Host has converged") # was SCF6
+@then("TNSX Host has converged") # was SCF6
 def _(state: State):
     run_ops(state)
 
