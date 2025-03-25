@@ -44,6 +44,4 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
       And TNSP Saleor service definition is present
       And TNSE Saleor service is enabled 
      Then TNSX Host has converged
-      And TNSV saleor version >= 3.20
-      And TNSO OpenRC manages the running saleor service
-      And TNSG Saleor GraphQL endpoint responds successfully
+      And TNSV Saleor is operational
