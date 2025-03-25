@@ -91,39 +91,39 @@ scenarios("deploy.feature")
 
 scenario("deploy.feature", "SCA Target a development environment for testing")
 
-@when("SCA1 target environment is configured for development")
+@when("SC1A target environment is configured for development")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "dev"
 
-@then("SCA2 the system is configured for development testing")
+@then("SC1B the system is configured for development testing")
 def _():
     global TARGET
     assert TARGET == "dev"
 
 scenario("deploy.feature", "SCB Target a CI environment for verification")
 
-@when("SCB1 target environment is configured for continuous integration")
+@when("SC2A target environment is configured for continuous integration")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "ci"
 
-@then("SCB2 the system is configured for CI testing")
+@then("SC2B the system is configured for CI testing")
 def _():
     global TARGET
     assert TARGET == "ci"
 
 scenario("deploy.feature", "SCC Target a production environment for customers")
 
-@when("SCC1 target environment is configured for production")
+@when("SC3A target environment is configured for production")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "prod"
 
-@then("SCC2 the system is configured for production use")
+@then("SC3B the system is configured for production use")
 def _():
     global TARGET
     assert TARGET == "prod"
@@ -133,38 +133,38 @@ def _():
 
 scenario("deploy.feature", "SCD Provide a stable Alpine Linux platform")
 
-@when("SCD1 system packages up to date")
+@when("SC4A system packages up to date")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     run_ops(state)
 
-@then("SCD2 OS Alpine Linux 3.21")
+@then("SC4B OS Alpine Linux 3.21")
 def _(host: Host):
     distro: LinuxDistributionDict = host.get_fact(LinuxDistribution)
     assert distro["release_meta"]["PRETTY_NAME"] == "Alpine Linux v3.21"
 
 scenario("deploy.feature", "SCE Enable required runtime environments for Saleor")
 
-@when("SCE1 Python runtime is available")
+@when("SC5A Python runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["python3"])
 
-@when("SCE2 NodeJS runtime is available")
+@when("SC5B NodeJS runtime is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("SCE3 SQLite database is available")
+@when("SC5C SQLite database is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["sqlite"])
 
-@when("SCE4 Poetry is available")
+@when("SC5D Poetry is available")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
@@ -172,22 +172,22 @@ def _(state: State, deployed: bool):
 
     run_ops(state)
 
-@then("SCE5 python version >= 3.12")
+@then("SC5E python version >= 3.12")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["python3"])[0]) >= parse("3.12")
 
-@then("SCE6 nodejs version >= 18")
+@then("SC5F nodejs version >= 18")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
-@then("SCE7 sqlite version >= 3.48")
+@then("SC5G sqlite version >= 3.48")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["sqlite"])[0]) >= parse("3.48")
 
-@then("SCE8 poetry version >= 1.8")
+@then("SC5H poetry version >= 1.8")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
