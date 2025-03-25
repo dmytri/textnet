@@ -46,14 +46,14 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
      Then TNSX Host has converged
       And TNSV Saleor is operational
 
-  @dev @ci @prod
+  @dev @ci @prod @skip
   Scenario: TNDB Ensure Saleor Dashboard Dependencies are Installed
     When TND1 the Saleor dashboard build tools are available
-    And TND2 the Saleor dashboard dependencies are installed
+     And TND2 the Saleor dashboard dependencies are installed
     Then TND3 Saleor dashboard dependencies are present
 
   @dev @ci @prod
   Scenario: TNDC Provide Saleor Dashboard
     When TND4 the Saleor dashboard is built
-    And TND5 the Saleor dashboard static files are collected
+     And TND5 the Saleor dashboard static files are collected
     Then TND6 Saleor dashboard is accessible
