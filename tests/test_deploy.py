@@ -12,7 +12,7 @@ from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
-from pyinfra.operations import apk, openrc, files, server
+from pyinfra.operations import apk, openrc, files, server, postgresql
 from packaging.version import parse
 from pytest import fixture, skip, fail
 from pytest_bdd import scenario, scenarios, then, when
@@ -163,6 +163,17 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
+    add_op(state, postgresql.role,
+           user="saleor",
+           password="saleor",
+           superuser=True,
+           _sudo=True,
+           )
+    add_op(state, postgresql.database,
+           name="saleor",
+           user="saleor",
+           _sudo=True,
+           )
 
 @when("TNRS PostgreSQL service is enabled")
 def _(state: State, deployed: bool):
