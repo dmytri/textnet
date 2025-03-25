@@ -64,7 +64,7 @@ def _(host: Host):
   - First two letters: Feature identifier (SC = Saleor Commerce)
   - Third letter: Scenario identifier (A-Z)
   - Fourth character: Step number (alphanumeric)
-  - Reference codes are tracked in VIBE.md and commit messages, not in feature files
+  - Reference codes appear at the beginning of scenario/step descriptions
 
 ### Writing Behaviour-Focused Steps
 ```python
