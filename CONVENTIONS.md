@@ -28,6 +28,11 @@ Shared rules for humans and AI collaborating on infrastructure automation.
   - Respect their recommended package manager
   - Document any special handling required
 
+### Saleor Commerce
+- Saleor installation reference: https://docs.saleor.io/setup/windows (adapting for Alpine Linux)
+- Saleor Platform Repository: [https://github.com/saleor/saleor-platform](https://github.com/saleor/saleor-platform)
+- Saleor Platform Docker Compose: [https://raw.githubusercontent.com/saleor/saleor-platform/refs/heads/main/docker-compose.yml](https://raw.githubusercontent.com/saleor/saleor-platform/refs/heads/main/docker-compose.yml)
+
 ### Test Structure
 - Feature files/step defs in `/tests`
 - All test files in `/tests`, no subdirectories
@@ -116,7 +121,6 @@ Then the application handles the specified edge cases
 - ALWAYS ask for permission before suggesting modifications
 - ALWAYS be explicit about what you're being asked to do before taking action
 - NEVER switch contexts or start working on new topics without being explicitly asked
-- ALWAYS stay focused on the current topic until given a new task
 
 ### Enforcement Protocol
 1. For every request:
