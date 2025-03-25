@@ -91,39 +91,39 @@ scenarios("deploy.feature")
 
 scenario("deploy.feature", "TND Target a development environment for testing")
 
-@when("TNDA the target environment is configured for development")
+@when("TNDE the target environment is configured for development")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "dev"
 
-@then("TNDB the system is configured for development testing")
+@then("TNDC the system is configured for development testing")
 def _():
     global TARGET
     assert TARGET == "dev"
 
 scenario("deploy.feature", "TNC Target a CI environment for verification")
 
-@when("TNCA the target environment is configured for continuous integration")
+@when("TNCE the target environment is configured for continuous integration")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "ci"
 
-@then("TNCB the system is configured for CI testing")
+@then("TNCC the system is configured for CI testing")
 def _():
     global TARGET
     assert TARGET == "ci"
 
 scenario("deploy.feature", "TNP Target a production environment for customers")
 
-@when("TNPA the target environment is configured for production")
+@when("TNPE the target environment is configured for production")
 def _():
     global TARGET
     assert TARGET is None
     TARGET = "prod"
 
-@then("TNPB the system is configured for production use")
+@then("TNPC the system is configured for production use")
 def _():
     global TARGET
     assert TARGET == "prod"
