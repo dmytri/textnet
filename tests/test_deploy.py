@@ -11,7 +11,7 @@ from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
-from pyinfra.facts.server import Command
+from pyinfra.facts.server import Command, ServiceStatus, ServerServiceEnabled
 from pyinfra.operations import apk, files, server
 from packaging.version import parse
 from pytest import fixture, skip, fail
@@ -158,11 +158,17 @@ def _(state: State, deployed: bool):
         skip()
     add_op(state, apk.packages, packages=["nodejs"])
 
-@when("TNRC SQLite database is available")
+@when("TNRC PostgreSQL database packages are installed")
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    add_op(state, apk.packages, packages=["sqlite"])
+    add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
+
+@when("TNRS PostgreSQL service is running")
+def _(state: State, deployed: bool):
+    if deployed:
+        skip()
+    add_op(state, server.service, "postgresql", running=True, enabled=True)
 
 @when("TNRD Poetry is available")
 def _(state: State, deployed: bool):
@@ -182,10 +188,15 @@ def _(host: Host):
     packages = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
-@then("TNRG the sqlite version >= 3.48")
+@then("TNRG the postgresql version >= 15")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(list(packages["sqlite"])[0]) >= parse("3.48")
+    assert parse(list(packages["postgresql"])[0]) >= parse("15"), f"PostgreSQL version {list(packages['postgresql'])[0]} < 15"
+
+@then("TNRI PostgreSQL service is operational")
+def _(host: Host):
+    assert host.get_fact(ServiceStatus, "postgresql") is True, "Service not running"
+    assert host.get_fact(ServerServiceEnabled, "postgresql") is True, "Service not enabled"
 
 @then("TNRH the poetry version >= 1.8")
 def _(host: Host):
