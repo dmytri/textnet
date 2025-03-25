@@ -10,8 +10,9 @@ from pyinfra.api.operation import add_op
 from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
+from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
-from pyinfra.operations import apk, files, server
+from pyinfra.operations import apk, openrc, files, server
 from packaging.version import parse
 from pytest import fixture, skip, fail
 from pytest_bdd import scenario, scenarios, then, when
@@ -167,7 +168,7 @@ def _(state: State, deployed: bool):
 def _(state: State, deployed: bool):
     if deployed:
         skip()
-    add_op(state, server.service, "postgresql", running=True, enabled=True)
+    add_op(state, openrc.service, "postgresql", running=True, enabled=True)
 
 @when("TNRD Poetry is available")
 def _(state: State, deployed: bool):
@@ -190,13 +191,13 @@ def _(host: Host):
 @then("TNRG the postgresql version >= 17")
 def _(host: Host):
     packages = host.get_fact(ApkPackages)
-    assert parse(list(packages["postgresql"])[0]) >= parse("17")
+    assert parse(list(packages["postgresql17"])[0]) >= parse("17")
 
 @then("TNRI PostgreSQL service is operational")
 def _(host: Host):
-    running_result = host.get_fact(Command, command="rc-service postgresql status | grep -q 'started' && echo 'running'")
-    running_status = running_result.get('stdout', '').strip() if isinstance(running_result, dict) else ''
-    assert running_status == "running", "PostgreSQL service is not running"
+    service_status = host.get_fact(OpenrcEnabled, runlevel="defualt")
+    print(service_status)
+    assert service_status == "started", "PostgreSQL service is not running"
 
 @then("TNRH the poetry version >= 1.8")
 def _(host: Host):
@@ -355,12 +356,10 @@ def _(host: Host):
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert parse(version) >= parse("3.20")
 
-@then("TNSO OpenRC manages the running saleor service") # was SCF8
+@then("TNSO OpenRC manages the running saleor service")
 def _(host: Host):
-    # Verify service is running and managed by OpenRC
-    cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
-    status = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
-    assert status == "running"
+    service_status = host.get_fact(OpenrcEnabled, service="saleor")
+    assert service_status == "started", "Saleor service is not running"
 
 @then("TNSG Saleor GraphQL endpoint responds successfully") # was SCF9
 def _(host: Host):
