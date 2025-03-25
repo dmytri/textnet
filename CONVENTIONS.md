@@ -60,6 +60,10 @@ def _(host: Host):
 - Use behaviour-focused, declarative, present tense language in all steps
 - Focus on the desired behaviour, not actions to achieve it
 - All scenarios idempotent
+- Reference codes used for easy identification (e.g., [SCF6])
+  - First two letters: Feature identifier (SC = Saleor Commerce)
+  - Third letter: Scenario identifier (A-Z)
+  - Fourth character: Step number (alphanumeric)
 
 ### Writing Behaviour-Focused Steps
 ```python
