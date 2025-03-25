@@ -348,14 +348,14 @@ def _(host: Host):
     version = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert parse(version) >= parse("3.20")
 
-@then("SCF7 OpenRC manages the running saleor service")
+@then("SCF8 OpenRC manages the running saleor service")
 def _(host: Host):
     # Verify service is running and managed by OpenRC
     cmd_result = host.get_fact(Command, command="rc-service saleor status | grep -q 'started' && echo 'running'")
     status = cmd_result.get('stdout', '').strip() if isinstance(cmd_result, dict) else ''
     assert status == "running"
 
-@then("SCFA Saleor GraphQL endpoint responds successfully")
+@then("SCF9 Saleor GraphQL endpoint responds successfully")
 def _(host: Host):
     # Test the GraphQL endpoint to see if it's responding
     # Retry up to 3 times with a short delay to handle potential startup delay
