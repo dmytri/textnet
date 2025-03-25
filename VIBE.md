@@ -1,7 +1,7 @@
 # Project Vibe & Priorities
 
 ## Current Focus 🧠
-**Saleor Commerce Capabilities**  
-*Automate Saleor installation and verification*
+**Saleor Verification**  
+*Ensuring Saleor is properly installed and operational with accurate version detection*
 
-*Guided by [GOALS.md](GOALS.md)
+*Guided by [GOALS.md](GOALS.md)*
