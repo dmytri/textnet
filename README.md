@@ -62,3 +62,28 @@ For questions, feedback, or contributions:
 - [Dmytri Kleiner](mailto:dev@dmytri.to)
 - [@dmytri.to](https://bluesky.social/@dmytri.to) on BlueSky
 
+## Conventions
+
+### Project Context
+- Guide decisions using [Project Goals](GOALS.md) focus areas
+- Current focuse is [VIBE](VIBE.md) focus areas
+- Saleor installation reference: https://docs.saleor.io/setup/windows (adapting for Alpine Linux)
+
+### Commit Hygiene
+- Follow Conventional Commits format
+- More information at [Conventional Commits](https://www.conventionalcommits.org/)
+- Try to connect commits to current vibe and related bda/atdd scenarios
+
+### Documentation & Text
+- Use Canadian spelling for everything
+
+### Local Environment  
+- Requires Tilt + Minikube
+- All dependencies provisioned via BDA steps
+- Never manually install packages or run Kubernetes commands
+
+### Saleor Commerce
+- Saleor installation reference: https://docs.saleor.io/setup/windows (adapting for Alpine Linux)
+- Saleor Platform Repository: [https://github.com/saleor/saleor-platform](https://github.com/saleor/saleor-platform)
+- Saleor Platform Docker Compose: [https://raw.githubusercontent.com/saleor/saleor-platform/refs/heads/main/docker-compose.yml](https://raw.githubusercontent.com/saleor/saleor/blob/main/Dockerfile)
+
