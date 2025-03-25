@@ -269,20 +269,20 @@ def _(state: State):
 def _(state: State):
     add_op(state, server.user,
         user='postgres',
-        password='saleor'
+        password='xxxxxxx'
     )
 
     add_op(state, postgres.role,
         psql_user="postgres",
-        psql_password="saleor",
-        role="postgres",
+        psql_password="xxxxxxxx",
+        role="saleor",
         password="saleor",
         superuser=True
     )
 
     add_op(state, postgres.database,
         psql_user="postgres",
-        psql_password="saleor",
+        psql_password="xxxxxxxx",
         database="saleor",
         owner="postgres"
     )
