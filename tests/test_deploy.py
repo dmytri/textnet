@@ -12,7 +12,7 @@ from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
-from pyinfra.operations import apk, openrc, files, server, postgresql
+from pyinfra.operations import apk, openrc, files, server, postgresql, postgres
 from packaging.version import parse
 from pytest import fixture, skip, fail
 from pytest_bdd import scenario, scenarios, then, when
@@ -163,7 +163,7 @@ def _(state: State, deployed: bool):
     if deployed:
         skip()
     add_op(state, apk.packages, packages=["postgresql", "postgresql-contrib"])
-    add_op(state, postgresql.role,
+    add_op(state, postgres.role,
            user="saleor",
            password="saleor",
            superuser=True,
@@ -331,7 +331,7 @@ def _(state: State, deployed: bool):
 
         depend() {
             need net
-            after firewall
+             after firewall
         }
         """).strip()
     )
