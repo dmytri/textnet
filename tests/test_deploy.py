@@ -167,17 +167,17 @@ def _(state: State):
 def _(state: State):
     run_ops(state)
 
-@then("TNRE the python version >= 3.12")
+@then("TNRE python version >= 3.12")
 def _(host: Host):
     packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["python3"])[0]) >= parse("3.12")
 
-@then("TNRF the nodejs version >= 18")
+@then("TNRF nodejs version >= 18")
 def _(host: Host):
     packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["nodejs"])[0]) >= parse("18")
 
-@then("TNRG the postgresql version >= 17")
+@then("TNRG postgresql version >= 17")
 def _(host: Host):
     packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["postgresql17"])[0]) >= parse("17")
@@ -187,7 +187,7 @@ def _(host: Host):
     services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
     assert "postgresql" in services
 
-@then("TNRH the poetry version >= 1.8")
+@then("TNRH poetry version >= 1.8")
 def _(host: Host):
     packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["poetry"])[0]) >= parse("1.8")
@@ -313,6 +313,9 @@ def _(state: State):
             "rc-service saleor start || true"
         ],
     )
+
+@when("TNSX Host has converged") # was SCF6
+def _(state: State):
     run_ops(state)
 
 @then("TNSV saleor version >= 3.20") # was SCF7

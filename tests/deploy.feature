@@ -28,11 +28,11 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
       And TNRS PostgreSQL service is enabled
       And TNRD Poetry is available
      Then TNRX Host has converged
-      And TNRE the python version >= 3.12
-      And TNRG the postgresql version >= 17
+      And TNRE python version >= 3.12
+      And TNRG postgresql version >= 17
       And TNRI PostgreSQL service is operational
-      And TNRF the nodejs version >= 18
-      And TNRH the poetry version >= 1.8
+      And TNRF nodejs version >= 18
+      And TNRH poetry version >= 1.8
 
   @dev @ci @prod
   Scenario: TNS Provide Saleor commerce capabilities
@@ -42,6 +42,7 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
       And TNSD Saleor Python dependencies are installed
       And TNSP Saleor service definition is present
       And TNSE Saleor service is enabled 
-     Then TNSV saleor version >= 3.20
+     Then TNSX Host has converged
+      And TNSV saleor version >= 3.20
       And TNSO OpenRC manages the running saleor service
       And TNSG Saleor GraphQL endpoint responds successfully
