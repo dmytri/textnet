@@ -13,7 +13,7 @@ cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"
-cmd = "aider --no-show-model-warnings --watch-files --architect --model gem"
+cmd = "aider --watch-files --model gem"
 
 [tool.pytest.ini_options]
 markers = [

@@ -2,23 +2,23 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
 
   @dev
   Scenario: TND Target a development environment for testing
-     When TNDA the target environment is configured for development
-     Then TNDB the system is configured for development testing
+     When TNDE the target environment is configured for development
+     Then TNDC the system is configured for development testing
 
   @ci
   Scenario: TNC Target a CI environment for verification
-     When TNCA the target environment is configured for continuous integration
-     Then TNCB the system is configured for CI testing
+     When TNCE the target environment is configured for continuous integration
+     Then TNCC the system is configured for CI testing
 
   @prod
   Scenario: TNP Target a production environment for customers
-     When TNPA the target environment is configured for production
-     Then TNPB the system is configured for production use
+     When TNPE the target environment is configured for production
+     Then TNPC the system is configured for production use
 
   @dev @ci @prod
   Scenario: TNA Provide a stable Alpine Linux platform
-     When TNAA the system packages up to date
-     Then TNAB OS Alpine Linux 3.21
+     When TNAU the system packages up to date
+     Then TNAA OS Alpine Linux 3.21
 
   @dev @ci @prod
   Scenario: TNR Enable required runtime environments for Saleor

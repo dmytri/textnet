@@ -13,7 +13,7 @@
       budget_tokens: 32000
   cache_control: true
 
-  editor_model_name: openrouter/anthropic/claude-3.7-sonnet:thinking
+  editor_model_name: anthropic/claude-3-7-sonnet-20250219
   editor_edit_format: editor-diff
 - name: openrouter/anthropic/claude-3.7-sonnet:thinking
   edit_format: diff

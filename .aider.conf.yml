@@ -5,8 +5,6 @@ read:
   - PROJECT_STRUCTURE.md
   - CONVENTIONS.md
   - VIBE.md
-  - GOALS.md
-  - README.md
   - tests/deploy.feature
 
 lint-cmd:
