@@ -1,5 +1,6 @@
 # Project Conventions
 Shared rules for humans and AI collaborating on infrastructure automation.
+See also: [Project Structure](PROJECT_STRUCTURE.md)
 
 ## For Humans & AI
 ### Project Context
