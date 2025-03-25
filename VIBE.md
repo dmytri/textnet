@@ -1,9 +1,10 @@
 # Project Vibe & Priorities
 
 ## Current Focus 🧠
-**Saleor Verification TNSV**  
+**Saleor Verification TNS**  
 *Ensuring Saleor is properly installed and operational with accurate version detection*
 
-## Current Issues 🐛
-**Early Failure in TNS Scenario**
-*The TNS scenario, specifically the "TNSS Saleor source code is available" step, is failing due to a `TypeError: shell() got an unexpected keyword argument 'creates'`.*
+## Current Issues 🐛                                                                                                                                      
+**Failure in TNS Scenario: Saleor Version Verification**                                                                                                  
+*The TNS scenario, specifically the "TNSV saleor version >= 3.20" step, is failing due to `packaging.version.InvalidVersion: Invalid version: ''`. This   
+indicates that the `poetry version` command is not returning a valid version string.*                                                                     
