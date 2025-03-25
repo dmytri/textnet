@@ -12,7 +12,6 @@ See also: [Project Structure](PROJECT_STRUCTURE.md)
 - Follow Conventional Commits format
 - More information at [Conventional Commits](https://www.conventionalcommits.org/)
 - Try to connect commits to current vibe and related bda/atdd scenarios
-- A little humour and style is encouraged
 
 ### Documentation & Text
 - Use Canadian spelling for everything
