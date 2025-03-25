@@ -194,19 +194,28 @@ def _(host: Host):
 
 scenario("deploy.feature", "SCF Provide Saleor commerce capabilities")
 
-@when("SCF1 build dependencies are available")
+@when("SCF1 build tools are available")
 def _(state: State, deployed: bool):
-    add_op(state, apk.update)
+
+    if deployed:
+        skip()
+
+    add_op(
+        state,
+        apk.update)
     add_op(state, apk.upgrade)
     add_op(
         state,
         apk.packages,
         packages=[
-            "git",
             "curl",
             "curl-dev",
             "libcurl",
             "python3-dev",
+            # "python3-pip", # Removed because we use virtualenv
+            # "python3-setuptools", # Removed because we use virtualenv
+            # "wheel", # Removed because we use virtualenv
+            # "virtualenv", # Replaced with python3 -m virtualenv
             "py3-virtualenv",
             "build-base",
             "musl-dev",
@@ -216,6 +225,7 @@ def _(state: State, deployed: bool):
 
 @when("SCF2 Saleor source code is available")
 def _(state: State, deployed: bool):
+
     if deployed:
         skip()
 
@@ -225,12 +235,14 @@ def _(state: State, deployed: bool):
         commands=[
             "test -d /opt/saleor || git clone https://github.com/saleor/saleor.git /opt/saleor"
         ],
+        creates="/opt/saleor"
     )
 
-@when("SCF3 Saleor Python components are installed")
+@when("SCF3 Saleor Python virtual environment is available")
 def _(state: State, deployed: bool):
+
     if deployed:
-        skip()
+         skip()
 
     # Create a virtual environment for Saleor
     add_op(
@@ -241,6 +253,11 @@ def _(state: State, deployed: bool):
         ],
     )
 
+@when("SCF4 Saleor Python dependencies are installed")
+def _(state: State, deployed: bool):
+
+    if deployed:
+         skip()
     # Use the virtual environment for poetry operations
     add_op(
         state,
@@ -274,8 +291,9 @@ def _(state: State, deployed: bool):
         ],
     )
 
-@when("SCF4 Saleor service definition is present")
+@when("SCF5 Saleor service definition is present")
 def _(state: State, deployed: bool):
+
     if deployed:
         skip()
 
@@ -306,10 +324,12 @@ def _(state: State, deployed: bool):
         mode="0755",
     )
 
-@when("SCF5 Saleor service is enabled")
+@when("SCF6 Saleor service is enabled")
 def _(state: State, deployed: bool):
+
     if deployed:
         skip()
+
 
     add_op(
         state,
@@ -321,7 +341,7 @@ def _(state: State, deployed: bool):
     )
     run_ops(state)
 
-@then("SCF6 saleor version >= 3.20")
+@then("SCF7 saleor version >= 3.20")
 def _(host: Host):
     # Check saleor version using poetry
     cmd_result = host.get_fact(Command, command="cd /opt/saleor && poetry version | awk '{print $2}' || echo '0.0.0'")
