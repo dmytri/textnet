@@ -151,8 +151,8 @@ def _(state: State):
        password="saleor",
     )
     add_op(state, postgresql.database,
-       name="saleor",
-       owner="saleor"
+       database="saleor",
+       owner="saleor",
     )
 
 @when("TNRS PostgreSQL service is enabled")
