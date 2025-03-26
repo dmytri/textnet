@@ -12,7 +12,7 @@ from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
-from pyinfra.operations import apk, openrc, files, server, postgresql, postgres
+from pyinfra.operations import apk, git, openrc, files, server, postgres
 from packaging.version import parse
 from pytest import fixture, skip, fail
 from pytest_bdd import scenario, scenarios, then, when
@@ -220,10 +220,10 @@ def _(state: State):
 def _(state: State):
     add_op(
         state,
-        server.shell,
-        commands=[
-            "test -d /opt/saleor || git clone https://github.com/saleor/saleor.git /opt/saleor"
-        ]
+        git.repo,
+        src="https://github.com/saleor/saleor.git",
+        dest="/opt/saleor",
+        branch="main"
     )
 
 @when("TNSN Saleor Python virtual environment is available")
