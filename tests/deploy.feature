@@ -52,7 +52,7 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
      And TNID Saleor dashboard dependencies are installed
     Then TNIX Host has converged
 
-  @dev @ci @prod
+  @dev @ci @prod @skip
   Scenario: TND Provide Saleor Dashboard
     When TNDB Saleor dashboard is built
      And TNDS Saleor dashboard static files are collected

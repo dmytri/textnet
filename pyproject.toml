@@ -6,10 +6,10 @@ requires-python = ">=3.12"
 dependencies = ["poethepoet", "pytest-bdd", "pyinfra"]
 
 [tool.poe.tasks.dev]
-cmd = "pytest -xsm 'dev and not skip' --tb=short -s tests/"
+cmd = "pytest -xsm 'dev and not skip' --tb=short tests/"
 
 [tool.poe.tasks.ci]
-cmd = "pytest -x --tb=long -s -v -m 'ci and not skip' tests/"
+cmd = "pytest -xvm 'ci and not skip' --tb=long tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"

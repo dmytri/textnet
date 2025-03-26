@@ -63,10 +63,17 @@ def state() -> State:
 
     state = State(inventory, Config())
 
-    state.print_input = False
-    state.print_output = False
-    state.print_fact_info = False
-    state.print_noop_info = False
+    match TARGET:
+        case "dev":
+            state.print_input = False
+            state.print_output = False
+            state.print_fact_info = False
+            state.print_noop_info = False
+        case _:
+            state.print_input = True
+            state.print_output = True
+            state.print_fact_info = True
+            state.print_noop_info = True
 
     connect_all(state)
 
@@ -335,7 +342,7 @@ def _(state: State):
     )
 
 @when("TNSE Saleor service is enabled")
-def _(state: State):
+def _(state: State, host: Host):
     add_op(state, openrc.service, "saleor", running=True, enabled=True)
 
 @then("TNSX Host has converged")
