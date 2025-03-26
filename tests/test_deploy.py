@@ -239,36 +239,16 @@ def _(state: State):
 
 @when("TNSD Saleor Python dependencies are installed")
 def _(state: State):
-    # Use the virtual environment for poetry operations
+    # Check if dependencies are already installed
     add_op(
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor && .venv/bin/pip install --upgrade pip"
-        ],
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor && .venv/bin/pip install poetry"
-        ],
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor && .venv/bin/poetry lock"
-        ],
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor && .venv/bin/poetry install"
+            "cd /opt/saleor && .venv/bin/pip show poetry || ("
+            ".venv/bin/pip install --upgrade pip && "
+            ".venv/bin/pip install poetry && "
+            ".venv/bin/poetry lock && "
+            ".venv/bin/poetry install)"
         ],
     )
 

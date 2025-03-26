@@ -9,7 +9,7 @@ dependencies = ["poethepoet", "pytest-bdd", "pyinfra"]
 cmd = "pytest -xsm 'dev and not skip' --tb=short tests/"
 
 [tool.poe.tasks.ci]
-cmd = "pytest -xvm 'ci and not skip' --tb=long tests/"
+cmd = "pytest -xsvm 'ci and not skip' --tb=long tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"
