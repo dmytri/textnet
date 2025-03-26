@@ -259,7 +259,6 @@ def _(state: State):
 
 @when("TNSD Saleor Python dependencies are installed")
 def _(state: State):
-    # Check if dependencies are already installed
     add_op(
         state,
         server.shell,
