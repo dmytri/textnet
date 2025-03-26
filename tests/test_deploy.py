@@ -336,14 +336,7 @@ def _(state: State):
 
 @when("TNSE Saleor service is enabled")
 def _(state: State):
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "rc-update add saleor default",
-            "rc-service saleor start || true"
-        ],
-    )
+    add_op(state, openrc.service, "saleor", running=True, enabled=True)
 
 @then("TNSX Host has converged")
 def _(state: State):
