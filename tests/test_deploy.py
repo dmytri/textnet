@@ -216,6 +216,28 @@ def _(state: State):
         ],
     )
 
+@when("TNSU Saleor database is setup")
+def _(state: State):
+    add_op(state, server.user,
+        user='postgres',
+        password='xxxxxxx'
+    )
+
+    add_op(state, postgres.role,
+        psql_user="postgres",
+        psql_password="xxxxxxxx",
+        role="saleor",
+        password="saleor",
+        superuser=True
+    )
+
+    add_op(state, postgres.database,
+        psql_user="postgres",
+        psql_password="xxxxxxxx",
+        database="saleor",
+        owner="postgres"
+    )
+
 @when("TNSS Saleor source code is available")
 def _(state: State):
     add_op(
@@ -243,48 +265,13 @@ def _(state: State):
         server.shell,
         commands=[
             "cd /opt/saleor && .venv/bin/pip show poetry || ("
-            ".venv/bin/pip install --upgrade pip && "
-            ".venv/bin/pip install poetry && "
-            ".venv/bin/poetry lock && "
-            ".venv/bin/poetry install)"
-        ],
-    )
-
-@when("TNSU Saleor database is setup")
-def _(state: State):
-    add_op(state, server.user,
-        user='postgres',
-        password='xxxxxxx'
-    )
-
-    add_op(state, postgres.role,
-        psql_user="postgres",
-        psql_password="xxxxxxxx",
-        role="saleor",
-        password="saleor",
-        superuser=True
-    )
-
-    add_op(state, postgres.database,
-        psql_user="postgres",
-        psql_password="xxxxxxxx",
-        database="saleor",
-        owner="postgres"
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py migrate"
-        ],
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor/ && .venv/bin/poetry run python manage.py createsuperuser"
+            ".venv/bin/pip install --upgrade pip"
+            " && .venv/bin/pip install poetry"
+            " && .venv/bin/poetry lock"
+            " && .venv/bin/poetry install"
+            " && .venv/bin/poetry run python manage.py migrate"
+            " && .venv/bin/poetry run python manage.py createsuperuser"
+            ")"
         ],
     )
 
