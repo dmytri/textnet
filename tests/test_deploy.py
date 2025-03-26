@@ -377,3 +377,7 @@ def _():
 @then("TNDA Saleor dashboard is accessible")
 def _():
     pass
+
+@then("TNDX Host has converged")
+def _():
+    pass
