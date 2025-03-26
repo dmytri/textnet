@@ -1,7 +1,7 @@
 # Project Vibe & Priorities
 
 ## Current Focus
-Saleor Dashboard Integration
+TNIB: Dashboard build tools
 
 ## Current Issues 
 Need to Implement Dashboard Steps
