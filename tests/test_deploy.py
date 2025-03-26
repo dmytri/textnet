@@ -133,6 +133,8 @@ scenario("deploy.feature", "TNA Provide a stable Alpine Linux platform")
 
 @when("TNAU the system packages up to date")
 def _(state: State):
+    add_op(state, apk.update)
+    add_op(state, apk.upgrade)
     run_ops(state)
 
 @then("TNAA OS Alpine Linux 3.21")
@@ -319,16 +321,29 @@ def _(host: Host):
     assert "saleor" in services
 
 @when("TNIB Saleor dashboard build tools are available")
-def _():
-    pass
+def _(state: State):
+    add_op(
+        state,
+        apk.packages,
+        packages=[
+            "nodejs",
+            "npm",
+        ],
+    )
 
 @when("TNID Saleor dashboard dependencies are installed")
-def _():
-    pass
+def _(state: State):
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor-dashboard && npm install",
+        ],
+    )
 
 @then("TNIX Host has converged")
-def _():
-    pass
+def _(state: State):
+    run_ops(state)
 
 @when("TNDB Saleor dashboard is built")
 def _():
