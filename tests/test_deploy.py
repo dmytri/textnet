@@ -12,7 +12,7 @@ from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
-from pyinfra.operations import apk, git, openrc, files, server, postgres
+from pyinfra.operations import apk, git, pip, openrc, files, server, postgres
 from packaging.version import parse
 from pytest import fixture, fail
 from pytest_bdd import scenario, scenarios, then, when
@@ -228,13 +228,11 @@ def _(state: State):
 
 @when("TNSN Saleor Python virtual environment is available")
 def _(state: State):
-    # Create a virtual environment for Saleor
     add_op(
         state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor && python3 -m virtualenv .venv"
-        ],
+        pip.venv,
+        name="Create a virtualenv",
+        path="/opt/saleor/.venv"
     )
 
 @when("TNSD Saleor Python dependencies are installed")
