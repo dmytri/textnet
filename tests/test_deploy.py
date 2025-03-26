@@ -186,7 +186,7 @@ def _(host: Host):
 
 scenario("deploy.feature", "TNS Provide Saleor commerce capabilities")
 
-@when("TNSB build tools are available") # was SCF1
+@when("TNSB build tools are available")
 def _(state: State):
     add_op(
         state,
@@ -209,7 +209,7 @@ def _(state: State):
         ],
     )
 
-@when("TNSS Saleor source code is available") # was SCF2
+@when("TNSS Saleor source code is available")
 def _(state: State):
     add_op(
         state,
@@ -219,7 +219,7 @@ def _(state: State):
         ]
     )
 
-@when("TNSN Saleor Python virtual environment is available") # was SCF3
+@when("TNSN Saleor Python virtual environment is available")
 def _(state: State):
     # Create a virtual environment for Saleor
     add_op(
@@ -230,7 +230,7 @@ def _(state: State):
         ],
     )
 
-@when("TNSD Saleor Python dependencies are installed") # was SCF4
+@when("TNSD Saleor Python dependencies are installed")
 def _(state: State):
     # Use the virtual environment for poetry operations
     add_op(
@@ -303,7 +303,7 @@ def _(state: State):
         ],
     )
 
-@when("TNSP Saleor service definition is present") # was SCF5
+@when("TNSP Saleor service definition is present")
 def _(state: State):
     service: StringIO = StringIO(dedent(
         """
@@ -334,7 +334,7 @@ def _(state: State):
         mode="0755",
     )
 
-@when("TNSE Saleor service is enabled") # was SCF6
+@when("TNSE Saleor service is enabled")
 def _(state: State):
     add_op(
         state,
@@ -345,11 +345,11 @@ def _(state: State):
         ],
     )
 
-@then("TNSX Host has converged") # was SCF6
+@then("TNSX Host has converged")
 def _(state: State):
     run_ops(state)
 
-@then("TNSV Saleor is operational") # was SCF7
+@then("TNSV Saleor is operational")
 def _(host: Host):
     services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
     assert "saleor" in services
