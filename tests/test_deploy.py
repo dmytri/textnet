@@ -11,10 +11,10 @@ from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.openrc import OpenrcEnabled
-from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict, Command
+from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.operations import apk, git, openrc, files, server, postgres
 from packaging.version import parse
-from pytest import fixture, skip, fail
+from pytest import fixture, fail
 from pytest_bdd import scenario, scenarios, then, when
 
 ## GLOBALS AND FIXTURES ~
