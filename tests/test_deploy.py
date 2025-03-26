@@ -353,3 +353,27 @@ def _(state: State):
 def _(host: Host):
     services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
     assert "saleor" in services
+
+@when("TNIB Saleor dashboard build tools are available")
+def _():
+    pass
+
+@when("TNID Saleor dashboard dependencies are installed")
+def _():
+    pass
+
+@then("TNIX Host has converged")
+def _():
+    pass
+
+@when("TNDB Saleor dashboard is built")
+def _():
+    pass
+
+@when("TNDS Saleor dashboard static files are collected")
+def _():
+    pass
+
+@then("TNDA Saleor dashboard is accessible")
+def _():
+    pass
