@@ -386,7 +386,7 @@ def _(state: State):
         description="Saleor Dashboard web interface"
         supervisor=supervise-daemon
         command="/usr/bin/serve"
-        command_args="-s -l 3000 build"
+        command_args="-s -l 9000 build"
         directory="/opt/saleor-dashboard"
         pidfile="/run/saleor-dashboard.pid"
         output_log="/var/log/saleor-dashboard.log"
