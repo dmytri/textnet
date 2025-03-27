@@ -399,16 +399,14 @@ def _(state: State):
     )
 
 @when("TNBE Saleor Dashboard service is enabled")
-def _():
-    print("Not implemented: Step: TNBE Saleor Dashboard service is enabled")
-    skip("Not implemented yet")
+def _(state: State, host: Host):
+    add_op(state, openrc.service, "saleor-dashboard", running=True, enabled=True)
 
 @then("TNBX Host has converged")
-def _():
-    print("Not implemented: Step: TNBX Host has converged")
-    skip("Not implemented yet")
+def _(state: State):
+    run_ops(state)
 
 @then("TNBV Saleor Dashboad is operational")
-def _():
-    print("Not implemented: Step: TNBV Saleor Dashboad is operational")
-    skip("Not implemented yet")
+def _(host: Host):
+    services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
+    assert "saleor-dashboard" in services
