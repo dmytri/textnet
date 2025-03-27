@@ -249,7 +249,7 @@ def _(state: State, host: Host):
             git.repo,
             src="https://github.com/saleor/saleor.git",
             dest="/opt/saleor",
-            branch="3.20.79"
+            branch="main"
         )
 
 @when("TNSN Saleor Python virtual environment is available")
@@ -293,6 +293,7 @@ def _(state: State):
         pidfile="/run/saleor.pid"
         output_log="/var/log/saleor.log"
         error_log="/var/log/saleor.err"
+        export API_URI="http://localhost:8000/graphql/"
 
         depend() {
             need net
@@ -399,7 +400,7 @@ def _(state: State):
     )
 
 @when("TNBE Saleor Dashboard service is enabled")
-def _(state: State, host: Host):
+def _(state: State):
     add_op(state, openrc.service, "saleor-dashboard", running=True, enabled=True)
 
 @then("TNBX Host has converged")
