@@ -360,22 +360,9 @@ def _(state: State):
         ],
     )
 
+@then("TNIX Host has converged")
+def _(state: State):
     run_ops(state)
 
-scenario("deploy.feature", "TND Provide Saleor Dashboard")
+scenario("deploy.feature", "TNB Provide Saleor Dashboard")
 
-@when("TNDB Saleor dashboard is built")
-def _():
-    pass
-
-@when("TNDS Saleor dashboard static files are collected")
-def _():
-    pass
-
-@then("TNDA Saleor dashboard is accessible")
-def _():
-    pass
-
-@then("TNDX Host has converged")
-def _():
-    pass

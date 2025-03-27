@@ -36,25 +36,26 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
 
   @dev @ci @prod
   Scenario: TNS Provide Saleor commerce capabilities
-     When TNSB build tools are available
-      And TNSU Saleor database is setup
-      And TNSS Saleor source code is available
-      And TNSN Saleor Python virtual environment is available
-      And TNSD Saleor Python dependencies are installed
-      And TNSP Saleor service definition is present
-      And TNSE Saleor service is enabled 
-     Then TNSX Host has converged
-      And TNSV Saleor is operational
+    When TNSB build tools are available
+     And TNSU Saleor database is setup
+     And TNSS Saleor source code is available
+     And TNSN Saleor Python virtual environment is available
+     And TNSD Saleor Python dependencies are installed
+     And TNSP Saleor service definition is present
+     And TNSE Saleor service is enabled 
+    Then TNSX Host has converged
+     And TNSV Saleor is operational
 
   @dev @ci @prod
   Scenario: TNI Ensure Saleor Dashboard Dependencies are Installed
-    When TNIB Saleor dashboard build tools are available
+    When TNIB build tools are available
+     And TNIS Saleor Dashboard source code is available
      And TNID Saleor dashboard dependencies are installed
     Then TNIX Host has converged
 
   @dev @ci @prod @skip
-  Scenario: TND Provide Saleor Dashboard
-    When TNDB Saleor dashboard is built
-     And TNDS Saleor dashboard static files are collected
-    Then TNDX Host has converged
-     And TNDA Saleor dashboard is accessible
+  Scenario: TNB Provide Saleor Dashboard
+    When TNBP Saleor Dashboad service definition is present
+     And TNBE Saleor Dashboard service is enabled 
+    Then TNBX Host has converged
+     And TNBV Saleor Dashboad is operational
