@@ -48,7 +48,7 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
 
   @dev @ci
   Scenario: TNI Ensure Saleor Dashboard Dependencies are Installed
-    When TNIB build tools are available
+    When TNIB Node 20 is available for Dashboard build
      And TNIS Saleor Dashboard source code is available
      And TNID Saleor dashboard dependencies are installed
     Then TNIX Host has converged

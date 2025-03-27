@@ -325,8 +325,8 @@ def _(host: Host):
 
 scenario("deploy.feature", "TNI Ensure Saleor Dashboard Dependencies are Installed")
 
-@when("TNIB build tools are available")
-def _(state: State):
+@when("TNIB Node 20 is available for Dashboard build")
+def _(state: State, host: Host):
     add_op(state, apk.update)
     add_op(state, apk.upgrade)
 
