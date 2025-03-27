@@ -357,7 +357,7 @@ def _(state: State):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor-dashboard && npm install",
+            "cd /opt/saleor-dashboard && export CI=1 && npm ci --legacy-peer-deps",
         ],
     )
 
