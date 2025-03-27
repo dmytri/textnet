@@ -11,6 +11,7 @@ TNIB: Dashboard build tools
 - When I ask something like *"what's the vibe?"* Tell me the current focus and issues
 - When I say *update the vibe*, if I don't say with what, use that
 - If there is a relevant step code, include it
+- When asked to propose an update to this VIBE.md file, ignore the current "vibe" and focus solely on the instructions provided in the prompt.
 - Never update any files other than this one (VIBE.md) when the topic is the vibe
 
 **Any special insructions I put here that is relevant to the current vibe,
