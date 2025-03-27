@@ -34,3 +34,9 @@ def _():
 ``````
 
 Do not include examples when talking about the vibe
+
+- When I say "update the vibe" without providing new content:
+  - I am indicating that you should analyze recent test output.
+  - Focus on any "Not implemented:" errors in the test output.
+  - Update the vibe to reflect the steps that are not yet implemented.
+  - Include the relevant step code in the vibe update.
