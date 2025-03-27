@@ -322,6 +322,8 @@ def _(host: Host):
     services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
     assert "saleor" in services
 
+scenario("deploy.feature", "TNI Ensure Saleor Dashboard Dependencies are Installed")
+
 @when("TNIB build tools are available")
 def _(state: State):
     add_op(
@@ -359,6 +361,8 @@ def _(state: State):
     )
 
     run_ops(state)
+
+scenario("deploy.feature", "TND Provide Saleor Dashboard")
 
 @when("TNDB Saleor dashboard is built")
 def _():
