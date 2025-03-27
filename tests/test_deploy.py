@@ -337,15 +337,23 @@ def _(state: State):
         packages=[
             "nodejs",
             "npm",
-            "curl"  # Ensure curl is available for Volta installation
+            "libstdc++",  # Node.js dependency
+            "libssl3"      # Node.js dependency
         ],
     )
-    # Install Volta using the simple installer
+    # Install corepack globally if not included with Node.js
+    add_op(
+        state,
+        npm.packages,
+        packages=["corepack"],
+        directory=None,  # Install globally
+    )
+    # Enable corepack
     add_op(
         state,
         server.shell,
         commands=[
-            "curl https://get.volta.sh | bash"
+            "corepack enable"
         ]
     )
 
@@ -362,7 +370,7 @@ def _(state: State, host: Host):
 
 @when("TNID Saleor dashboard dependencies are installed")
 def _(state: State):
-    # Install serve globally using the system Node.js
+    # Install serve globally
     add_op(
         state,
         npm.packages,
@@ -370,19 +378,19 @@ def _(state: State):
         directory=None,  # Install globally
     )
     
-    # Install dashboard dependencies and build using Node.js 20 managed by Volta
+    # Use corepack to prepare Node.js 20
     add_op(
         state,
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
-            " && $HOME/.volta/bin/volta install node@20"
+            " && corepack prepare node@20 --activate"  # Use Node.js 20
             " && export CI=1"
             " && export API_URL=http://localhost:8000/graphql/"
             " && export APP_MOUNT_URI=/dashboard/"
             " && export STATIC_URL=/dashboard/"
-            " && $HOME/.volta/bin/node npm install --legacy-peer-deps"
-            " && $HOME/.volta/bin/node npm run build"
+            " && npm install --legacy-peer-deps"
+            " && npm run build"
         ]
     )
 
