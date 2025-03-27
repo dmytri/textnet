@@ -15,7 +15,7 @@ from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.operations import apk, git, pip, openrc, files, server, postgres
 from packaging.version import parse
-from pytest import fixture, fail
+from pytest import fixture, fail, skip
 from pytest_bdd import scenario, scenarios, then, when
 
 ## GLOBALS AND FIXTURES ~
@@ -366,3 +366,22 @@ def _(state: State):
 
 scenario("deploy.feature", "TNB Provide Saleor Dashboard")
 
+@when("TNBP Saleor Dashboad service definition is present")
+def _():
+    print("Not implemented: Step: TNBP Saleor Dashboad service definition is present")
+    skip("Not implemented yet")
+
+@when("TNBE Saleor Dashboard service is enabled")
+def _():
+    print("Not implemented: Step: TNBE Saleor Dashboard service is enabled")
+    skip("Not implemented yet")
+
+@then("TNBX Host has converged")
+def _():
+    print("Not implemented: Step: TNBX Host has converged")
+    skip("Not implemented yet")
+
+@then("TNBV Saleor Dashboad is operational")
+def _():
+    print("Not implemented: Step: TNBV Saleor Dashboad is operational")
+    skip("Not implemented yet")
