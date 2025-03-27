@@ -10,6 +10,7 @@ from pyinfra.api.operation import add_op
 from pyinfra.api.operations import run_ops
 from pyinfra.api.state import State
 from pyinfra.facts.apk import ApkPackages
+from pyinfra.facts.files import Directory
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
 from pyinfra.operations import apk, git, pip, openrc, files, server, postgres
@@ -241,14 +242,15 @@ def _(state: State):
     )
 
 @when("TNSS Saleor source code is available")
-def _(state: State):
-    add_op(
-        state,
-        git.repo,
-        src="https://github.com/saleor/saleor.git",
-        dest="/opt/saleor",
-        branch="main"
-    )
+def _(state: State, host: Host):
+    if not host.get_fact(Directory, path="/opt/saleor"):
+        add_op(
+            state,
+            git.repo,
+            src="https://github.com/saleor/saleor.git",
+            dest="/opt/saleor",
+            branch="3.20.79"
+        )
 
 @when("TNSN Saleor Python virtual environment is available")
 def _(state: State):
@@ -320,16 +322,31 @@ def _(host: Host):
     services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
     assert "saleor" in services
 
-@when("TNIB Saleor dashboard build tools are available")
+@when("TNIB build tools are available")
 def _(state: State):
+    add_op(
+        state,
+        apk.update)
+    add_op(state, apk.upgrade)
     add_op(
         state,
         apk.packages,
         packages=[
             "nodejs",
-            "npm",
+            "npm"
         ],
     )
+
+@when("TNIS Saleor Dashboard source code is available")
+def _(state: State, host: Host):
+    if not host.get_fact(Directory, path="/opt/saleor-dashboard"):
+        add_op(
+            state,
+            git.repo,
+            src="https://github.com/saleor/saleor-dashboard.git",
+            dest="/opt/saleor-dashboard",
+            branch="3.20.33"
+        )
 
 @when("TNID Saleor dashboard dependencies are installed")
 def _(state: State):
@@ -341,8 +358,6 @@ def _(state: State):
         ],
     )
 
-@then("TNIX Host has converged")
-def _(state: State):
     run_ops(state)
 
 @when("TNDB Saleor dashboard is built")
