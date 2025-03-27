@@ -13,7 +13,7 @@ cmd = "pytest -xsvm 'ci and not skip' --tb=long tests/"
 
 [tool.poe.tasks.ai]
 envfile = ".env.aider"
-cmd = "aider --watch-files --model gem"
+cmd = "aider --watch-files --model sonnet"
 
 [tool.pytest.ini_options]
 markers = [

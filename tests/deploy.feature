@@ -20,7 +20,7 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
      When TNAU the system packages up to date
      Then TNAA OS Alpine Linux 3.21
 
-  @dev @ci @prod
+  @dev @ci
   Scenario: TNR Enable required runtime environments for Saleor
      When TNRA Python runtime is available
       And TNRB NodeJS runtime is available
@@ -34,7 +34,7 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
       And TNRF nodejs version >= 18
       And TNRH poetry version >= 1.8
 
-  @dev @ci @prod
+  @dev @ci
   Scenario: TNS Provide Saleor commerce capabilities
     When TNSB build tools are available
      And TNSU Saleor database is setup
@@ -46,14 +46,14 @@ Feature: TN TextNet Saleor Commerce Based Platform on Alpine Linux | BDA
     Then TNSX Host has converged
      And TNSV Saleor is operational
 
-  @dev @ci @prod
+  @dev @ci
   Scenario: TNI Ensure Saleor Dashboard Dependencies are Installed
     When TNIB build tools are available
      And TNIS Saleor Dashboard source code is available
      And TNID Saleor dashboard dependencies are installed
     Then TNIX Host has converged
 
-  @dev @ci @prod
+  @dev @ci
   Scenario: TNB Provide Saleor Dashboard
     When TNBP Saleor Dashboad service definition is present
      And TNBE Saleor Dashboard service is enabled 
