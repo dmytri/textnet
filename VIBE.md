@@ -1,11 +1,14 @@
 # Curremt Vibe: Project Vibe & Priorities
 
 ## Current Focus
-Need to Implement Dashboard Steps
-Tests failing: Step definition is not found: When "TNBP Saleor Dashboad service definition is present" (TNB).
+Need to implement the "TNB Provide Saleor Dashboard" scenario steps and resolve the "TNIB build tools are available" issue.
 
 ## Current Issues
-TNIB: Dashboard build tools
+- `@when("TNBP Saleor Dashboad service definition is present")` is not implemented.
+- `@when("TNBE Saleor Dashboard service is enabled")` is not implemented.
+- `@then("TNBX Host has converged")` is not implemented.
+- `@then("TNBV Saleor Dashboad is operational")` is not implemented.
+- TNIB: Dashboard build tools are not properly configured.
 
 # AI Assistant
 - When I ask something like *"what's the vibe?"* Tell me the current focus and issues
