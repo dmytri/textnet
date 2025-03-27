@@ -332,36 +332,26 @@ def _(state: State):
 
     add_op(
         state,
-        apk.packages,
-        packages=[
-            "nodejs",
-            "npm"
-        ]
-    )
-
-    add_op(
-        state,
         files.directory,
         path="/opt/bin",
         present=True,
     )
 
-    add_op(
-        state,
-        files.download,
-        src="https://unofficial-builds.nodejs.org/download/release/v20.19.0/node-v20.19.0-linux-x64-musl.tar.gz",
-        dest="/tmp/node.tar.gz",
-    )
+    if not host.get_fact(Directory, path="/opt/node-v20.19.0-linux-x64-musl"):
+        add_op(
+            state,
+            files.download,
+            src="https://unofficial-builds.nodejs.org/download/release/v20.19.0/node-v20.19.0-linux-x64-musl.tar.gz",
+            dest="/tmp/node.tar.gz",
+        )
 
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "tar -xzf /tmp/node.tar.gz -C /opt/bin"
-            " && ln -sf /opt/bin/node-v20.19.0-linux-musl-x64/bin/node /opt/bin/node"
-            " && ln -sf /opt/bin/node-v20.19.0-linux-musl-x64/bin/npm /opt/bin/npm"
-        ],
-    )
+        add_op(
+            state,
+            server.shell,
+            commands=[
+                "tar -xzf /tmp/node.tar.gz -C /opt"
+            ],
+        )
 
 @when("TNIS Saleor Dashboard source code is available")
 def _(state: State, host: Host):
@@ -378,17 +368,27 @@ def _(state: State, host: Host):
 def _(state: State):
     add_op(
         state,
+        apk.packages,
+        packages=[
+            "nodejs",
+            "npm"
+        ]
+    )
+
+    add_op(
+        state,
         npm.packages,
         packages=["serve"],
         directory=None
     )
+
     
     add_op(
         state,
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
-            " && export PATH=/opt/bin:$PATH"
+            " && export PATH=/opt/node-v20.19.0-linux-x64-musl/bin:$PATH"
             " && export CI=1"
             " && npm ci --legacy-peer-deps"
             " && export API_URL=http://localhost:8000/graphql/"
