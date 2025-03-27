@@ -334,6 +334,7 @@ def _(state: State):
         state,
         apk.packages,
         packages=[
+            "bash"
             "nodejs",
             "npm"
         ]
@@ -341,26 +342,8 @@ def _(state: State):
 
     add_op(
         state,
-        files.directory,
-        path="/opt/bin",
-        present=True
-    )
-
-    add_op(
-        state,
-        files.download,
-        src="https://github.com/volta-cli/volta/releases/download/v2.0.2/volta-2.0.2-linux.tar.gz",
-        dest="/tmp/volta.tar.gz"
-    )
-
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "tar -xzf /tmp/volta.tar.gz -C /opt/bin",
-            "ln -s /opt/bin/volta-2.0.2-linux/volta /opt/bin/volta",
-            "chmod +x /opt/volta/bin/volta"
-        ]
+        npm.packages,
+        packages=["n"]
     )
 
 @when("TNIS Saleor Dashboard source code is available")
@@ -383,24 +366,27 @@ def _(state: State):
         directory=None
     )
     
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor-dashboard"
-            " && /opt/bin/volta install node@20"
-            " && export CI=1"
-            " && /opt/bin/volta run npm ci --legacy-peer-deps"
-            " && export API_URL=http://localhost:8000/graphql/"
-            " && export APP_MOUNT_URI=/dashboard/"
-            " && export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps"
-            " && export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions"
-            " && export STATIC_URL=/dashboard/"
-            " && export SKIP_SOURCEMAPS=true"
-            " && export LOCALE_CODE=${LOCALE_CODE:-EN}"
-            " && /opt/bin/volta run npm run build"
-        ]
-    )
+    if not host.get_fact(Directory, path="/opt/saleor-dashboard/build"):
+        add_op(
+            state,
+            server.shell,
+            commands=[
+                [
+                    "cd /opt/saleor-dashboard",
+                    "n 20",
+                    "export CI=1",
+                    "/opt/bin/volta run npm ci --legacy-peer-deps",
+                    "export API_URL=http://localhost:8000/graphql/",
+                    "export APP_MOUNT_URI=/dashboard/",
+                    "export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps",
+                    "export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions",
+                    "export STATIC_URL=/dashboard/",
+                    "export SKIP_SOURCEMAPS=true",
+                    "export LOCALE_CODE=${LOCALE_CODE:-EN}",
+                    "/opt/bin/volta run npm run build"
+                ]
+            ]
+        )
 
 @then("TNIX Host has converged")
 def _(state: State):
