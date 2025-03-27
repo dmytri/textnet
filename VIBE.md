@@ -1,11 +1,11 @@
 # Project Vibe & Priorities
 
 ## Current Focus
-TNIB: Dashboard build tools
-
-## Current Issues 
 Need to Implement Dashboard Steps
 Tests failing: Step definition is not found: When "TNBP Saleor Dashboad service definition is present" (TNB).
+
+## Current Issues
+TNIB: Dashboard build tools
 
 ## AI Assistant
 - When I ask something like *"what's the vibe?"* Tell me the current focus and issues
