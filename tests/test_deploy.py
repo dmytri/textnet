@@ -357,7 +357,7 @@ def _(state: State):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor-dashboard && export CI=1 && export API_URL=\"http://localhost:8000/graphql/\" && export APP_MOUNT_URI=\"/dashboard/\" && export STATIC_URL=\"/dashboard/\" && npm ci --legacy-peer-deps",
+            "cd /opt/saleor-dashboard && export CI=1 && export API_URL=\"http://localhost:8000/graphql/\" && export APP_MOUNT_URI=\"/dashboard/\" && export STATIC_URL=\"/dashboard/\" && npm install --legacy-peer-deps",
         ],
     )
 
