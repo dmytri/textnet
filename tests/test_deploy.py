@@ -367,9 +367,36 @@ def _(state: State):
 scenario("deploy.feature", "TNB Provide Saleor Dashboard")
 
 @when("TNBP Saleor Dashboad service definition is present")
-def _():
-    print("Not implemented: Step: TNBP Saleor Dashboad service definition is present")
-    skip("Not implemented yet")
+def _(state: State):
+    service: StringIO = StringIO(dedent(
+        """
+        #!/sbin/openrc-run
+
+        name="Saleor Dashboard"
+        description="Saleor Dashboard web interface"
+        supervisor=supervise-daemon
+        command="/usr/bin/npm"
+        command_args="run dev"
+        directory="/opt/saleor-dashboard"
+        pidfile="/run/saleor-dashboard.pid"
+        output_log="/var/log/saleor-dashboard.log"
+        error_log="/var/log/saleor-dashboard.err"
+
+        depend() {
+            need net
+            after firewall
+            after saleor
+        }
+        """).strip()
+    )
+
+    add_op(
+        state,
+        files.put,
+        src=service,
+        dest="/etc/init.d/saleor-dashboard",
+        mode="0755",
+    )
 
 @when("TNBE Saleor Dashboard service is enabled")
 def _():
