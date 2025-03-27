@@ -373,7 +373,7 @@ def _(state: State):
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
-            " && export n 20"  # Use Node.js 20
+            " && n 20"  # Use Node.js 20
             " && export CI=1"
             " && export API_URL=http://localhost:8000/graphql/"
             " && export APP_MOUNT_URI=/dashboard/"
