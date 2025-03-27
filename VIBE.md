@@ -9,6 +9,7 @@ TNIB: Dashboard build tools
 
 # AI Assistant
 - When I ask something like *"what's the vibe?"* Tell me the current focus and issues
+  - Just answer and don't do anything or offer to do anything
 - When I say "update the vibe" without providing new content:
   - I am indicating that you should analyze recent test output
   - Focus on any failed tests and errors in the test output
