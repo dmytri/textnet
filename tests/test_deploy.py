@@ -336,14 +336,17 @@ def _(state: State):
         apk.packages,
         packages=[
             "nodejs",
-            "npm"
+            "npm",
+            "curl"  # Ensure curl is available for Volta installation
         ],
     )
+    # Install Volta using the simple installer
     add_op(
         state,
-        npm.packages,
-        packages=["n"],
-        directory=None,
+        server.shell,
+        commands=[
+            "curl https://get.volta.sh | bash"
+        ]
     )
 
 @when("TNIS Saleor Dashboard source code is available")
@@ -367,19 +370,19 @@ def _(state: State):
         directory=None,  # Install globally
     )
     
-    # Install dashboard dependencies and build using Node.js 20 managed by n
+    # Install dashboard dependencies and build using Node.js 20 managed by Volta
     add_op(
         state,
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
-            " && n 20"  # Use Node.js 20
+            " && $HOME/.volta/bin/volta install node@20"
             " && export CI=1"
             " && export API_URL=http://localhost:8000/graphql/"
             " && export APP_MOUNT_URI=/dashboard/"
             " && export STATIC_URL=/dashboard/"
-            " && npm install --legacy-peer-deps"
-            " && npm run build"
+            " && $HOME/.volta/bin/node npm install --legacy-peer-deps"
+            " && $HOME/.volta/bin/node npm run build"
         ]
     )
 
