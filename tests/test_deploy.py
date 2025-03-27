@@ -339,19 +339,11 @@ def _(state: State):
             "npm"
         ],
     )
-    # Install n version manager and Node.js 20
     add_op(
         state,
         npm.packages,
         packages=["n"],
-        directory=None,  # Install globally
-    )
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "n 20"  # Install and use Node.js 20
-        ],
+        directory=None,
     )
 
 @when("TNIS Saleor Dashboard source code is available")
@@ -381,7 +373,7 @@ def _(state: State):
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
-            " && export PATH=\"/usr/local/n/versions/node/20.*/bin:$PATH\""  # Use Node.js 20
+            " && export n 20"  # Use Node.js 20
             " && export CI=1"
             " && export API_URL=http://localhost:8000/graphql/"
             " && export APP_MOUNT_URI=/dashboard/"
