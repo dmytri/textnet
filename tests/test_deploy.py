@@ -13,7 +13,7 @@ from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.files import Directory
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
-from pyinfra.operations import apk, git, pip, openrc, files, server, postgres
+from pyinfra.operations import apk, git, pip, openrc, files, server, postgres, npm
 from packaging.version import parse
 from pytest import fixture, fail, skip
 from pytest_bdd import scenario, scenarios, then, when
@@ -353,11 +353,20 @@ def _(state: State, host: Host):
 
 @when("TNID Saleor dashboard dependencies are installed")
 def _(state: State):
+    # Install serve globally
+    add_op(
+        state,
+        npm.packages,
+        packages=["serve"],
+        directory=None,  # Install globally
+    )
+    
+    # Install dashboard dependencies and build
     add_op(
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor-dashboard && export CI=1 && export API_URL=\"http://localhost:8000/graphql/\" && export APP_MOUNT_URI=\"/dashboard/\" && export STATIC_URL=\"/dashboard/\" && npm install --legacy-peer-deps",
+            "cd /opt/saleor-dashboard && export CI=1 && export API_URL=\"http://localhost:8000/graphql/\" && export APP_MOUNT_URI=\"/dashboard/\" && export STATIC_URL=\"/dashboard/\" && npm install --legacy-peer-deps && npm run build",
         ],
     )
 
@@ -376,8 +385,8 @@ def _(state: State):
         name="Saleor Dashboard"
         description="Saleor Dashboard web interface"
         supervisor=supervise-daemon
-        command="/usr/bin/npm"
-        command_args="run dev"
+        command="/usr/bin/serve"
+        command_args="-s -l 3000 build"
         directory="/opt/saleor-dashboard"
         pidfile="/run/saleor-dashboard.pid"
         output_log="/var/log/saleor-dashboard.log"
