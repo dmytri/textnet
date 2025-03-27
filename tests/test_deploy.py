@@ -334,7 +334,6 @@ def _(state: State):
         state,
         apk.packages,
         packages=[
-            "bash"
             "nodejs",
             "npm"
         ]
@@ -342,8 +341,26 @@ def _(state: State):
 
     add_op(
         state,
-        npm.packages,
-        packages=["n"]
+        files.directory,
+        path="/opt/bin",
+        present=True,
+    )
+
+    add_op(
+        state,
+        files.download,
+        src="https://unofficial-builds.nodejs.org/download/release/v20.19.0/node-v20.19.0-linux-x64-musl.tar.gz",
+        dest="/tmp/node.tar.gz",
+    )
+
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "tar -xzf /tmp/node.tar.gz -C /opt/bin"
+            " && ln -sf /opt/bin/node-v20.19.0-linux-musl-x64/bin/node /opt/bin/node"
+            " && ln -sf /opt/bin/node-v20.19.0-linux-musl-x64/bin/npm /opt/bin/npm"
+        ],
     )
 
 @when("TNIS Saleor Dashboard source code is available")
@@ -366,27 +383,24 @@ def _(state: State):
         directory=None
     )
     
-    if not host.get_fact(Directory, path="/opt/saleor-dashboard/build"):
-        add_op(
-            state,
-            server.shell,
-            commands=[
-                [
-                    "cd /opt/saleor-dashboard",
-                    "n 20",
-                    "export CI=1",
-                    "/opt/bin/volta run npm ci --legacy-peer-deps",
-                    "export API_URL=http://localhost:8000/graphql/",
-                    "export APP_MOUNT_URI=/dashboard/",
-                    "export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps",
-                    "export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions",
-                    "export STATIC_URL=/dashboard/",
-                    "export SKIP_SOURCEMAPS=true",
-                    "export LOCALE_CODE=${LOCALE_CODE:-EN}",
-                    "/opt/bin/volta run npm run build"
-                ]
-            ]
-        )
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "cd /opt/saleor-dashboard"
+            " && export PATH=/opt/bin:$PATH"
+            " && export CI=1"
+            " && npm ci --legacy-peer-deps"
+            " && export API_URL=http://localhost:8000/graphql/"
+            " && export APP_MOUNT_URI=/dashboard/"
+            " && export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps"
+            " && export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions"
+            " && export STATIC_URL=/dashboard/"
+            " && export SKIP_SOURCEMAPS=true"
+            " && export LOCALE_CODE=${LOCALE_CODE:-EN}"
+            " && npm run build"
+        ]
+    )
 
 @then("TNIX Host has converged")
 def _(state: State):
