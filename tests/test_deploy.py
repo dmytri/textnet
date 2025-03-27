@@ -336,7 +336,21 @@ def _(state: State):
         apk.packages,
         packages=[
             "nodejs",
-            "npm"
+            "npm",
+            "curl",
+            "bash"
+        ],
+    )
+    # Install nvm and Node.js 20
+    add_op(
+        state,
+        server.shell,
+        commands=[
+            "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash",
+            "export NVM_DIR=\"$HOME/.nvm\"",
+            "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"",
+            "nvm install 20",
+            "nvm alias default 20"
         ],
     )
 
@@ -353,7 +367,7 @@ def _(state: State, host: Host):
 
 @when("TNID Saleor dashboard dependencies are installed")
 def _(state: State):
-    # Install serve globally
+    # Install serve globally using the system Node.js
     add_op(
         state,
         npm.packages,
@@ -361,12 +375,15 @@ def _(state: State):
         directory=None,  # Install globally
     )
     
-    # Install dashboard dependencies and build
+    # Install dashboard dependencies and build using nvm-managed Node.js 20
     add_op(
         state,
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
+            " && export NVM_DIR=\"$HOME/.nvm\""
+            " && [ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\""
+            " && nvm use 20"
             " && export CI=1"
             " && export API_URL=http://localhost:8000/graphql/"
             " && export APP_MOUNT_URI=/dashboard/"
