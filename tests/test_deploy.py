@@ -357,7 +357,7 @@ def _(state: State):
         state,
         server.shell,
         commands=[
-            "cd /opt/saleor-dashboard && export CI=1 && npm ci --legacy-peer-deps",
+            "cd /opt/saleor-dashboard && export CI=1 && export API_URL=\"http://localhost:8000/graphql/\" && export APP_MOUNT_URI=\"/dashboard/\" && export STATIC_URL=\"/dashboard/\" && npm ci --legacy-peer-deps",
         ],
     )
 
@@ -382,6 +382,9 @@ def _(state: State):
         pidfile="/run/saleor-dashboard.pid"
         output_log="/var/log/saleor-dashboard.log"
         error_log="/var/log/saleor-dashboard.err"
+        export API_URL="http://localhost:8000/graphql/"
+        export APP_MOUNT_URI="/dashboard/"
+        export STATIC_URL="/dashboard/"
 
         depend() {
             need net
