@@ -16,3 +16,19 @@ TNIB: Dashboard build tools
 **Any special insructions I put here that is relevant to the current vibe,
 should be considered important and taken into consideration in whatever we are
 doing**
+
+## Examples
+
+### Step stub
+
+Iplment step stubs like this when asked:
+
+```python
+@when("TNBP Saleor Dashboad service definition is present")
+def _():
+    print("Not implemented: Step: TNBP Saleor Dashboad service definition is present")
+    skip("Not implemented yet")
+
+``````
+*When you see that output, "Not implemented ..." in the test output, make
+that the vibe, unless instructed otherwise*
