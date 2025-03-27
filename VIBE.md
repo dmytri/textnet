@@ -7,7 +7,7 @@ Tests failing: Step definition is not found: When "TNBP Saleor Dashboad service 
 ## Current Issues
 TNIB: Dashboard build tools
 
-## AI Assistant
+# AI Assistant
 - When I ask something like *"what's the vibe?"* Tell me the current focus and issues
 - When I say *update the vibe*, if I don't say with what, use that
 - If there is a relevant step code, include it
@@ -19,9 +19,9 @@ doing**
 
 ## Examples
 
-### Step stub
+## Step stub
 
-Iplment step stubs like this when asked:
+For unimplement pytest steps, implement step stubs like this when asked:
 
 ```python
 @when("TNBP Saleor Dashboad service definition is present")
@@ -32,3 +32,5 @@ def _():
 ``````
 *When you see that output, "Not implemented ..." in the test output, make
 that the vibe, unless instructed otherwise*
+
+Do not include examples when talking about the vibe
