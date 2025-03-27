@@ -327,33 +327,39 @@ scenario("deploy.feature", "TNI Ensure Saleor Dashboard Dependencies are Install
 
 @when("TNIB build tools are available")
 def _(state: State):
-    add_op(
-        state,
-        apk.update)
+    add_op(state, apk.update)
     add_op(state, apk.upgrade)
+
     add_op(
         state,
         apk.packages,
         packages=[
             "nodejs",
-            "npm",
-            "libstdc++",  # Node.js dependency
-            "libssl3"      # Node.js dependency
-        ],
+            "npm"
+        ]
     )
-    # Install corepack globally if not included with Node.js
+
     add_op(
         state,
-        npm.packages,
-        packages=["corepack"],
-        directory=None,  # Install globally
+        files.directory,
+        path="/opt/bin",
+        present=True
     )
-    # Enable corepack
+
+    add_op(
+        state,
+        files.download,
+        src="https://github.com/volta-cli/volta/releases/download/v2.0.2/volta-2.0.2-linux.tar.gz",
+        dest="/tmp/volta.tar.gz"
+    )
+
     add_op(
         state,
         server.shell,
         commands=[
-            "corepack enable"
+            "tar -xzf /tmp/volta.tar.gz -C /opt/bin",
+            "ln -s /opt/bin/volta-2.0.2-linux/volta /opt/bin/volta",
+            "chmod +x /opt/volta/bin/volta"
         ]
     )
 
@@ -370,27 +376,29 @@ def _(state: State, host: Host):
 
 @when("TNID Saleor dashboard dependencies are installed")
 def _(state: State):
-    # Install serve globally
     add_op(
         state,
         npm.packages,
         packages=["serve"],
-        directory=None,  # Install globally
+        directory=None
     )
     
-    # Use corepack to prepare Node.js 20
     add_op(
         state,
         server.shell,
         commands=[
             "cd /opt/saleor-dashboard"
-            " && corepack prepare node@20 --activate"  # Use Node.js 20
+            " && /opt/bin/volta install node@20"
             " && export CI=1"
+            " && /opt/bin/volta run npm ci --legacy-peer-deps"
             " && export API_URL=http://localhost:8000/graphql/"
             " && export APP_MOUNT_URI=/dashboard/"
+            " && export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps"
+            " && export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions"
             " && export STATIC_URL=/dashboard/"
-            " && npm install --legacy-peer-deps"
-            " && npm run build"
+            " && export SKIP_SOURCEMAPS=true"
+            " && export LOCALE_CODE=${LOCALE_CODE:-EN}"
+            " && /opt/bin/volta run npm run build"
         ]
     )
 
