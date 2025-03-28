@@ -365,7 +365,7 @@ def _(state: State, host: Host):
         )
 
 @when("TNID Saleor dashboard dependencies are installed")
-def _(state: State):
+def _(state: State, host: Host):
     add_op(
         state,
         apk.packages,

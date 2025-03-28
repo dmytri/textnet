@@ -16,8 +16,7 @@ info: |
 
 # Dmytri Kleiner
 
-- CXO at Saleor
-- dk@saleor.io
+## CXO at Saleor
 
 | Platform | Contact |
 |----------|---------|
@@ -36,6 +35,11 @@ info: |
 | Red Hat | Senior Architect | Open source collaboration, Containers, DevOps |
 | ThoughtWorks | Lead Analyst | Agile delivery, XP practices, TDD/BDD, CI/CD |
 | SoundCloud | Architecture Developer | Building scalable platforms, Immutable Hosts, BFF |
+
+---
+# What is Commerce as Code
+
+- [Commerce as Code](https://app.excalidraw.com/p/6eOL2YRYSdU/61VF5112gAa:w
 
 ---
 
