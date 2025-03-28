@@ -1,5 +1,5 @@
 ---
-title: Presentation Title
+title: BDA & Commerce as Code
 theme: black
 highlightTheme: monokai
 revealOptions:
@@ -10,19 +10,23 @@ revealOptions:
   overview: true
 ---
 
-# Main Title
-
-Your first slide content
-
----
-
-## Second Slide
-
-- Bullet point 1
-- Bullet point 2
-- Bullet point 3
+### Behaviour-Driven Automation
+### Commerce as Code
 
 ---
+
+## Dmytri Kleiner
+
+- CXO at Saleor
+- dk@saleor.io
+
+| LinkedIn | [linkedin.com/in/dmytri](https://linkedin.com/in/dmytri) |
+| Bluesky | @dmytri.to |
+| Mastodon | dk@tldr.nettime.org |
+
+
+---
+ 
 
 ## Code Example
 
