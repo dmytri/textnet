@@ -19,9 +19,25 @@ info: |
 - CXO at Saleor
 - dk@saleor.io
 
+| Platform | Contact |
+|----------|---------|
 | LinkedIn | [linkedin.com/in/dmytri](https://linkedin.com/in/dmytri) |
 | Bluesky | @dmytri.to |
 | Mastodon | dk@tldr.nettime.org |
+
+---
+
+# My Journey & Lessons Learned
+
+| Company | Role | Key Lessons |
+|---------|------|-------------|
+| Saleor | CXO | Commerce as code, API-driven commerce |
+| Contentful | Engineering Director | Headless architecture, content modeling |
+| RedHat | Senior Architect | Open source collaboration, enterprise integration |
+| ThoughtWorks | Principal Consultant | Agile delivery, XP practices, TDD/BDD |
+| SoundCloud | Engineering Lead | Building scalable platforms, API-first design |
+
+*Each role shaped my approach to infrastructure and automation*
 
 ---
 
@@ -34,13 +50,22 @@ info: |
 
 ---
 
-# BDA Core Principles
+# Local Development with Tilt & Minikube
 
-- **Declarative**: Focus on "what" not "how"
-- **Idempotent**: Run steps multiple times with same result
-- **Verifiable**: Each configuration step has a verification step
-- **Readable**: Clear to both technical and non-technical stakeholders
-- **Maintainable**: Evolves with your infrastructure needs
+- **Minikube**: Lightweight Kubernetes for local development
+  - Runs a single-node Kubernetes cluster in a VM
+  - Perfect for testing Kubernetes applications locally
+
+- **Tilt**: Modern dev environment orchestrator
+  - Watches your files for changes and rebuilds/deploys automatically
+  - Provides real-time feedback on your services
+  - Simplifies the development workflow
+
+- **Our Setup**:
+  - BDA tests run in Kubernetes pods
+  - Target system deployed as separate container
+  - Changes to code trigger automatic redeployment
+  - Live logs and debugging information in Tilt UI
 
 ---
 
