@@ -1,5 +1,5 @@
 ---
-theme: default
+theme: dracula
 background: black
 class: text-center
 highlighter: shiki
