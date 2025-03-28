@@ -1,21 +1,20 @@
 ---
-title: BDA & Commerce as Code
-theme: black
-highlightTheme: monokai
-revealOptions:
-  transition: 'slide'
-  controls: true
-  progress: true
-  slideNumber: true
-  overview: true
+theme: default
+background: black
+class: text-center
+highlighter: shiki
+lineNumbers: false
+info: |
+  ## BDA & Commerce as Code
+  Presentation slides
 ---
 
-### Behaviour-Driven Automation
-### Commerce as Code
+# Behaviour-Driven Automation
+# Commerce as Code
 
 ---
 
-## Dmytri Kleiner
+# Dmytri Kleiner
 
 - CXO at Saleor
 - dk@saleor.io
@@ -24,11 +23,9 @@ revealOptions:
 | Bluesky | @dmytri.to |
 | Mastodon | dk@tldr.nettime.org |
 
-
 ---
- 
 
-## Code Example
+# Code Example
 
 ```javascript
 function example() {
@@ -38,6 +35,6 @@ function example() {
 
 ---
 
-## Thank You!
+# Thank You!
 
 Questions?

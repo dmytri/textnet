@@ -4,13 +4,15 @@
   "description": "BDA Slides",
   "main": "index.js",
   "scripts": {
-    "start": "reveal-md slides.md -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "slidev slides.md",
+    "build": "slidev build slides.md",
+    "export": "slidev export slides.md"
   },
   "keywords": [],
   "author": "",
   "license": "0-clause BSD",
   "dependencies": {
-    "reveal-md": "^6.1.4"
+    "@slidev/cli": "^0.48.0-beta.0",
+    "@slidev/theme-default": "^0.25.0"
   }
 }
