@@ -12,9 +12,14 @@
   "author": "Dmytri Kleiner",
   "license": "0-clause BSD",
   "dependencies": {
-    "@slidev/cli": "^0.48.0-beta.0",
+    "@slidev/cli": "^51.4.0",
     "@slidev/theme-default": "^0.25.0",
     "slidev-theme-dracula": "^0.2.0",
-    "surge": "^0.23.1"
+    "slidev-theme-the-unnamed": "^0.0.22",
+    "slidev-theme-unicorn": "^1.1.2",
+    "surge": "^0.24.6"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^17.1.16"
   }
 }

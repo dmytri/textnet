@@ -1,5 +1,5 @@
 ---
-theme: dracula
+theme: the-unnamed
 background: black
 class: text-center
 highlighter: shiki
@@ -32,12 +32,10 @@ info: |
 | Company | Role | Key Lessons |
 |---------|------|-------------|
 | Saleor | CXO | Commerce as code, API-driven commerce |
-| Contentful | Engineering Director | Headless architecture, content modeling |
-| RedHat | Senior Architect | Open source collaboration, enterprise integration |
-| ThoughtWorks | Principal Consultant | Agile delivery, XP practices, TDD/BDD |
-| SoundCloud | Engineering Lead | Building scalable platforms, API-first design |
-
-*Each role shaped my approach to infrastructure and automation*
+| Contentful | Senior Solution Architect | Headless architecture, content modeling |
+| Red Hat | Senior Architect | Open source collaboration, Containers, DevOps |
+| ThoughtWorks | Lead Analyst | Agile delivery, XP practices, TDD/BDD, CI/CD |
+| SoundCloud | Architecture Developer | Building scalable platforms, Immutable Hosts, BFF |
 
 ---
 
@@ -98,7 +96,6 @@ def _(host: Host):
     packages: dict = host.get_fact(ApkPackages)
     assert parse(list(packages["python3"])[0]) >= parse("3.12")
 ```
-
 ---
 
 # Benefits of BDA
@@ -120,16 +117,6 @@ def _(host: Host):
 | Technical focus      | Behaviour focus |
 | Separate docs        | Self-documenting code |
 | Implementation-specific | Implementation-agnostic |
-
----
-
-# Code Example
-
-```javascript
-function example() {
-  console.log("Hello, world!");
-}
-```
 
 ---
 

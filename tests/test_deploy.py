@@ -13,9 +13,9 @@ from pyinfra.facts.apk import ApkPackages
 from pyinfra.facts.files import Directory
 from pyinfra.facts.openrc import OpenrcEnabled
 from pyinfra.facts.server import LinuxDistribution, LinuxDistributionDict
-from pyinfra.operations import apk, git, pip, openrc, files, server, postgres, npm
+from pyinfra.operations import apk, git, pip, openrc, files, server, postgres 
 from packaging.version import parse
-from pytest import fixture, fail, skip
+from pytest import fixture, fail
 from pytest_bdd import scenario, scenarios, then, when
 
 ## GLOBALS AND FIXTURES ~
@@ -374,24 +374,25 @@ def _(state: State):
         ]
     )
 
-    add_op(
-        state,
-        server.shell,
-        commands=[
-            "cd /opt/saleor-dashboard"
-            " && export PATH=/opt/node-v20.19.0-linux-x64-musl/bin:$PATH"
-            " && export CI=1"
-            " && npm ci --legacy-peer-deps || true"
-            " && export API_URL=http://localhost:8000/graphql/"
-            " && export APP_MOUNT_URI=/"
-            " && export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps"
-            " && export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions"
-            " && export STATIC_URL=/"
-            " && export SKIP_SOURCEMAPS=true"
-            " && export LOCALE_CODE=${LOCALE_CODE:-EN}"
-            " && npm run build || true"
-        ]
-    )
+    if not host.get_fact(Directory, path="/opt/saleor-dashboard/node_modules"):
+        add_op(
+            state,
+            server.shell,
+            commands=[
+                "cd /opt/saleor-dashboard"
+                " && export PATH=/opt/node-v20.19.0-linux-x64-musl/bin:$PATH"
+                " && export CI=1"
+                " && npm ci --legacy-peer-deps || true"
+                " && export API_URL=http://localhost:8000/graphql/"
+                " && export APP_MOUNT_URI=/"
+                " && export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps"
+                " && export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions"
+                " && export STATIC_URL=/"
+                " && export SKIP_SOURCEMAPS=true"
+                " && export LOCALE_CODE=${LOCALE_CODE:-EN}"
+                " && npm run build || true"
+            ]
+        )
 
 @then("TNIX Host has converged")
 def _(state: State):
