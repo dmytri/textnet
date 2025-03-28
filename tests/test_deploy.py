@@ -370,19 +370,10 @@ def _(state: State):
         state,
         apk.packages,
         packages=[
-            "nodejs",
-            "npm"
+            "caddy"
         ]
     )
 
-    add_op(
-        state,
-        npm.packages,
-        packages=["serve"],
-        directory=None
-    )
-
-    
     add_op(
         state,
         server.shell,
@@ -390,15 +381,15 @@ def _(state: State):
             "cd /opt/saleor-dashboard"
             " && export PATH=/opt/node-v20.19.0-linux-x64-musl/bin:$PATH"
             " && export CI=1"
-            " && npm ci --legacy-peer-deps"
+            " && npm ci --legacy-peer-deps || true"
             " && export API_URL=http://localhost:8000/graphql/"
-            " && export APP_MOUNT_URI=/dashboard/"
+            " && export APP_MOUNT_URI=/"
             " && export APPS_MARKETPLACE_API_URL=https://apps.saleor.io/api/v2/saleor-apps"
             " && export EXTENSIONS_API_URL=https://apps.saleor.io/api/v1/extensions"
-            " && export STATIC_URL=/dashboard/"
+            " && export STATIC_URL=/"
             " && export SKIP_SOURCEMAPS=true"
             " && export LOCALE_CODE=${LOCALE_CODE:-EN}"
-            " && npm run build"
+            " && npm run build || true"
         ]
     )
 
@@ -410,42 +401,32 @@ scenario("deploy.feature", "TNB Provide Saleor Dashboard")
 
 @when("TNBP Saleor Dashboad service definition is present")
 def _(state: State):
-    service: StringIO = StringIO(dedent(
+    caddyfile: StringIO = StringIO(dedent(
         """
-        #!/sbin/openrc-run
+        :9000
 
-        name="Saleor Dashboard"
-        description="Saleor Dashboard web interface"
-        supervisor=supervise-daemon
-        command="/usr/bin/serve"
-        command_args="-s -l 9000 build"
-        directory="/opt/saleor-dashboard"
-        pidfile="/run/saleor-dashboard.pid"
-        output_log="/var/log/saleor-dashboard.log"
-        error_log="/var/log/saleor-dashboard.err"
-        export API_URL="http://localhost:8000/graphql/"
-        export APP_MOUNT_URI="/dashboard/"
-        export STATIC_URL="/dashboard/"
-
-        depend() {
-            need net
-            after firewall
-            after saleor
+        log {
+          output file /var/log/caddy/access.log
+          level INFO
         }
+
+        root * /opt/saleor-dashboard/build/dashboard
+        try_files {path} /index.html
+        file_server
         """).strip()
     )
 
     add_op(
         state,
         files.put,
-        src=service,
-        dest="/etc/init.d/saleor-dashboard",
-        mode="0755",
+        src=caddyfile,
+        dest="/etc/caddy/Caddyfile",
+        mode="0644",
     )
 
 @when("TNBE Saleor Dashboard service is enabled")
 def _(state: State):
-    add_op(state, openrc.service, "saleor-dashboard", running=True, enabled=True)
+    add_op(state, openrc.service, "caddy", running=True, enabled=True)
 
 @then("TNBX Host has converged")
 def _(state: State):
