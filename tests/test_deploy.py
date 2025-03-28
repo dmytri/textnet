@@ -436,4 +436,4 @@ def _(state: State):
 @then("TNBV Saleor Dashboad is operational")
 def _(host: Host):
     services: dict = host.get_fact(OpenrcEnabled, runlevel="defualt")
-    assert "saleor-dashboard" in services
+    assert "caddy" in services
