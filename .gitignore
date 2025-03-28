@@ -54,3 +54,10 @@ dist/
 build/
 *.egg-info/
 *.egg
+
+# Slidev specific
+slides/.cache/
+slides/dist/
+slides/.temp/
+slides/node_modules/
+slides/public/og-image.png
