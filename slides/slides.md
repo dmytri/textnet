@@ -14,15 +14,20 @@ info: |
 
 ---
 
-# Dmytri Kleiner
+## Dmytri Kleiner
 
-## CXO at Saleor
+# CXO at Saleor Commerce
 
-| Platform | Contact |
-|----------|---------|
-| LinkedIn | [linkedin.com/in/dmytri](https://linkedin.com/in/dmytri) |
-| Bluesky | @dmytri.to |
-| Mastodon | dk@tldr.nettime.org |
+- https://saleor.io
+- http://dkdba.surge.sh
+- https://github.com/dmytri/textnet
+
+| 👇 |  🤙| 🌐 |
+| - | - | - |
+| Bluesky | `@dmytri.to` | https://bsky.app/profile/dmytri.to |
+| Mastodon |   `dk@tldr.nettime.org` | https://tldr.nettime.org/@dk |
+| GitHub | `dmytri` | https://github.com/in/dmytri |
+| LinkedIn | `Dmytri Kleiner` | https://linkedin.com/in/dmytri |
 
 ---
 
@@ -37,9 +42,9 @@ info: |
 | SoundCloud | Architecture Developer | Building scalable platforms, Immutable Hosts, BFF |
 
 ---
-# What is Commerce as Code
 
-- [Commerce as Code](https://app.excalidraw.com/p/6eOL2YRYSdU/61VF5112gAa:w
+
+<iframe src="https://link.excalidraw.com/p/readonly/nLowQgtVfEUHq9wd3dxK" width="100%" height="100%" style="border: none;"></iframe>
 
 ---
 
@@ -54,16 +59,10 @@ info: |
 
 # Local Development with Tilt & Minikube
 
-- **Minikube**: Lightweight Kubernetes for local development
-  - Runs a single-node Kubernetes cluster in a VM
-  - Perfect for testing Kubernetes applications locally
-
 - **Tilt**: Modern dev environment orchestrator
-  - Watches your files for changes and rebuilds/deploys automatically
-  - Provides real-time feedback on your services
-  - Simplifies the development workflow
+- **Minikube**: Lightweight Kubernetes for local development
 
-- **Our Setup**:
+- **Dev Setup**:
   - BDA tests run in Kubernetes pods
   - Target system deployed as separate container
   - Changes to code trigger automatic redeployment
@@ -116,11 +115,10 @@ def _(host: Host):
 
 | Traditional Approach | BDA Approach |
 |----------------------|--------------|
-| Imperative scripts   | Declarative specifications |
-| Manual verification  | Automated verification |
-| Technical focus      | Behaviour focus |
+| Declare State   | Declare Behaviour |
+| Seperate verification  | Self verifying  |
 | Separate docs        | Self-documenting code |
-| Implementation-specific | Implementation-agnostic |
+| Seperate IaC/CaC| All feature driven |
 
 ---
 

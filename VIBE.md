@@ -1,10 +1,10 @@
 # Curremt Vibe: Project Vibe & Priorities
 
 ## Current Focus
-Need to implement the "TNB Provide Saleor Dashboard"
+Start on Storefront TUI
 
 ## Current Issues
-TNBP Saleor Dashboad service definition is present is not implemented.
+None all tests passing
 
 # AI Assistant
 - When I ask something like *"what's the vibe?"* Tell me the current focus and issues
