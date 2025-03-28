@@ -50,9 +50,15 @@ The system uses BDA to:
    - Tilt
    - Minikube (or other Kubernetes cluster)
 
-2. Clone the repository
+2. Configure Minikube with at least 8GB of RAM:
+```bash
+minikube config set memory 8192
+```
+   (If npm install were a poem, it would be an epic that requires its own dedicated library)
 
-3. Start the development environment:
+3. Clone the repository
+
+4. Start the development environment:
 ```bash
 tilt up
 ```
