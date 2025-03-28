@@ -54,7 +54,7 @@ The system uses BDA to:
 ```bash
 minikube config set memory 8192
 ```
-   (If npm install were a poem, it would be an epic that requires its own dedicated library)
+This is required so build the dashboard (Oh JavaScript builds 🤦)
 
 3. Clone the repository
 

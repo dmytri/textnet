@@ -274,6 +274,7 @@ def _(state: State):
             " && .venv/bin/poetry install"
             " && .venv/bin/poetry run python manage.py migrate"
             " && .venv/bin/poetry run python manage.py createsuperuser"
+            " && .venv/bin/poetry run python manage.py populatedb --createsuperuser"
             ")"
         ]
     )

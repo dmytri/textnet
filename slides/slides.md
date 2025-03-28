@@ -17,17 +17,13 @@ info: |
 ## Dmytri Kleiner
 
 # CXO at Saleor Commerce
+### Listening, talking, typing commands and editing text files since 1981
+```shell
+❯ date --date="1969-10-10" +%s
+-7174800
+```
 
-- https://saleor.io
-- http://dkdba.surge.sh
-- https://github.com/dmytri/textnet
-
-| 👇 |  🤙| 🌐 |
-| - | - | - |
-| Bluesky | `@dmytri.to` | https://bsky.app/profile/dmytri.to |
-| Mastodon |   `dk@tldr.nettime.org` | https://tldr.nettime.org/@dk |
-| GitHub | `dmytri` | https://github.com/in/dmytri |
-| LinkedIn | `Dmytri Kleiner` | https://linkedin.com/in/dmytri |
+###### Born before the unix epoch
 
 ---
 
@@ -86,7 +82,7 @@ Feature: Saleor Commerce Platform | BDA
 
 ---
 
-# BDA Implementation with PyInfra
+# BDA Implementation with PyTest
 
 ```python
 @when("Python runtime is available")
@@ -122,6 +118,19 @@ def _(host: Host):
 
 ---
 
-# Thank You!
+# Questions?
 
-Questions?
+- https://saleor.io
+- http://dkdba.surge.sh
+- https://github.com/dmytri/textnet
+
+| 👇 |  🤙| 🌐 |
+| - | - | - |
+| Bluesky | `@dmytri.to` | https://bsky.app/profile/dmytri.to |
+| Mastodon |   `dk@tldr.nettime.org` | https://tldr.nettime.org/@dk |
+| GitHub | `dmytri` | https://github.com/in/dmytri |
+| Twitter |   `dmytri` | https://twitter.com/dmytri |
+| LinkedIn | `Dmytri Kleiner` | https://linkedin.com/in/dmytri |
+
+---
+
